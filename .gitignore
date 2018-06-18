@@ -1,0 +1,7 @@
+build
+Build
+test
+Test
+*.pdf
+*.o
+*.out
