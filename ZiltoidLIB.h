@@ -15,5 +15,6 @@
 #include "StringOperations/StringOperations.h"
 #include "RandomNumbers/RandomNumbers.h"
 #include "Interpolation/Interpolation.h"
+#include "StructureFactor/StructureFactor.h"
 
 
