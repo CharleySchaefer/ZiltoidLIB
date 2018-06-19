@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     {printf("ERROR: Failed to execute readMatrix()!\n"); return(0);}
   // MATRIX READ
   //-----------------------------------
-  
+
   //-----------------------------------
   dx     = 1.0; 
   Nbins  =(int)( (double)(NX<NY?NX:NY)/sqrt(2) ) - 1;
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
   // Calculate correlation function C(r)
   R_arr  =( double*)malloc(         (2*Nbins-1)*sizeof(double ));
   C_arr  =(complex*)malloc(         (2*Nbins-1)*sizeof(complex ));
-  free(buff1D);
+  //free(buff1D);
   buff1D  =(complex*)malloc(         (2*Nbins-1)*sizeof(complex ));
 
   for (i=0; i<Nbins; i++)

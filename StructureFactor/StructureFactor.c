@@ -59,9 +59,8 @@ int calculateStructureFactor(int NX, int NY, double dx, double **Psi2D, complex 
   {
     for(j=0; j<Nmin/2; j++)
     {
-      q = dq*sqrt(i*i+j*j);
-      ind=(int)(q/dq_binned);
-      
+      q = sqrt(i*i+j*j);
+      ind=(int)((double)q/(sqrt(2)));
       a=creal(Psi2D_FT[i][j]);
       b=cimag(Psi2D_FT[i][j]);
       SF[ind] += ( a*a + b*b );
