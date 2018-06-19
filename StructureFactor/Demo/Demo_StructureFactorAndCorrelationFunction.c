@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
   for (i=0; i<2*Nbins-1; i++)
     sumf+=creal( C_arr[i] );
 
-  dx=2.0*M_PI/q_arr[1];
+  dx=2.0*M_PI/q_arr[Nbins-1];
 
   printf("%16s %16s %16s %16s\n", "#q", "S(q)", "R", "C(R)");
   for (i=0; i<Nbins; i++)

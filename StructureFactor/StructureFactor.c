@@ -30,10 +30,11 @@ int calculateStructureFactor(int NX, int NY, double dx, double **Psi2D, complex 
   int i,j, ind;
   int Nmin=(NX<NY ? NX : NY);
   double a, b, q,
-         dq=2.0*M_PI/(dx*Nmin), dq_binned, qmax=sqrt(2.0)*M_PI*Nmin;
+         dq=2.0*M_PI/(dx*Nmin), dq_binned,// qmax=sqrt(2.0)*M_PI*Nmin;
+         qmax=2.0*M_PI*(Nbins)/(sqrt(2.0)*((Nmin/2-1))*dx);
   int *counter;
 
-  dq_binned=qmax/Nbins; // dq in output file
+  dq_binned=qmax/(Nbins-1); // dq in output file
 
   // Initialise output
   for(i=0; i<Nbins; i++)
