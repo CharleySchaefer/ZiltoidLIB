@@ -9,6 +9,7 @@
 #ifndef MAX_STR_L
   #define  MAX_STR_L 200
 #endif
+#include "../StringOperations/StringOperations.h"
 
 int countColumns(char *, int *);
 int countLines(char *, int *);
