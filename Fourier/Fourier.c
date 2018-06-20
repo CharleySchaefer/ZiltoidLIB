@@ -27,7 +27,7 @@ void dft(complex *arr, complex *arrFT, int N)
 //----------------------------------------------
 
 //==============================================
-// FAST FOURIER TRANSFORM
+// FAST FOURIER TRANSFORM  Adapted from RosettaCodeData https://github.com/acmeism/RosettaCodeData/tree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C
 void fft(complex *arr, complex *buff, int N)
 {
   int i;
