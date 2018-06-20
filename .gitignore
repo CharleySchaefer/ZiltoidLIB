@@ -1,0 +1,11 @@
+build
+Build
+test
+test.*
+Test
+Test.*
+*.pdf
+*.o
+*.out
+
+StructureFactorAndCorrelationFunction
