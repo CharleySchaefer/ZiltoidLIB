@@ -11,15 +11,16 @@ int main(int argc, char *argv[])
   int i,j;
 
   // input
-  int NX,NY;
+  int NX,NY; 
   double **Psi2D;
+
 
   // output
   int     Nbins;
   int     *counter;
   double  dx, sumf;
   complex *buff1D;
-  complex **Psi2D_FT;
+  complex **Psi2D_FT; 
   double  *q_arr, *SF_arr;
   double  *R_arr;
   complex *C_arr;
