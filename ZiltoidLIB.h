@@ -16,5 +16,6 @@
 #include "RandomNumbers/RandomNumbers.h"
 #include "Interpolation/Interpolation.h"
 #include "StructureFactor/StructureFactor.h"
+#include "Mathematics/Mathematics.h"
 
 
