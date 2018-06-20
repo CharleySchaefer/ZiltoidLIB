@@ -24,16 +24,18 @@ int main(int argc, char *argv[])
   double  *R_arr;
   complex *C_arr;
 
-  double Lx;  /* Command-line specification of the domain size. */
+  double Lx = 1.0;  /* Command-line specification of the domain size. */
+  int Lx_set = 0;
 
   // READ ARGUMENTS FROM COMMAND LINE:
-  int i = 1;
+  i = 1;
   const char *fname = "config100.dat";
 
   while( i < argc ){
     const char *arg = argv[i];
     if( strcmp( arg, "--L" ) == 0 ){
       Lx = atof( argv[i+1] );
+      Lx_set = 1;
       i += 2;
     }else if( strcmp( arg, "--file" ) == 0 ){
       fname = argv[i+1];
@@ -65,7 +67,10 @@ int main(int argc, char *argv[])
   //-----------------------------------
 
   //-----------------------------------
-  dx     = 1.0;
+  dx = 1.0;
+  if( Lx_set ){
+    dx = Lx / NX;
+  }
   Nbins  =(int)( (double)(NX<NY?NX:NY)/sqrt(2) ) - 1;
   counter=(    int*)malloc(          Nbins*sizeof(int    ));
   q_arr  =( double*)malloc(          Nbins*sizeof(double ));
