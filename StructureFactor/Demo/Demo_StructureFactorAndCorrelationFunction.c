@@ -11,19 +11,38 @@ int main(int argc, char *argv[])
   int i,j;
 
   // input
-  int NX,NY; 
+  int NX,NY;
   double **Psi2D;
-
 
   // output
   int     Nbins;
   int     *counter;
   double  dx, sumf;
   complex *buff1D;
-  complex **Psi2D_FT; 
+  complex **Psi2D_FT;
   double  *q_arr, *SF_arr;
   double  *R_arr;
   complex *C_arr;
+
+  double Lx;  /* Command-line specification of the domain size. */
+
+  // READ ARGUMENTS FROM COMMAND LINE:
+  int i = 1;
+  const char *fname = "config100.dat";
+
+  while( i < argc ){
+    const char *arg = argv[i];
+    if( strcmp( arg, "--L" ) == 0 ){
+      Lx = atof( argv[i+1] );
+      i += 2;
+    }else if( strcmp( arg, "--file" ) == 0 ){
+      fname = argv[i+1];
+      i += 2;
+    }else{
+      printf( "Error parsing args! Arg \"%s\" not recognized!\n", arg );
+    }
+  }
+
 
   // VARIABLES DECLARED
   //-----------------------------------
@@ -32,21 +51,21 @@ int main(int argc, char *argv[])
 
   //-----------------------------------
   // READ MATRIX
-  countLines("config100.dat", &NX);
-  countColumns("config100.dat", &NY);
+  countLines(fname, &NX);
+  countColumns(fname, &NY);
 
   // allocate memory
   Psi2D=(double**)malloc(NX*sizeof(double*));
   for(i=0; i<NX; i++)
     Psi2D[i]=(double*)malloc(NY*sizeof(double));
 
-  if(!readMatrix("config100.dat", Psi2D, NX, NY))
+  if(!readMatrix(fname, Psi2D, NX, NY))
     {printf("ERROR: Failed to execute readMatrix()!\n"); return(0);}
   // MATRIX READ
   //-----------------------------------
 
   //-----------------------------------
-  dx     = 1.0; 
+  dx     = 1.0;
   Nbins  =(int)( (double)(NX<NY?NX:NY)/sqrt(2) ) - 1;
   counter=(    int*)malloc(          Nbins*sizeof(int    ));
   q_arr  =( double*)malloc(          Nbins*sizeof(double ));
@@ -86,7 +105,7 @@ int main(int argc, char *argv[])
     printf("%16e %16e %16e %16e\n", q_arr[i], SF_arr[i]/(NX*NY), dx*i, creal(buff1D[i])/sumf );
   }
 
-  
+
 
   return(0);
 }
