@@ -54,15 +54,15 @@ int main(int argc, char *argv[])
 
   //-----------------------------------
   // READ MATRIX
-  countLines(fname, &NX);
-  countColumns(fname, &NY);
+  countLines( (char*)fname, &NX);
+  countColumns((char*)fname, &NY);
 
   // allocate memory
   Psi2D=(double**)malloc(NX*sizeof(double*));
   for(i=0; i<NX; i++)
     Psi2D[i]=(double*)malloc(NY*sizeof(double));
 
-  if(!readMatrix(fname, Psi2D, NX, NY))
+  if(!readMatrix((char*)fname, Psi2D, NX, NY))
     {printf("ERROR: Failed to execute readMatrix()!\n"); return(0);}
   // MATRIX READ
   //-----------------------------------
