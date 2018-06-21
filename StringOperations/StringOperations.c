@@ -1,19 +1,3 @@
-/*
-  FSTD - STRING OPERATIONS
-
-  
-  (remark: string to number conversion is done in executeExpression.h )
-
-  Makes use of ..
-
-  FUNCTIONS
-      - numStr         create number string, e.g. "00781".
-      - countStr       increase number string, e.g. "00780" from "00781".
-      - fileNumber     Modify file name with a number
-      - getWord        Read first word in a text line
-      - countWords     Count number of words in a string
-*/
-
 #include "StringOperations.h"
 
 //==============================================================================================
@@ -153,4 +137,42 @@ int countWords(char *line, char *buffer, int *Nwords)
 
   return(1);
 }
+
+int str_2_dir_and_file(const char *str, char *dir, char *file)
+{
+  int i,ind1,ind2;
+  char c;
+//  dir =(char*)malloc(MAX_STR_L*sizeof(char));
+//  file=(char*)malloc(MAX_STR_L*sizeof(char));
+
+  ind1=0;ind2=-1;
+  
+  while( (c=str[ind1]) != '\0' & (( c=='.' )|(c=='/')|(c=='\\' )) )
+    ind1++;
+
+  i=ind1; 
+  while( (c=str[i]) != '\0' )
+  {
+    i++;
+    if(c=='/' | c=='\\')
+    {   
+      if(ind2!=-1)
+        ind1=ind2;
+      ind2=i;
+    }   
+  }
+
+  if(ind2==-1)
+    ind2=i+1;
+  else
+  {
+    file[0]='\0';
+    strcat(file, str+ind2);
+  }
+  for(i=ind1; i<ind2-1;i++)
+    dir[i-ind1]= *(str+i);
+
+  return(1);
+}
+
 
