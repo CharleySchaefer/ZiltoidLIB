@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
   int i,j;
 
   // input
-  int NX,NY; 
+  int NX,NY;
   double **Psi2D;
 
 
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
   int     *counter;
   double  dx, sumf;
   complex *buff1D;
-  complex **Psi2D_FT; 
+  complex **Psi2D_FT;
   double  *q_arr, *SF_arr;
   double  *R_arr;
   complex *C_arr;
@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
       i += 2;
     }else{
       printf( "Error parsing args! Arg \"%s\" not recognized!\n", arg );
+      return -1;
     }
   }
 
