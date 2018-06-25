@@ -23,7 +23,7 @@ then
   echo "  value (minimum or maximum)"
   echo "  yextr:  extremum value of y at xextr"
   echo " "
-  echo "  DEMO: run $0 DemoData/rootsdata.txt"
+  echo "  DEMO: run $0 DemoData/rootsdata.txt 1 2 0"
   echo "  ------------------------------------------------------------"
   echo " "
   exit 1
@@ -41,7 +41,7 @@ Nheader=$4
 
 
 
-awk -v xcol=$xcol -v ycol=$ycol -v Nheader=$Nheader  <$file 'NR==(Nheader+1) {mode=-1; I=0.0; xroot1=0.0; xroot2=0.0;  xprev=0.0; yprev=1.0; check=0} NR>Nheader {
+awk -v xcol=$xcol -v ycol=$ycol -v Nheader=$Nheader  <$file 'NR==(Nheader+1) {mode=-1; I=0.0; xroot1=0.0; xroot2=0.0;  xprev=0.0; yprev=1.0; check=0; extr2found=0} NR>Nheader {
 
       x=$(xcol); 
       y=$(ycol);
@@ -62,12 +62,24 @@ awk -v xcol=$xcol -v ycol=$ycol -v Nheader=$Nheader  <$file 'NR==(Nheader+1) {mo
         { 
           if ( y <= yextr )
           {
-            yextr=y;
-            xextr=x;
+            yextr=y; yextr2=yextr;
+            xextr=x; xextr2=xextr;
           }
           else
             {check=2;}
         } 
+
+        # Find maximum after the minimum
+        if( (check>1) && (extr2found==0) )
+        {
+          if ( y >= yextr2 )
+          {
+            yextr2=y;
+            xextr2=x;
+          }
+          else
+            {extr2found=1;}
+        }
 
         # Find second zero point
         if (check==2 && (y > 0) )
@@ -90,11 +102,26 @@ awk -v xcol=$xcol -v ycol=$ycol -v Nheader=$Nheader  <$file 'NR==(Nheader+1) {mo
         # Find maximum after zero point
         if ( check==1 )
         { 
-          if ( y > yextr )
-            {yextr=y; xextr=x}
+          if ( y >= yextr )
+          {
+            yextr=y; yextr2=yextr;
+            xextr=x; xextr2=xextr;
+          }
           else
             {check=2};
         } 
+
+        # Find minimum after the maximum
+        if( (check>1) && (extr2found==0) )
+        {
+          if ( y <= yextr2 )
+          {
+            yextr2=y;
+            xextr2=x;
+          }
+          else
+            {extr2found=1;}
+        }
 
         # Find second zero point
         if (check==2 && (y < 0) )
@@ -115,4 +142,4 @@ awk -v xcol=$xcol -v ycol=$ycol -v Nheader=$Nheader  <$file 'NR==(Nheader+1) {mo
       xprev=x;
       yprev=y;
 
-    } END {printf xroot1" "xroot2" "xextr" "yextr" \n"}'
+    } END {printf xroot1" "xroot2" "xextr" "yextr" "xextr2" "yextr2" \n"}'
