@@ -4,7 +4,7 @@ if [ $# -lt 3 ]
 then
   echo " "
   echo "  ------------------------------------------------------------"
-  echo "  Usage: $0   <file_prefix>  <file_suffix>  <output directory>?"
+  echo "  Usage: $0   <file_prefix>  <file_suffix>  <output directory>"
   echo " "
   echo "  This script averages the y-columns (y1, y2, y3,...) of various files"
   echo "  and returns an averaged file with standard deviations:"
