@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -lt 3 ]
+if [ $# -lt 4 ]
 then
   echo " "
   echo "  ------------------------------------------------------------"
@@ -34,6 +34,8 @@ dir=${dir#./} # remove "./" prefix
 dir=${dir%/} # Input (remove "/" suffix)
 mkdir -p $dir
 
+Nheader=$4
+
 # Create temporary output file (will be deleted at the end of the script)
 timestamp() {
   date +"%T"
@@ -59,7 +61,7 @@ file=`find "$file_prefix"*"$file_suffix" | head -1`
 
 
 # GET AVERAGE FILES
-{ head -n2 $file; paste $file_prefix*$file_suffix;} | awk 'NR==2 {d=NF; next; } {
+{ head -n2 $file; paste $file_prefix*$file_suffix;} | awk -v Nheader=$Nheader 'NR==Nheader+1 {d=NF; next; } {
                 if(NF>1)
                 {
                   for (i=1;i<=d;i++) 
@@ -72,7 +74,7 @@ file=`find "$file_prefix"*"$file_suffix" | head -1`
                 }}' > $averagetmp
 
 # GET STANDARD DEVIATION
-{ head -n2 $averagetmp; paste $averagetmp $file_prefix*$file_suffix;} | awk 'NR==2 {d=NF;   next; } {
+{ head -n2 $averagetmp; paste $averagetmp $file_prefix*$file_suffix;} | awk -v Nheader=$Nheader 'NR==Nheader+1 {d=NF;   next; } {
                 if(NF>1)
                 {
                   for (i=1;i<=d;i++) 

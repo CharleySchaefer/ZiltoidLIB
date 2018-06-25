@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ $# -lt 3 ]
+if [ $# -lt 4 ]
 then
   echo " "
   echo "  ------------------------------------------------------------"
-  echo "  Usage: $0   <datafile>  <xcol>  <ycol>"
+  echo "  Usage: $0   <datafile>  <xcol>  <ycol> <Nheader>"
   echo " "
   echo "  Returns the first and second x value at which the y column"
   echo "  in a file crosses zero. This value is found using linear"
@@ -35,12 +35,13 @@ fi
 file=$1 # plain text with column data
 xcol=$2  # column with x data
 ycol=$3  # column with y data
+Nheader=$4
 
 
 
 
 
-awk -v xcol=$xcol -v ycol=$ycol  <$file 'BEGIN {mode=-1; I=0.0; xroot1=0.0; xroot2=0.0;  xprev=0.0; yprev=1.0; check=0} NR>=1 {
+awk -v xcol=$xcol -v ycol=$ycol -v Nheader=$Nheader  <$file 'NR==(Nheader+1) {mode=-1; I=0.0; xroot1=0.0; xroot2=0.0;  xprev=0.0; yprev=1.0; check=0} NR>Nheader {
 
       x=$(xcol); 
       y=$(ycol);
@@ -59,10 +60,13 @@ awk -v xcol=$xcol -v ycol=$ycol  <$file 'BEGIN {mode=-1; I=0.0; xroot1=0.0; xroo
         # Find minimum after zero point
         if ( check==1 )
         { 
-          if ( y < yextr )
-            {yextr=y; xextr=x}
+          if ( y <= yextr )
+          {
+            yextr=y;
+            xextr=x;
+          }
           else
-            {check=2};
+            {check=2;}
         } 
 
         # Find second zero point
