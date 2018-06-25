@@ -147,7 +147,6 @@ awk -v xcol=$xcol -v ycol=$ycol -v Nheader=$Nheader  <$file 'NR==(Nheader+1) {mo
           {yprev=-1.0; yextr=-1.0; mode=2}
       }
 
-
       xprev=x;
       yprev=y;
 
