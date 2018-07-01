@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <complex.h>
+#include <unistd.h> // check if file exists
 #include "../StructureFactor.h"
 #include "../../ReadTextFiles/ReadTextFiles.h"
 
@@ -40,6 +41,10 @@ int main(int argc, char *argv[])
       i += 2;
     }else if( strcmp( arg, "--file" ) == 0 ){
       fname = argv[i+1];
+      if( access( fname, F_OK ) == -1 ) 
+      {
+        printf("ERROR: File \'%s\' does not exist!\n"); return(0);
+      }
       i += 2;
     }else{
       printf( "Error parsing args! Arg \"%s\" not recognized!\n", arg );
@@ -84,8 +89,6 @@ int main(int argc, char *argv[])
 
   // Calculate radially averaged S(q)
   calculateStructureFactor(NX, NY, dx, Psi2D, Psi2D_FT, Nbins, buff1D, q_arr, SF_arr);
-//  for(i=0; i<Nbins; i++)
-//    printf("%16e %16e\n", q_arr[i], SF_arr[i]);
 
   // Calculate correlation function C(r)
   R_arr  =( double*)malloc(         (2*Nbins-1)*sizeof(double ));
@@ -111,8 +114,6 @@ int main(int argc, char *argv[])
   {
     printf("%16e %16e %16e %16e\n", q_arr[i], SF_arr[i]/(NX*NY), dx*i, creal(buff1D[i])/sumf );
   }
-
-
 
   return(0);
 }
