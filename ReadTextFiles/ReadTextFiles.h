@@ -24,4 +24,4 @@ int readRow_short(char *, int, short *, int *);
 int readRow(char *, int, double *);
 int readColumn_int(char *, int, int, int, int *);
 int readColumn(char *, int, int, int, double *);
-
+int transpose_plain_data_file(char *, double ** );

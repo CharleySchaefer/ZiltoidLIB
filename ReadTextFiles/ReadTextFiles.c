@@ -49,6 +49,31 @@ int countLines(char *file, int *Nlines)
   return(1);
 }
 
+int transpose_plain_data_file(char *filename, double **buffer)
+{
+  int i,j, Nlines, Ncol;
+  FILE *ifp;
+    
+    countLines(filename, &Nlines);
+  countColumns(filename, &Ncol);
+
+  if(!readMatrix(filename, buffer, Nlines, Ncol))
+    {printf("ERROR: readMatrix() failed!\n"); return(0);}
+
+  ifp=fopen(filename, "w");
+  for(i=0; i<Ncol; i++)
+  {
+    for(j=0; j<Nlines; j++)
+    {
+      fprintf(ifp, "%16e ", buffer[j][i]);
+    }
+    fprintf(ifp, "\n");
+  }
+  fclose(ifp);
+  return(1);
+}
+
+
 //------------------------------------------------------------------------------------*/
 //  checkFileName
 //
