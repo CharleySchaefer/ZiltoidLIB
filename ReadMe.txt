@@ -1,9 +1,10 @@
 ZiltoidLIB
 ----------
+(Size~23MB at 2018/07/03)
 Selection of functions that are commonly encoutered in C programs for physical modelling and simulation.
 
 The functionality involves:
-> Reading files
+> Reading (data) files
 > Interpretation of strings
 > Generating random numbers
 > Mathematical methods
