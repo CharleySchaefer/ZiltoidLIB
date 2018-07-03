@@ -11,6 +11,32 @@
 //  Does this by counting the number of words in the first line of the file
 //
 #include "ReadTextFiles.h"
+
+
+int getNheader(const char *fname, int *Nheader)
+{
+  int i, atheader;
+  char line[MAX_LINE_WIDTH];
+  FILE *ifp;
+  char c;
+
+  if( (ifp = fopen(fname, "r")) == NULL)
+    {printf("\nERROR: Failed to open file \'%s\'!\n\n", fname); return(0);}
+
+  *Nheader=-1; atheader=1;
+  while( atheader & fgets( line, sizeof line, ifp) != NULL )
+  {
+    (*Nheader)++;
+    i=0;
+    while( ((c=line[i]) == ' ' | c == '\t') & c!='\n' & c!='\0') // Skip white space
+      i++;
+    atheader=!('0'<=c & c<='9');
+  }
+  fclose(ifp); 
+
+  return(1);
+}
+
 int countColumns(char *file, int *Ncols)
 {
   FILE *ifp;
@@ -226,174 +252,174 @@ int readColumn(char *file, int Ndata, int Nheader, int Ncol, double *col)
       if( (c=line[j]) != ' ' & c != '\0' & c != '\n')
         countCol++;
     }
-    col[i+1-Nheader] = atof(line+j); // Read column entry	
+    col[i+1-Nheader] = atof(line+j); // Read column entry  
   }
   fclose(ifp);
   return(1);
 }
-	
+  
 int readColumn_int(
-	char	*file,		// File name 				
-	int 	Ngrid, 		// Number of datapoints 		
-	int 	dataLine, 	// Line number with first data points
-	int		Ncol,		// Column number			
-	int	*col		// Output array in with column values	 
-	) // End of function arguments
-	{
-		int	i,j,countCol;
-		char	c;
-		char	line[MAX_LINE_WIDTH];
-		FILE	*ifp;
+  char  *file,    // File name         
+  int   Ngrid,     // Number of datapoints     
+  int   dataLine,   // Line number with first data points
+  int    Ncol,    // Column number      
+  int  *col    // Output array in with column values   
+  ) // End of function arguments
+  {
+    int  i,j,countCol;
+    char  c;
+    char  line[MAX_LINE_WIDTH];
+    FILE  *ifp;
 
-		if(Ncol<0)
-		{
-			printf("WARNING: algorithm starts reading data at Ncol=1!\n");
-			return(0);
-		}
+    if(Ncol<0)
+    {
+      printf("WARNING: algorithm starts reading data at Ncol=1!\n");
+      return(0);
+    }
 
-		if((ifp = fopen(file, "r")) == NULL){printf("ERROR: Failed to open \'%s\' in readColumn!\n", file); return(0);}
+    if((ifp = fopen(file, "r")) == NULL){printf("ERROR: Failed to open \'%s\' in readColumn!\n", file); return(0);}
 
-	/* Go to first line with data */	
-		for(i=0; i<dataLine; i++)
-			fgets(line, sizeof(line), ifp);
+  /* Go to first line with data */  
+    for(i=0; i<dataLine; i++)
+      fgets(line, sizeof(line), ifp);
 
-	/* Get data from last column */
-		for(i=dataLine-1; i<Ngrid+dataLine-1; i++){
-			fgets(line, sizeof(line), ifp);
-			j=0;countCol=0;
+  /* Get data from last column */
+    for(i=dataLine-1; i<Ngrid+dataLine-1; i++){
+      fgets(line, sizeof(line), ifp);
+      j=0;countCol=0;
 
-			// Skip white space before first column
-			if((c=line[j])==' ')
-			   {/* Read line until space is found */	
-				while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
-					j++;
+      // Skip white space before first column
+      if((c=line[j])==' ')
+         {/* Read line until space is found */  
+        while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+          j++;
 
-				/* Read line until end of space */		
-				while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
-					j++;}
-			
-			// start reading columns
-			while( countCol<Ncol & (c=line[j]) != '\0' & c != '\n' ){
-		
-				/* Read line until space is found */	
-				while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
-					j++;
+        /* Read line until end of space */    
+        while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+          j++;}
+      
+      // start reading columns
+      while( countCol<Ncol & (c=line[j]) != '\0' & c != '\n' ){
+    
+        /* Read line until space is found */  
+        while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+          j++;
 
-				/* Read line until end of space */		
-				while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
-					j++;
+        /* Read line until end of space */    
+        while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+          j++;
 
-				/* If character after space is not the end of the line a column is found */
-				if( (c=line[j]) != ' ' & c != '\0' & c != '\n')
-					countCol++;
-				}
-			col[i+1-dataLine] = atoi(line+j);	
-			}
-		fclose(ifp);
-		return(1);
-	}
-	
+        /* If character after space is not the end of the line a column is found */
+        if( (c=line[j]) != ' ' & c != '\0' & c != '\n')
+          countCol++;
+        }
+      col[i+1-dataLine] = atoi(line+j);  
+      }
+    fclose(ifp);
+    return(1);
+  }
+  
 //---------------------------------------------------------------------
 /*
-	readRow - Charley Schaefer 2016-10-18
-	
-	Read matrix from data file
+  readRow - Charley Schaefer 2016-10-18
+  
+  Read matrix from data file
 */
 int readRow(char *file, int Nrow, double *row)
 {
-	int		i,j,ind, Nchar;
-	char 	word[MAX_STR_L], line[MAX_LINE_WIDTH];
-	FILE 	*ifp;
-	
-	if( (ifp = fopen(file, "r")) == NULL){
-		printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
-		return(0);
-		}
-	// get to line at Nrow (Nrow=0) is the first line
-	i=0;
-	while( fgets( line, sizeof line, ifp) != NULL & i<Nrow)
-		i++;
-	
-	ind=0;i=0;
-	while( getWord( line+ind, word, &Nchar) )
-	{
-		ind+= Nchar;
-		row[i] = atof(word);
-		i++; // Count number of words
-	}
-	
-	fclose(ifp);
-	return(1);
+  int    i,j,ind, Nchar;
+  char   word[MAX_STR_L], line[MAX_LINE_WIDTH];
+  FILE   *ifp;
+  
+  if( (ifp = fopen(file, "r")) == NULL){
+    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
+    return(0);
+    }
+  // get to line at Nrow (Nrow=0) is the first line
+  i=0;
+  while( fgets( line, sizeof line, ifp) != NULL & i<Nrow)
+    i++;
+  
+  ind=0;i=0;
+  while( getWord( line+ind, word, &Nchar) )
+  {
+    ind+= Nchar;
+    row[i] = atof(word);
+    i++; // Count number of words
+  }
+  
+  fclose(ifp);
+  return(1);
 }
 int readRow_short(char *file, int Nrow, short *row, int *Nword)
 {
-	int		i,j,ind, Nchar;
-	char 	word[MAX_STR_L], line[MAX_LINE_WIDTH];
-	FILE 	*ifp;
-	
-	if( (ifp = fopen(file, "r")) == NULL){
-		printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
-		return(0);
-		}
-	// get to line at Nrow (Nrow=0) is the first line
-	i=0;
-	while( fgets( line, sizeof line, ifp) != NULL & i<Nrow)
-		i++;
-	
-	ind=0;(*Nword)=0;
-	while( getWord( line+ind, word, &Nchar) )
-	{
-		ind+= Nchar;
-		row[(*Nword)] = atof(word);
-		(*Nword)++; // Count number of words
-	}
-	
-	fclose(ifp);
-	return(1);
+  int    i,j,ind, Nchar;
+  char   word[MAX_STR_L], line[MAX_LINE_WIDTH];
+  FILE   *ifp;
+  
+  if( (ifp = fopen(file, "r")) == NULL){
+    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
+    return(0);
+    }
+  // get to line at Nrow (Nrow=0) is the first line
+  i=0;
+  while( fgets( line, sizeof line, ifp) != NULL & i<Nrow)
+    i++;
+  
+  ind=0;(*Nword)=0;
+  while( getWord( line+ind, word, &Nchar) )
+  {
+    ind+= Nchar;
+    row[(*Nword)] = atof(word);
+    (*Nword)++; // Count number of words
+  }
+  
+  fclose(ifp);
+  return(1);
 }
 int readRow_int(char *file, int Nrow, int *row, int *Nword)
 {
-	int		i,j,ind, Nchar;
-	char 	word[MAX_STR_L], line[MAX_LINE_WIDTH];
-	FILE 	*ifp;
-	
-	if( (ifp = fopen(file, "r")) == NULL){
-		printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
-		return(0);
-		}
-	// get to line at Nrow (Nrow=0) is the first line
-	i=0;
-	while( fgets( line, sizeof line, ifp) != NULL & i<Nrow)
-		i++;
-	
-	ind=0;(*Nword)=0;
-	while( getWord( line+ind, word, &Nchar) )
-	{
-		ind+= Nchar;
-		row[(*Nword)] = atoi(word);
-		(*Nword)++; // Count number of words
-	}
-	
-	fclose(ifp);
-	return(1);
+  int    i,j,ind, Nchar;
+  char   word[MAX_STR_L], line[MAX_LINE_WIDTH];
+  FILE   *ifp;
+  
+  if( (ifp = fopen(file, "r")) == NULL){
+    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
+    return(0);
+    }
+  // get to line at Nrow (Nrow=0) is the first line
+  i=0;
+  while( fgets( line, sizeof line, ifp) != NULL & i<Nrow)
+    i++;
+  
+  ind=0;(*Nword)=0;
+  while( getWord( line+ind, word, &Nchar) )
+  {
+    ind+= Nchar;
+    row[(*Nword)] = atoi(word);
+    (*Nword)++; // Count number of words
+  }
+  
+  fclose(ifp);
+  return(1);
 }
 
 //=========================================================================================
 /* 
-	readLine - Charley Schaefer 2014/11/04
+  readLine - Charley Schaefer 2014/11/04
 
- 	Get a line from text file
+   Get a line from text file
 */
 int readLine(char *file, char *line, int Nline)
 {
-	int i;
-	FILE *ifp;
-	if(NULL==(ifp = fopen(file, "r")))
-		{printf("ERROR: Failed to read file \'%s\'!\n", file); return(0);}
-	for(i=0; i<Nline; i++)
-		fgets(line, MAX_LINE_WIDTH*sizeof(char), ifp);
-	fclose(ifp);
-	return(1);
+  int i;
+  FILE *ifp;
+  if(NULL==(ifp = fopen(file, "r")))
+    {printf("ERROR: Failed to read file \'%s\'!\n", file); return(0);}
+  for(i=0; i<Nline; i++)
+    fgets(line, MAX_LINE_WIDTH*sizeof(char), ifp);
+  fclose(ifp);
+  return(1);
 }
 
 
@@ -401,87 +427,87 @@ int readLine(char *file, char *line, int Nline)
 
 //---------------------------------------------------------------------
 /*
-	readMatrix - Charley Schaefer 2014-11-04
-	
-	Read matrix from data file
+  readMatrix - Charley Schaefer 2014-11-04
+  
+  Read matrix from data file
 */
 int readMatrix(char *file, double **mat, int Nlines, int Ncols)
 {
-	int		i,j,ind, Nchar;
-	char 	c, word[MAX_STR_L], line[MAX_LINE_WIDTH];
-	FILE 	*ifp;
-	
-	if( (ifp = fopen(file, "r")) == NULL){
-		printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
-		return(0);
-		}
-	i=0;
-	while( fgets( line, sizeof line, ifp) != NULL)
-	{
-		ind=0;j=0;
-		// Skip white space before first column
-		while( (c=line[ind]) == ' ' & c != '\0' & c != '\n')
-			ind++;
-				
-		while( getWord( line+ind, word, &Nchar) )
-		{
-	//		printf("%d %d %s\n", i,j,word);
-			ind+= Nchar;
-			mat[i][j] = atof(word);
-			j++; // Count number of words
-		}
-		i++;
-	}
-	fclose(ifp);
-	return(1);
+  int    i,j,ind, Nchar;
+  char   c, word[MAX_STR_L], line[MAX_LINE_WIDTH];
+  FILE   *ifp;
+  
+  if( (ifp = fopen(file, "r")) == NULL){
+    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
+    return(0);
+    }
+  i=0;
+  while( fgets( line, sizeof line, ifp) != NULL)
+  {
+    ind=0;j=0;
+    // Skip white space before first column
+    while( (c=line[ind]) == ' ' & c != '\0' & c != '\n')
+      ind++;
+        
+    while( getWord( line+ind, word, &Nchar) )
+    {
+  //    printf("%d %d %s\n", i,j,word);
+      ind+= Nchar;
+      mat[i][j] = atof(word);
+      j++; // Count number of words
+    }
+    i++;
+  }
+  fclose(ifp);
+  return(1);
 }
 int readMatrix_short(char *file, short **mat, int Nlines, int Ncols)
 {
-	int		i,j,ind, Nchar;
-	char 	word[MAX_STR_L], line[MAX_LINE_WIDTH];
-	FILE 	*ifp;
-	
-	if( (ifp = fopen(file, "r")) == NULL){
-		printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
-		return(0);
-		}
-	i=0;
-	while( fgets( line, sizeof line, ifp) != NULL)
-	{
-		ind=0;j=0;
-		while( getWord( line+ind, word, &Nchar) )
-		{
-			ind+= Nchar;
-			mat[i][j] = atof(word);
-			j++; // Count number of words
-		}
-		i++;
-	}
-	fclose(ifp);
-	return(1);
+  int    i,j,ind, Nchar;
+  char   word[MAX_STR_L], line[MAX_LINE_WIDTH];
+  FILE   *ifp;
+  
+  if( (ifp = fopen(file, "r")) == NULL){
+    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
+    return(0);
+    }
+  i=0;
+  while( fgets( line, sizeof line, ifp) != NULL)
+  {
+    ind=0;j=0;
+    while( getWord( line+ind, word, &Nchar) )
+    {
+      ind+= Nchar;
+      mat[i][j] = atof(word);
+      j++; // Count number of words
+    }
+    i++;
+  }
+  fclose(ifp);
+  return(1);
 }
 int readMatrix_int(char *file, int **mat, int Nlines, int Ncols)
 {
-	int		i,j,ind, Nchar;
-	char 	word[MAX_STR_L], line[MAX_LINE_WIDTH];
-	FILE 	*ifp;
-	
-	if( (ifp = fopen(file, "r")) == NULL){
-		printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
-		return(0);
-		}
-	i=0;
-	while( fgets( line, sizeof line, ifp) != NULL)
-	{
-		ind=0;j=0;
-		while( getWord( line+ind, word, &Nchar) )
-		{
-			ind+= Nchar;
-			mat[i][j] = atoi(word);
-			j++; // Count number of words
-		}
-		i++;
-	}
-	fclose(ifp);
-	return(1);
+  int    i,j,ind, Nchar;
+  char   word[MAX_STR_L], line[MAX_LINE_WIDTH];
+  FILE   *ifp;
+  
+  if( (ifp = fopen(file, "r")) == NULL){
+    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", file);
+    return(0);
+    }
+  i=0;
+  while( fgets( line, sizeof line, ifp) != NULL)
+  {
+    ind=0;j=0;
+    while( getWord( line+ind, word, &Nchar) )
+    {
+      ind+= Nchar;
+      mat[i][j] = atoi(word);
+      j++; // Count number of words
+    }
+    i++;
+  }
+  fclose(ifp);
+  return(1);
 }

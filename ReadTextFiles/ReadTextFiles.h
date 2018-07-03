@@ -11,6 +11,8 @@
 #endif
 #include "../StringOperations/StringOperations.h"
 
+
+int getNheader(const char *, int *);
 int countColumns(char *, int *);
 int countLines(char *, int *);
 int checkFileName(char *);
