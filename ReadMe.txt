@@ -1,6 +1,6 @@
 ZiltoidLIB
 ----------
-(Size~23MB at 2018/07/03)
+(Size~23MB at 2018/07/04)
 Selection of functions that are commonly encoutered in C programs for physical modelling and simulation.
 
 The functionality involves:
@@ -9,5 +9,7 @@ The functionality involves:
 > Generating random numbers
 > Mathematical methods
 
-The functions were initially (since 2011) developed in simple programs to prevent the requirement of external libraries: Most are not optimised for performance.
-
+Uses (modified) versions of
+> Doolittle Determinant: https://github.com/lawliet89/DoolittleDeterminant/
+> Polynomial:            http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c
+> Fourier:               RosettaCodeData https://github.com/acmeism/RosettaCodeData/tree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C
