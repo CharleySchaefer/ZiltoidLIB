@@ -14,6 +14,8 @@
 #include <time.h>
 #include <math.h>
 
+#define DOOLITTLEDETERMINANT_INCLUDED 1
+
 
 float DL_determinant(float **matrix, int dimension);
 float DL_getAt(float **m, int i, int j);

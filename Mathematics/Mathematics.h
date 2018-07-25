@@ -5,6 +5,9 @@
 #ifndef POLYNOMIAL_H
   #include "Polynomial/polynomial.h"
 #endif
+#ifndef DOOLITTLEDETERMINANT_INCLUDED
+  #include "DoolittleDeterminant/DoolittleDeterminant.h"
+#endif
 double minimum(double, double);
 double maximum(double, double);
 double absolute(double);
