@@ -9,10 +9,7 @@ function SEM()
   Nsamples=400
   mu=10.0
   sigma=3.0
-  distr=zeros(1,Nsamples);
-  for i=1:Nsamples
-    distr(i)=abs(normrnd(mu,sigma));
-  end
+  distr=abs(normrnd(mu,sigma, [1, Nsamples])); % Sample a normal distribution
 
   % Settings for binning
   xmin=0;
