@@ -1,3 +1,4 @@
+% https://github.com/CharleySchaefer/ZiltoidLIB
 % bisection(): Search for scalar x0 in an array
 %
 % INPUT

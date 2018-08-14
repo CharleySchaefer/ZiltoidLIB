@@ -1,8 +1,10 @@
+https://github.com/CharleySchaefer/ZiltoidLIB
+
 -----------------
   RUNNING SCRIPTS
 -----------------
-  No Matlab license required: 
-  The scripts are tested in GNU Octave:
+  Scripts are compatible with Maatlab, but are 
+  are tested in GNU Octave:
 
     GNU Octave, version 3.8.2
     Octave was configured for "x86_64-pc-linux-gnu".
