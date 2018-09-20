@@ -64,8 +64,13 @@ int interp1(double *xarr, double *yarr, int N, double xint, double *yint)
     }
 
     // interpolate
-    f=(xint-xarr[nL])/(xarr[nU]-xarr[nL]);
-    *yint = (1-f)*yarr[nL] + f*yarr[nU];
+    if(nL==nU)
+      *yint=yarr[nL];
+    else
+    {
+      f=(xint-xarr[nL])/(xarr[nU]-xarr[nL]);
+      *yint = (1-f)*yarr[nL] + f*yarr[nU];
+    }
   }
   return(1);
 }
