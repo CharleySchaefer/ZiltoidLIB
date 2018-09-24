@@ -44,12 +44,12 @@ echo "% \documentclass[a5paper, landscape, 10 pt]{article}
 \end{document}
 " > tmp_create_standalone.tex
 
-rm tmp_create_standalone.pdf
+rm -f tmp_create_standalone.pdf
 gnuplot epslatex_standalone.plt
 latex tmp_figure.tex
 dvips tmp_figure.dvi -o tmp_figure.ps
 mv tmp_figure.ps Fig_cropped.eps
 
-pdflatex tmp_create_standalone.tex
+pdflatex tmp_create_standalone.tex &>/dev/null
 mv tmp_create_standalone.pdf Fig_a4paper.pdf
 rm tmp_* 
