@@ -1,5 +1,6 @@
 #include "Mathematics.h"
 
+
 // MIN MAX ABS
 double maximum(double a, double b)
 {
@@ -30,6 +31,43 @@ int isPowerOfTwo (unsigned int x)
    x /= 2;
  return (x == 1);
 }
+
+
+double min1(double *arr, int N) // Minimum of array
+{
+  int i; double min=arr[0];
+  for (i=1; i<N; i++)
+    min=(arr[i]<min ? arr[i] : min);
+  return min;
+}
+double max1(double *arr, int N) // Maximum of array
+{
+  int i; double max=arr[0];
+  for (i=1; i<N; i++)
+    max=(arr[i]>max ? arr[i] : max);
+  return max;
+}
+
+double mean1(double *arr, int N) // Mean of array
+{
+  int i; double mean=0;
+  for (i=0; i<N; i++)
+    mean += arr[i];
+  mean/=N;
+  return mean;
+}
+
+double variance1(double *arr, int N) // variance of array
+{
+  int i; 
+  double mean=mean1(arr, N);
+  double variance=0;
+  for (i=0; i<N; i++)
+    variance += pow(arr[i]-mean,2);
+  variance/=N;
+  return variance;
+}
+
 
 //-----------------------------------------------------------------------------------------------
 // First order derivative of a 2D array 
