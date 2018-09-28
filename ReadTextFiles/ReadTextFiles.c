@@ -22,7 +22,7 @@ int analyse_data_file_properties(char *fname, int *Nlines, int *Ncol, int *Nhead
     printf("#Number of lines:        %d\n", *Nlines);
     printf("#Number of columns:      %d\n", *Ncol);
     printf("#Number of header lines: %d\n", *Nheader);
-    printf("#Number of data lines: %d\n",   *Ndata);
+    printf("#Number of data lines:   %d\n",   *Ndata);
   }
   return(1);
 }
