@@ -13,7 +13,10 @@ int analyse_data_file_properties(char *fname, int *Nlines, int *Ncol, int *Nhead
   {printf("ERROR: getNheader() failed!\n");   return(0);}
 
   if(verbose)
+{
     printf("#Ndata estimated as Ndata=Nlines-Nheader; TODO: Identify white lines at end file.\n");
+    printf("TODO: countColumns() based not on first line but on line Nlines+1!\n");
+}
   *Ndata=(*Nlines)-(*Nheader); // TODO: remove white lines
 
 
