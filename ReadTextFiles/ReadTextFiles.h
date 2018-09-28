@@ -13,7 +13,7 @@
 
 int analyse_data_file_properties(char *, int *, int *, int *, int *, int);
 int getNheader(const char *, int *);
-int countColumns(char *, int *);
+int countColumns(char *, int, int *);
 int countLines(char *, int *);
 int checkFileName(char *);
 int countFiles(char *, int, int *);

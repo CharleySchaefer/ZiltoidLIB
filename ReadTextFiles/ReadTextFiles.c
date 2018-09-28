@@ -7,15 +7,16 @@ int analyse_data_file_properties(char *fname, int *Nlines, int *Ncol, int *Nhead
 
   if(!countLines(fname, Nlines))
   {printf("ERROR: countLines() failed!\n");   return(0);}
-  if(!countColumns(fname, Ncol))
-  {printf("ERROR: countColumns() failed!\n"); return(0);}
+
   if(!getNheader(fname, Nheader))
   {printf("ERROR: getNheader() failed!\n");   return(0);}
+
+  if(!countColumns(fname, (*Nheader), Ncol))
+  {printf("ERROR: countColumns() failed!\n"); return(0);}
 
   if(verbose)
 {
     printf("#Ndata estimated as Ndata=Nlines-Nheader; TODO: Identify white lines at end file.\n");
-    printf("TODO: countColumns() based not on first line but on line Nlines+1!\n");
 }
   *Ndata=(*Nlines)-(*Nheader); // TODO: remove white lines
 
@@ -25,7 +26,7 @@ int analyse_data_file_properties(char *fname, int *Nlines, int *Ncol, int *Nhead
     printf("#Number of lines:        %d\n", *Nlines);
     printf("#Number of columns:      %d\n", *Ncol);
     printf("#Number of header lines: %d\n", *Nheader);
-    printf("#Number of data lines:   %d\n",   *Ndata);
+    printf("#Number of data lines:   %d\n", *Ndata);
   }
   return(1);
 }
@@ -54,7 +55,7 @@ int getNheader(const char *fname, int *Nheader)
   return(1);
 }
 
-int countColumns(char *fname, int *Ncols)
+int countColumns(char *fname, int atline, int *Ncols)
 {
   FILE *ifp;
   int  i, Nchar;
@@ -64,8 +65,9 @@ int countColumns(char *fname, int *Ncols)
   if( (ifp = fopen(fname, "r")) == NULL)
     {printf("\nERROR: Failed to open file \"%s\" in countLines()!\n\n", fname); return(0);}
 
-  // Read first line in the file
-  fgets( line, sizeof line, ifp);
+  // Get line (counting starts at 0) from which number of columns is determined
+  for(i=0; i<=atline; i++)
+    fgets( line, sizeof line, ifp);
 
   // Read words in the line till end of line has been reached
   if( !countWords(line, word, &(*Ncols)) )
@@ -98,7 +100,7 @@ int transpose_plain_data_file(char *fname, double **buffer)
   FILE *ifp;
     
     countLines(fname, &Nlines);
-  countColumns(fname, &Ncol);
+  countColumns(fname, 0, &Ncol);
 
   if(!readMatrix(fname, buffer, Nlines, Ncol))
     {printf("ERROR: readMatrix() failed!\n"); return(0);}
