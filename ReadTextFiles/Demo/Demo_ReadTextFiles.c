@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
   //-------------------------------------------------------------
   // DECLARATIONS
   int i;
-  int Nheader;
+  int Nheader, Nlines, Ncol, Ndata;
   char *fname;
 
   fname=(char*)malloc(MAX_LINE_WIDTH*sizeof(char));
@@ -51,11 +51,9 @@ int main(int argc, char *argv[])
 
   //-------------------------------------------------------------
   // CORE
-  printf("Reading \'%s\'.\n", fname);
-  if(!getNheader((const char*)fname, &Nheader))
-   {printf("ERROR: Failed to execute getNheader()!\n");return(0);}
+  if(!analyse_data_file_properties(fname, &Nlines, &Ncol, &Nheader, &Ndata, 1))
+  {printf("ERROR: analyse_data_file_properties() failed!\n"); exit(1);}
 
-  printf("Nheader = %d\n", Nheader);
   // END CORE
   //-------------------------------------------------------------
 
