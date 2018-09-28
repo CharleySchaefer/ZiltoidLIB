@@ -11,7 +11,7 @@
 #endif
 #include "../StringOperations/StringOperations.h"
 
-
+int analyse_data_file_properties(char *, int *, int *, int *, int *, int);
 int getNheader(const char *, int *);
 int countColumns(char *, int *);
 int countLines(char *, int *);
