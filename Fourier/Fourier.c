@@ -20,6 +20,43 @@ void dft(complex *arr, complex *arrFT, int N)
     arrFT[n] = sum;
   }
 }
+void dft2(complex **arr2, complex *buf, int Nx, int Ny)
+{
+  int     i,j;
+  int     maxN=(Nx>Ny?Nx:Ny);
+  complex *buf2=buf+maxN;
+	
+  // Fourier transform
+  // 1. rows
+  for (i=0; i<Nx; i++)
+  {
+    // Copy a row
+    for ( j = 0; j < Ny; j++) 
+      buf[j] = arr2[i][j];
+
+      // Fourier transform a row
+      dft(buf, buf2, Ny);
+		
+      // Copy back
+      for ( j = 0; j < Ny; j++) 
+        arr2[i][j] = buf2[j];
+  }
+
+  // 2. columns
+  for (i=0; i<Ny; i++)
+  {
+    // Copy a row
+    for ( j = 0; j < Nx; j++) 
+      buf[j] = arr2[j][i];
+
+    // Fourier transform a row
+    dft(buf, buf2, Nx);
+
+    // Copy back
+    for ( j = 0; j < Nx; j++) 
+      arr2[j][i] = buf2[j];
+  }
+}
 
 
 //----------------------------------------------

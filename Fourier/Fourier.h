@@ -6,6 +6,7 @@
 
 // Discrete Fourier transform
 void  dft(    complex *, complex *, int);
+void  dft2( complex **, complex *, int  int);
 
 // Fast Fourier transform (1D) Adapted from RosettaCodeData https://github.com/acmeism/RosettaCodeData/tree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C
 void  fft(    complex *, complex *, int);
