@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
   //-----------------------------------
   // READ MATRIX
   countLines( (char*)fname, &NX);
-  countColumns((char*)fname, &NY);
+  countColumns((char*)fname, NX, &NY);
 
   // allocate memory
   Psi2D=(double**)malloc(NX*sizeof(double*));

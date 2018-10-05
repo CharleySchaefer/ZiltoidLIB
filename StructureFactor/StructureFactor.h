@@ -4,5 +4,6 @@
 #include <complex.h>
 #include <math.h>
 #include "../Fourier/Fourier.h"
+#include "../Mathematics/Mathematics.h"
 int calculateStructureFactor(int, int, double, double **, complex **, int, complex *, double *, double *);
 

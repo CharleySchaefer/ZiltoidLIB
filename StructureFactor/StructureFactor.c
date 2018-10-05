@@ -50,8 +50,10 @@ int calculateStructureFactor(int NX, int NY, double dx, double **Psi2D, complex 
     for(j=0; j<NY; j++)
       Psi2D_FT[i][j] = (Psi2D[i][j]==1 ? 1 : (Psi2D[i][j]==2 ? -1 : Psi2D[i][j]) ); 
 
-
-  fft2(Psi2D_FT, buff1D, NX, NY);
+  if(  isPowerOfTwo(NX) & isPowerOfTwo(NY) )
+    fft2(Psi2D_FT, buff1D, NX, NY);
+  else
+    dft2(Psi2D_FT, buff1D, NX, NY);
 
   // Take square of the FFT and average radially
   counter=(int*)buff1D;

@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
   //-------------------------------------------------------------
   // DECLARATIONS
   int i;
-  int Nheader, Nlines, Ncol, Ndata;
+  int Nlines, Ncol,Nheader,  Ndata;
   char *fname;
 
   fname=(char*)malloc(MAX_LINE_WIDTH*sizeof(char));
