@@ -11,8 +11,10 @@ int main(int argc, char *argv[])
   // DECLARE VARIABLES
   int i,j;
 
+
   // input
   int NX,NY;
+  int Nheader, Ndata, verbose=1;
   double **Psi2D;
 
 
@@ -60,8 +62,8 @@ int main(int argc, char *argv[])
 
   //-----------------------------------
   // READ MATRIX
-  countLines( (char*)fname, &NX);
-  countColumns((char*)fname, NX, &NY);
+  if(!analyse_data_file_properties( (char*)fname, &NX, &NY, &Nheader, &Ndata, verbose))
+  {printf("ERROR: analyse_data_file_properties() failed!\n"); exit(1);}
 
   // allocate memory
   Psi2D=(double**)malloc(NX*sizeof(double*));
