@@ -1,4 +1,4 @@
-#  ZiltoidLIB
+![image](doc/ZiltoidLIB.png)
 
 ## ABOUT
 
