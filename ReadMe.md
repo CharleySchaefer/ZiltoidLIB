@@ -17,8 +17,8 @@ Selection of functions that are commonly encoutered in C programs for physical m
 
 ### Utils
 
-> Gnuplot demo for producing .eps and .pdf format graphs 
-> GNU Octave / Matlab scripts
+* Gnuplot demo for producing .eps and .pdf format graphs 
+* GNU Octave / Matlab scripts
 
 
 ## Installation
@@ -36,3 +36,4 @@ In demos, **bash** scripts and **gnuplot** may be used.
 
 Reading a data file, representing a 2D lattice configuration, and calculating the structure factor and correlation function.
 
+<img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/StructureFactor/Demo/matrix.png" alt="drawing" width="215"/>  <img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/StructureFactor/Demo/SF.png" alt="drawing" width="300"/>   <img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/StructureFactor/Demo/CF.png" alt="drawing" width="300"/>
