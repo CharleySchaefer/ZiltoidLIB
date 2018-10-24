@@ -37,25 +37,30 @@
 
     4. execute event
    
-    5. repeat from 2 until
+    5. repeat from 2 until max_iter is reached
 
+  TODO:
+    - For large simulations, the event selection can be 
+      significantly improved in terms of cpu time: 
+      By grouping events in Ngroup groups where all
+      events have the same rate may speed up the cpu 
+      time from ~ log N_rates to ~ log Ngroup. 
 */
-int  find_index_above_y0_float(float*, int, float, int *);
 
 
 typedef struct {
-  int 	max_iter;      // number of kMC time steps
-  int 	max_rates;     // number of possible rates
-  float *rate;         // all possible rates
-  float *S;            // cummulative rates
-  int *event_list;   
+  int 	max_iter;        // number of kMC time steps
+  int 	max_rates;       // number of possible rates
+  float *rate;           // all possible rates
+  float *S;              // cummulative rates
+  int   *event_list;     // list with labels that refer to events
 
-  int   selected_event;
-  int   N_iter;
-  int   N_rates;
-  float sum_rates;     // sum over all rates *rate
-  float t;             // time
-  float dt;            // (adaptive) time step
+  int   selected_event;  // label of event after selection
+  int   N_iter;          // iteration counter
+  int   N_rates;         // number of non-zero rates
+  float sum_rates;       // sum over all rates *rate
+  float t;               // time
+  float dt;              // (adaptive) time step
 } VSSM;
 
 int VSSM_initialise(VSSM **Vssm, int max_iter, int max_rates)
@@ -91,7 +96,7 @@ int VSSM_sum_rates(VSSM *Vssm)
 
 int VSSM_get_time_step(VSSM *Vssm)
 {
-  float u=(float)rand()/(RAND_MAX);   // Uniform deviate on unit interval
+  float u=(float)rand()/(RAND_MAX); // Uniform deviate on unit interval
   Vssm->dt=-log(u)/Vssm->sum_rates; // Time step
 }
 
