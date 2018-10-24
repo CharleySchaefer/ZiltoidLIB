@@ -67,6 +67,137 @@ int  find_index_closest_to_Yvalue(double* y, int Ndata, double y0, int *ind )
 
   return(1);
 }  
+
+int  find_index_above_y0_float(float* y, int Ndata, float y0, int *ind )
+{
+  int mode;
+  int indL=0, indU=Ndata, indnew;
+  float yL, yU; // y values Lower and Upper around y0
+  float f; // used for linear interpolation
+
+  if(  y[Ndata-1]>y[0]  ) // Mode 1: increasing y
+  {
+    yU=y[Ndata-1]; yL=y[0]; mode=1;
+  }
+  else if (  y[Ndata-1]<y[0]  ) // Mode 2: decreasing y
+  {
+    yU=y[Ndata-1]; yL=y[0]; mode=2;
+  }
+  else
+    {printf("ERROR: y[0]=%e equals y[Ndata-1]=%e", y[0], y[Ndata-1]); return(0);}
+
+  if (y0<yL)
+  {(*ind)=0; return(0);}
+
+  if ((y0>yU))
+    {printf("ERROR: y0=%e out of boundary [%e; %e]\n", y0, yL, yU); return(0);}
+
+  //--------------------------------------  
+  // find two y values closest to y0
+  while( (indU-indL)>1 )
+  {
+    indnew=indL+(int)(0.5*(indU-indL)); 
+    if(  y[indnew] > y0 )
+    {
+      yU=y[indnew];
+      if(mode==1)
+      {
+        indU=indnew;
+      }
+      else if(mode==2)
+      {
+        indL=indnew;
+      }
+    }
+    else if(  y[indnew] < y0 )
+    {
+      yL=y[indnew];
+      if(mode==1)
+      {
+        indL=indnew;
+      }
+      else if(mode==2)
+      {
+        indU=indnew;
+      }
+    }
+    else if (y[indnew]==y0)
+    {(*ind)=indnew; return(1);}
+  }
+  // Two y values closest to y0 found.
+  //--------------------------------------  
+
+  //--------------------------------------
+  (*ind)=indU;
+
+  return(1);
+}  
+
+int  find_index_above_y0_float(double* y, int Ndata, double y0, int *ind )
+{
+  int mode;
+  int indL=0, indU=Ndata, indnew;
+  double yL, yU; // y values Lower and Upper around y0
+  double f; // used for linear interpolation
+
+  if(  y[Ndata-1]>y[0]  ) // Mode 1: increasing y
+  {
+    yU=y[Ndata-1]; yL=y[0]; mode=1;
+  }
+  else if (  y[Ndata-1]<y[0]  ) // Mode 2: decreasing y
+  {
+    yU=y[Ndata-1]; yL=y[0]; mode=2;
+  }
+  else
+    {printf("ERROR: y[0]=%e equals y[Ndata-1]=%e", y[0], y[Ndata-1]); return(0);}
+
+  if (y0<yL)
+  {(*ind)=0; return(0);}
+
+  if ((y0>yU))
+    {printf("ERROR: y0=%e out of boundary [%e; %e]\n", y0, yL, yU); return(0);}
+
+  //--------------------------------------  
+  // find two y values closest to y0
+  while( (indU-indL)>1 )
+  {
+    indnew=indL+(int)(0.5*(indU-indL)); 
+    if(  y[indnew] > y0 )
+    {
+      yU=y[indnew];
+      if(mode==1)
+      {
+        indU=indnew;
+      }
+      else if(mode==2)
+      {
+        indL=indnew;
+      }
+    }
+    else if(  y[indnew] < y0 )
+    {
+      yL=y[indnew];
+      if(mode==1)
+      {
+        indL=indnew;
+      }
+      else if(mode==2)
+      {
+        indU=indnew;
+      }
+    }
+    else if (y[indnew]==y0)
+    {(*ind)=indnew; return(1);}
+  }
+  // Two y values closest to y0 found.
+  //--------------------------------------  
+
+  //--------------------------------------
+  (*ind)=indU;
+
+  return(1);
+}  
+
 //------------------------------------------------------------------------
 // Find x value x0 where y takes y value y0
 //
@@ -144,3 +275,6 @@ int  find_X_at_Yvalue(double* x, double* y, int Ndata, double y0, double *x0)
 
   return(1);
 }  
+
+
+
