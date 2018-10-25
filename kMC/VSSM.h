@@ -105,7 +105,6 @@ int VSSM_select_event(VSSM *Vssm)
 {
   int selected_event;
   float r=Vssm->sum_rates*(float)rand()/RAND_MAX;
-printf("sum_rates=%e; %e\n", Vssm->sum_rates, r);
 
   find_index_above_y0_float(Vssm->S, Vssm->N_rates, r, &selected_event );
   Vssm->selected_event=selected_event;
