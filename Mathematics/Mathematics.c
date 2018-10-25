@@ -97,7 +97,40 @@ void gradarray2D(double **Array2D, char direction, int N, double ddi, int i, int
       break;
   }
 }
-	
+
+/*
+  Gauss-Jordan algorithm to sweep matrix to reduced row-echelon form
+*/
+void gauss_jordan(float **a, int m, int n )
+{
+  int ipv, i, j;
+  float inv_pivot, temp;
+
+  for(ipv = 0; ipv<m; ipv++) // Sweep over all rows
+  {
+    if(a[ipv][ipv]!=0)       // 
+    {
+      inv_pivot = 1.0 / a[ipv][ipv];
+
+      for(j = 0; j<n; j++)
+      {
+        a[ipv][j] *= inv_pivot;
+      }
+
+      for(i = 0; i<n; i++)
+      {
+        if(i != ipv)
+        {
+          temp = a[i][ipv];
+          for(j=0; j<n; j++)
+          {
+            a[i][j] -= temp*a[ipv][j];
+          }
+        }
+      }
+    }
+  }
+}
 
 /*-------------------- Global Function Description Block ----------------------
  *

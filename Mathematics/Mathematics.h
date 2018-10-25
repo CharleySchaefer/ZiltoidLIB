@@ -24,3 +24,5 @@ double variance1(double *, int); // Variance of array
 
 // 2D array analysis
 void gradarray2D(double **, char, int, double, int, int, double *);
+
+void gauss_jordan(float **, int, int );
