@@ -133,7 +133,7 @@ int  find_index_above_y0_float(float* y, int Ndata, float y0, int *ind )
   return(1);
 }  
 
-int  find_index_above_y0_float(double* y, int Ndata, double y0, int *ind )
+int  find_index_above_y0_double(double* y, int Ndata, double y0, int *ind )
 {
   int mode;
   int indL=0, indU=Ndata, indnew;
