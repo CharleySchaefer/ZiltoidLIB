@@ -14,7 +14,7 @@
 #include <time.h>
 #include <math.h>
 
-#define DOOLITTLEDETERMINANT_INCLUDED 1
+#define DOOLITTLEALGORITHM_H 1
 
 
 int   DL_LUdecomposition(float **, float **, int);

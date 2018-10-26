@@ -5,16 +5,24 @@
 #ifndef POLYNOMIAL_H
   #include "Polynomial/polynomial.h"
 #endif
-#ifndef DOOLITTLEDETERMINANT_INCLUDED
+#ifndef DOOLITTLEALGORITHM_H
   #include "DoolittleAlgorithm/DoolittleAlgorithm.h"
 #endif
+#ifndef FOURIER_H
+  #include "Fourier/Fourier.h"
+#endif
+#ifndef INTERPOLATION_H
+  #include "Interpolation/Interpolation.h"
+#endif
+
+// Scalar functions
+double absolute(double);
+int    isPowerOfTwo (unsigned int);
 
 double minimum(double, double);
 double maximum(double, double);
-double absolute(double);
 int    minimum_int(int, int);
 int    maximum_int(int, int);
-int    isPowerOfTwo (unsigned int);
 
 // 1D array analysis
 double min1(     double *, int); // Minimum of array

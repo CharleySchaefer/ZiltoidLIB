@@ -4,6 +4,8 @@
   #define M_PI 3.14159265358979323846264338327950288419716939937510582097494459230781
 #endif
 
+#define FOURIER_H  1
+
 // Discrete Fourier transform
 void  dft(    complex *, complex *, int);
 void  dft2( complex **, complex *, int,  int);
