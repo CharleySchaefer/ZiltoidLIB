@@ -22,7 +22,15 @@ Compare two scalars (minimum, maximum)
 * Linear interpolation
 
 * Fourier transform
-  
+
+### Random numbers
+
+ * Uniform integers, floats and doubles from interval 
+
+ * Sampling normal distribution
+
+ * Correlated noise
+
 ## DEPENDENCIES
   None. Part of the code is modified from code that was developed elsewhere: 
   * DoolittleAlgorithm: https://github.com/lawliet89/DoolittleDeterminant/

@@ -14,6 +14,9 @@
 #ifndef INTERPOLATION_H
   #include "Interpolation/Interpolation.h"
 #endif
+#ifndef RANDOMNUMBERS_H
+  #include "RandomNumbers/RandomNumbers.h"
+#endif
 
 // Scalar functions
 double absolute(double);

@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define RANDOMNUMBERS_H   1
+
 int    randint(int);
 int    randint2(int, int);
 double randf(double);
