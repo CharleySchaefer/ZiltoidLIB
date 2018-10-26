@@ -17,10 +17,11 @@
 #define DOOLITTLEDETERMINANT_INCLUDED 1
 
 
-float DL_determinant(float **matrix, int dimension);
-float DL_getAt(float **m, int i, int j);
-void  DL_putAt(float **m, int i, int j, float value);
+int   DL_LUdecomposition(float **, float **, int);
+int   DL_eigenvalues(float **, float **, float *, int);
+float DL_determinant(float **,float **, int);
+void  DL_swapRows(float **, int, int);
+
+// For demo purposes
 float **DL_randomMatrix(int dimension);
-float **DL_copyMatrix(float **matrix, int dimension);
-void DL_deleteMatrix(float **matrix, int dimension);
-void DL_swapRows(float **m, int a, int b);
+void DL_printMatrix(float **, int );

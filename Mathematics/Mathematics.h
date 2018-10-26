@@ -6,7 +6,7 @@
   #include "Polynomial/polynomial.h"
 #endif
 #ifndef DOOLITTLEDETERMINANT_INCLUDED
-  #include "DoolittleDeterminant/DoolittleDeterminant.h"
+  #include "DoolittleAlgorithm/DoolittleAlgorithm.h"
 #endif
 
 double minimum(double, double);
