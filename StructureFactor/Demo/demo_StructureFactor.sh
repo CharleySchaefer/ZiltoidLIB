@@ -6,7 +6,7 @@ executable="StructureFactorAndCorrelationFunction"
 
 # Compile
 echo "  Compiling $executable"
-gcc -o $executable $MainC $pth/Fourier/Fourier.c $pth/Mathematics/Mathematics.c $pth/ReadTextFiles/ReadTextFiles.c $pth/StringOperations/StringOperations.c $pth/StructureFactor/StructureFactor.c -lm
+gcc -o $executable $MainC $pth/Mathematics/Fourier/Fourier.c $pth/Mathematics/Mathematics.c $pth/ReadTextFiles/ReadTextFiles.c $pth/StringOperations/StringOperations.c $pth/StructureFactor/StructureFactor.c -lm
 
 # Run
 echo "  Running ./$executable --file config100.dat > config100_SFCF.out"
