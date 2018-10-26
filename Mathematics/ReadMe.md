@@ -1,7 +1,7 @@
 # ZiltoidLIB: Mathematics
 
 ## PURPOSE
-Small set of frequently encountered math functions.  
+Small set of frequently encountered math functions without external dependencies.
 
 ## FEATURES
 
