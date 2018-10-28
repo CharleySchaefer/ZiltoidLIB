@@ -36,4 +36,8 @@ double variance1(double *, int); // Variance of array
 // 2D array analysis
 void gradarray2D(double **, char, int, double, int, int, double *);
 
+
+// Linear algebra
+int gram_schmidt(double *, int, int, double *, double *, double *);
+int francisQRstep(double**, int, int, int, double, double*,double*, double*, double*, double *);
 void gauss_jordan(float **, int, int );
