@@ -25,9 +25,10 @@ Dependency-free C library of functions that are commonly encoutered in C program
 
 The main programs only require a **gcc compiler** without external dependencies.
 The library does include code developed elsewhere:
-* Doolittle Determinant: https://github.com/lawliet89/DoolittleDeterminant/
-* Polynomial:            http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c
-* Fourier:               RosettaCodeData https://github.com/acmeism/RosettaCodeData/tree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C
+  * Fourier:            https://github.com/acmeism/RosettaCodeDatatree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C
+  * LUdecomposition:    https://github.com/lawliet89/DoolittleDeterminant
+  * Polynomial:         http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c 
+  * QRdecomposition     https://github.com/jcchurch/C-Linear-Algebra
 
 In demos, **bash** scripts and **gnuplot** may be used. 
 
