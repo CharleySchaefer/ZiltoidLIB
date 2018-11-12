@@ -14,7 +14,7 @@ Dependency-free C library of functions that are commonly encoutered in C program
   * LUdecomposition (adapted from [lawliet89](https://github.com/lawliet89/DoolittleDeterminant))
   * Polynomial (adapted from [uni-koeln](http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c))
   * QR decomposition (adapted from [jcchurch](https://github.com/jcchurch/C-Linear-Algebra))
-  * Statistics: mean, min, max, abs
+  * Array statistics: min, max, abs, mean, variance, standard deviation 
   * (LAPACK dependency) Solve eigenvalue problem symmetric matrices
 * Numerical Methods
   * Interpolation
