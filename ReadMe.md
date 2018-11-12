@@ -40,9 +40,11 @@ Dependency-free C library of functions that are commonly encoutered in C program
 ## Installation
 
 The main programs only require a **gcc compiler** without external dependencies.
+Modules may be build separately using the a simple script, e.g., *Mathematics/makeZiltoidMathLib.sh*, to create a library, e.g., *Mathematics/build/libZiltoidMath.a*.
+To install all modules (except for *Structure Factor*, *Kinetic Monte Carlo*, and functions with external dependencies), run the script *makeZiltoidMathLib.sh* which builds a single library in *build/libZiltoidLIB.a*. 
 
 
-In demos, **bash** scripts and **gnuplot** may be used. 
+
 
 
 ## Examples
