@@ -1,4 +1,4 @@
-#include "NumericalMethods.h"
+#include "Bisection.h"
 
 
 int  find_index_closest_to_Yvalue(double* y, int Ndata, double y0, int *ind )
