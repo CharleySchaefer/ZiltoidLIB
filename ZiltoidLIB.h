@@ -16,8 +16,6 @@
 
   #include "ReadTextFiles/ReadTextFiles.h"
   #include "StringOperations/StringOperations.h"
-  #include "RandomNumbers/RandomNumbers.h"
-  #include "Interpolation/Interpolation.h"
   #include "StructureFactor/StructureFactor.h"
   #include "Mathematics/Mathematics.h"
 #endif
