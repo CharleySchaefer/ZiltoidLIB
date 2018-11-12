@@ -24,7 +24,7 @@ Dependency-free C library of functions that are commonly encoutered in C program
 * Read Text Files (uses String Operations module)
   * Determine number of header lines, number of columns, number of data lines.
   * Read rows and columns
-* Structure Factor (uses Fourier module)
+* Structure Factor (uses Mathematics module)
   * Fourier transform to Q space
   * Radial averaging in Q space
   * Radial correlation function
