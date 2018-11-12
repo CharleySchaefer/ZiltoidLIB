@@ -9,11 +9,25 @@ Dependency-free C library of functions that are commonly encoutered in C program
 
 ### Modules
 
-* Reading (data) files
-* Interpretation of strings
-* Generating random numbers
-* Mathematical methods
-  
+* Mathematics
+  * Fourier (adapted from [RosettaCode](https://github.com/acmeism/RosettaCodeDatatree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C))
+  * LUdecomposition (adapted from [lawliet89](https://github.com/lawliet89/DoolittleDeterminant))
+  * Polynomial (adapted from [uni-koeln](http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c))
+  * QR decomposition (adapted from [jcchurch](https://github.com/jcchurch/C-Linear-Algebra))
+* Numerical Methods
+  * Interpolation
+  * Bisection method
+* String Operations
+  * Read word from string, count words in a string.
+* Read Text Files
+  * Determine number of header lines, number of columns, number of data lines.
+  * Read rows and columns
+* Structure Factor
+  * Fourier transform to Q space
+  * Radial averaging in Q space
+  * Radial correlation function
+* kMC 
+  * Variable step size method
 
 ### Utils
 
@@ -24,11 +38,7 @@ Dependency-free C library of functions that are commonly encoutered in C program
 ## Installation
 
 The main programs only require a **gcc compiler** without external dependencies.
-The library does include code developed elsewhere:
-  * Fourier:            https://github.com/acmeism/RosettaCodeDatatree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C
-  * LUdecomposition:    https://github.com/lawliet89/DoolittleDeterminant
-  * Polynomial:         http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c 
-  * QRdecomposition     https://github.com/jcchurch/C-Linear-Algebra
+
 
 In demos, **bash** scripts and **gnuplot** may be used. 
 
