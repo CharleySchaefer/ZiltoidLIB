@@ -4,7 +4,6 @@
 # CONFIGURATION
 includeDoolittleAlgorithm=1
 includeFourier=1
-includeInterpolation=1
 includePolynomial=1
 includeRandomNumbers=1
 #===============================
@@ -30,14 +29,6 @@ if [ $includeFourier -eq 1 ]; then
     exit 1
   fi
 fi
-if [ $includeInterpolation -eq 1 ]; then
-  if gcc -fPIC -c ../Interpolation/Interpolation.c ; then
-    echo "  Interpolation compiled."
-   else
-    echo "Error: Failed to compile Interpolation."
-    exit 1
-  fi
-fi
 if [ $includePolynomial -eq 1 ]; then
   if gcc -fPIC -c ../Polynomial/Polynomial.c ; then
     echo "  Polynomial compiled."
@@ -54,14 +45,13 @@ if [ $includeRandomNumbers -eq 1 ]; then
     exit 1
   fi
 fi
-  if gcc -fPIC -c ../Mathematics.c ; then
-    echo "  Mathematics compiled."
-   else
-    echo "Error: Failed to compile Mathematics."
-    exit 1
-  fi
-
-if ar rcs libZiltoidMath.a Mathematics.o DoolittleAlgorithm.o Fourier.o Interpolation.o Polynomial.o RandomNumbers.o
+if gcc -fPIC -c ../Mathematics.c ; then
+  echo "  Mathematics compiled."
+else
+  echo "Error: Failed to compile Mathematics."
+  exit 1
+fi
+if ar rcs libZiltoidMath.a Mathematics.o DoolittleAlgorithm.o Fourier.o Polynomial.o RandomNumbers.o
 then
   echo "  libZiltoidMath.a created."
 else

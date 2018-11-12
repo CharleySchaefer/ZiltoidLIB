@@ -8,7 +8,6 @@
   #include "Polynomial/Polynomial.h"
   #include "DoolittleAlgorithm/DoolittleAlgorithm.h"
   #include "Fourier/Fourier.h"
-  #include "Interpolation/Interpolation.h"
   #include "RandomNumbers/RandomNumbers.h"
 
   // Scalar functions
