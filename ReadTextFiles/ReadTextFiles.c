@@ -196,7 +196,66 @@ int countFiles(char *fname, int Nmax, int *Nfiles)
 
 
 
-int readColumn(char *fname, int Ndata, int Nheader, int Ncol, double *col)
+int dreadColumn(char *fname, int Ndata, int Nheader, int Ncol, double *col)
+{
+  int  i,j,countCol;
+  char c;
+  char line[MAX_LINE_WIDTH];
+  FILE *ifp;
+
+  if(Ncol<0)
+  {
+    printf("WARNING: algorithm starts reading data at Ncol=1!\n");
+    return(0);
+  }
+  if((ifp = fopen(fname, "r")) == NULL){printf("ERROR: Failed to open \'%s\'!\n", fname); return(0);}
+
+  // Go to first line in file that contains data
+
+  for(i=0; i<Nheader; i++)
+    fgets(line, sizeof(line), ifp);
+
+
+  // Get data from last column
+  for(i=Nheader-1; i<Ndata+Nheader-1; i++) // sweep over all lines
+  {
+    fgets(line, sizeof(line), ifp);
+
+    j=0;countCol=0;// initialise position in line
+    // Skip white space before first column
+
+    // Find position of first column in the line
+    if((c=line[j])==' ') // Read line until space is found (column delimiter)
+    {
+      while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+        j++;
+
+      // Read line until end of space
+      while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+        j++;
+    }
+
+    // start reading columns
+    while( countCol<Ncol & (c=line[j]) != '\0' & c != '\n' )
+    {
+      // Read line until space is found
+      while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+        j++;
+
+      // Read line until end of space
+      while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+        j++;
+
+      // If character after space is not the end of the line a column is found
+      if( (c=line[j]) != ' ' & c != '\0' & c != '\n')
+        countCol++;
+    }
+    col[i+1-Nheader] = atof(line+j); // Read column entry 
+  }
+  fclose(ifp);
+  return(1);
+}
+int freadColumn(char *fname, int Ndata, int Nheader, int Ncol, float *col)
 {
   int  i,j,countCol;
   char c;
@@ -256,7 +315,7 @@ int readColumn(char *fname, int Ndata, int Nheader, int Ncol, double *col)
   return(1);
 }
   
-int readColumn_int(
+int ireadColumn(
   char  *fname,    // File name         
   int   Ngrid,     // Number of datapoints     
   int   dataLine,   // Line number with first data points
