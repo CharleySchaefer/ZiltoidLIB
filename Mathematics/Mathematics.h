@@ -5,7 +5,7 @@
   #include <stdlib.h>
   #include <stdio.h>
 
-  #include "Polynomial/polynomial.h"
+  #include "Polynomial/Polynomial.h"
   #include "DoolittleAlgorithm/DoolittleAlgorithm.h"
   #include "Fourier/Fourier.h"
   #include "Interpolation/Interpolation.h"

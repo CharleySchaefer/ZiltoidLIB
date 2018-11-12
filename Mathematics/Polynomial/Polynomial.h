@@ -5,12 +5,11 @@
 //
 
 #ifndef POLYNOMIAL_H
-#define POLYNOMIAL_H	1
+  #define POLYNOMIAL_H  1
 
-  #ifndef PI
-    #define PI 3.1415926535897932
-  #endif
 
+  #include <stdio.h>
+  #include <math.h>
 
   int quintic(double [], double [], double [], int*, double);
   int quartic(double[], double[], double[], int* );

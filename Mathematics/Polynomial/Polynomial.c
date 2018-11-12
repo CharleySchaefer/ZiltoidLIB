@@ -4,18 +4,9 @@
 // The following prototype declarations need to be added to your code (ie. header file).
 //
 
-#define POLYNOMIAL_H	1
-
-#ifndef PI
-	#define PI 3.1415926535897932
-#endif
+#include "Polynomial.h"
 
 
-int quintic(double [], double [], double [], int*, double);
-int quartic(double[], double[], double[], int* );
-int cubic(double[], double[], int*);
-int signR(double);
-double CBRT(double);
 
 /*-------------------- Global Function Description Block ----------------------
  *
@@ -246,7 +237,7 @@ int cubic(double A[4], double X[3], int* L)
 			tmp = (-1.0 > Q/sqrt(-P) ? -1.0 : Q/sqrt(-P));	// Maximum
 			PHI = acos(   (1.0<tmp? 1.0 : tmp  )   );		// Minimum
 			P=2.0*pow((-P),(5.e-1*THIRD));
-			for (i=0;i<3;i++)	U[i] = P*cos((PHI+2*((double)i)*PI)*THIRD)-W;
+			for (i=0;i<3;i++)	U[i] = P*cos((PHI+2*((double)i)*M_PI)*THIRD)-W;
 			
 			tmp = (U[1]<U[2] ? U[1] : U[2]); // Minimum
 			X[0] = (U[0]<tmp ? U[0] : tmp); // Minimum 

@@ -13,5 +13,6 @@
   int    getRandConfig(int *, int, int *, int);
   void   getNoiseField2Ddouble(int, double, double **);
   void   getNoiseField2Dfloat(int, double, float **);
+#endif
 
 	

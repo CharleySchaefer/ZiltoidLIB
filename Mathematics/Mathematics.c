@@ -547,7 +547,7 @@ int cubic(double A[4], double X[3], int* L)
 			tmp = (-1.0 > Q/sqrt(-P) ? -1.0 : Q/sqrt(-P));	// Maximum
 			PHI = acos(   (1.0<tmp? 1.0 : tmp  )   );		// Minimum
 			P=2.0*pow((-P),(5.e-1*THIRD));
-			for (i=0;i<3;i++)	U[i] = P*cos((PHI+2*((double)i)*PI)*THIRD)-W;
+			for (i=0;i<3;i++)	U[i] = P*cos((PHI+2*((double)i)*M_PI)*THIRD)-W;
 			
 			tmp = (U[1]<U[2] ? U[1] : U[2]); // Minimum
 			X[0] = (U[0]<tmp ? U[0] : tmp); // Minimum 
