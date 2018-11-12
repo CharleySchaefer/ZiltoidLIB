@@ -38,8 +38,10 @@ do
 done 
 
 ar rcs libZiltoidLIB.a *.o
-echo "  build/libZiltoidLIB.a created"
 
 popd  >/dev/null # BACK TO ZILTOID
+cp build/libZiltoidLIB.a .
+echo "  libZiltoidLIB.a created"
+
 echo "FINISHED BUILDING ZILTOIDLIB"
 echo " "
