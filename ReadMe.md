@@ -21,10 +21,10 @@ Dependency-free C library of functions that are commonly encoutered in C program
   * Bisection method
 * String Operations
   * Read word from string, count words in a string.
-* Read Text Files
+* Read Text Files (uses String Operations module)
   * Determine number of header lines, number of columns, number of data lines.
   * Read rows and columns
-* Structure Factor
+* Structure Factor (uses Fourier module)
   * Fourier transform to Q space
   * Radial averaging in Q space
   * Radial correlation function
