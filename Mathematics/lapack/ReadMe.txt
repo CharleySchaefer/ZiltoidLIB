@@ -1,3 +1,3 @@
 Functions in this directory depend on LAPACK
 
-Install LAPACK: apt-get install liblapack-dev
+Install LAPACK: (sudo) apt-get install libblas-dev liblapack-dev

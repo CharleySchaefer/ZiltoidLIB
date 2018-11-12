@@ -26,6 +26,34 @@ Compare two scalars (minimum, maximum)
  * Sampling normal distribution
  * Correlated noise
 
+## INSTALLATION
+
+### Option 1: Dependency-free installation
+
+Build library: Run the "makeZiltoidMathLib.sh" script
+
+``` ./makeZiltoidMathLib.sh ```
+
+ to compile all modules and create a library file in "build/libZiltoidMath.a".
+
+Use library (see Demo): include the library in source code "#include "dir/Mathematics.h" 
+
+``` gcc sourcecode.c -Ldir/build -lZiltoidMath -lm ``` 
+
+with "dir" the directory.
+
+
+### Option 2: Using LAPACK
+
+To make use of functions in the lapack directory, install lapack:
+
+``` (sudo) apt-get install libblas-dev liblapack-dev ```
+
+Build the Mathematics library using the "makeZiltoidMathLib.sh" script as in Option 1.
+Use the library as in Option 1, but when compiling the source code do 
+
+``` gcc sourcecode.c -Ldir/build -lZiltoidMath -llapack -lm ``` 
+
 ## DEPENDENCIES
   No external dependencies, however, part of the code is modified from code that was developed elsewhere: 
   * Fourier:            https://github.com/acmeism/RosettaCodeDatatree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C
