@@ -28,7 +28,7 @@ Dependency-free C library of functions that are commonly encoutered in C program
   * Fourier transform to Q space
   * Radial averaging in Q space
   * Radial correlation function
-* kMC 
+* Kinetic Monte Carlo 
   * Variable step size method
 
 ### Utils
