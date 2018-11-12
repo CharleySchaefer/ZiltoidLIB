@@ -52,9 +52,6 @@
             Cholesky factor
 */
 #include <stdio.h>
-int is_matrix_symmetric(double **, int, int);
-int matrix_vector_product(double **, int, int, double *, double *);
-int vector_inner_product(double *, double *, int,  double *);
 int eigenproblem_real_symmetric_matrix(char,  double **, int, double *, double *, double *, double *, double *);
 
 
