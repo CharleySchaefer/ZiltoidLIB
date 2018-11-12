@@ -6,7 +6,6 @@
   #include <stdio.h>
 
   #include "Polynomial/Polynomial.h"
-  #include "DoolittleAlgorithm/DoolittleAlgorithm.h"
   #include "Fourier/Fourier.h"
   #include "RandomNumbers/RandomNumbers.h"
   #include "LinearAlgebra/LinearAlgebra.h"

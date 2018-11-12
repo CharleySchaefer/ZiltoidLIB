@@ -2,6 +2,7 @@
   #define LINEAR_ALGEBRA_H 1
   #include <stdio.h>
   #include <math.h>
+  #include "DoolittleAlgorithm/DoolittleAlgorithm.h"
   int is_matrix_symmetric(double **, int, int);
   int matrix_vector_product(double **, int, int, double *, double *);
   int vector_inner_product(double *, double *, int,  double *);

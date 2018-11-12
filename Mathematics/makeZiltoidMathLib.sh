@@ -2,7 +2,6 @@
 
 #===============================
 # CONFIGURATION
-includeDoolittleAlgorithm=1
 includeFourier=1
 includePolynomial=1
 includeRandomNumbers=1
@@ -14,14 +13,7 @@ mkdir -p build
 pushd build >/dev/null
 
 
-if [ $includeDoolittleAlgorithm -eq 1 ]; then
-  if gcc -fPIC -c ../DoolittleAlgorithm/DoolittleAlgorithm.c ; then
-    echo "  DoolittleAlgorithm compiled."
-   else
-    echo "Error: Failed to compile DoolittleAlgorithm."
-    exit 1
-  fi
-fi; 
+
 if [ $includeFourier -eq 1 ]; then
   if gcc -fPIC -c ../Fourier/Fourier.c ; then
     echo "  Fourier compiled."
@@ -51,6 +43,14 @@ if [ $includeLinearAlgebra -eq 1 ]; then
     echo "  LinearAlgebra compiled."
    else
     echo "Error: Failed to compile LinearAlgebra."
+    exit 1
+  fi
+fi
+if [ $includeLinearAlgebra -eq 1 ]; then
+  if gcc -fPIC -c ../LinearAlgebra/DoolittleAlgorithm/DoolittleAlgorithm.c ; then
+    echo "  DoolittleAlgorithm compiled."
+   else
+    echo "Error: Failed to compile DoolittleAlgorithm."
     exit 1
   fi
 fi
