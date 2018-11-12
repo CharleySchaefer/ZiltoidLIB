@@ -9,6 +9,7 @@
   #include "DoolittleAlgorithm/DoolittleAlgorithm.h"
   #include "Fourier/Fourier.h"
   #include "RandomNumbers/RandomNumbers.h"
+  #include "LinearAlgebra/LinearAlgebra.h"
 
   // Scalar functions
   double absolute(double);
@@ -29,9 +30,5 @@
   void gradarray2D(double **, char, int, double, int, int, double *);
 
 
-  // Linear algebra
-  int gram_schmidt(double *, int, int, double *, double *, double *);
-  int francisQRstep(double**, int, int, int, double, double*,double*, double*, double*, double *);
-  void gauss_jordan(float **, int, int );
 
 #endif

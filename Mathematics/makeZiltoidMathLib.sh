@@ -6,6 +6,7 @@ includeDoolittleAlgorithm=1
 includeFourier=1
 includePolynomial=1
 includeRandomNumbers=1
+includeLinearAlgebra=1
 #===============================
 
 echo "COMPILING ZiltoidMath"
@@ -45,13 +46,21 @@ if [ $includeRandomNumbers -eq 1 ]; then
     exit 1
   fi
 fi
+if [ $includeLinearAlgebra -eq 1 ]; then
+  if gcc -fPIC -c ../LinearAlgebra/LinearAlgebra.c ; then
+    echo "  LinearAlgebra compiled."
+   else
+    echo "Error: Failed to compile LinearAlgebra."
+    exit 1
+  fi
+fi
 if gcc -fPIC -c ../Mathematics.c ; then
   echo "  Mathematics compiled."
 else
   echo "Error: Failed to compile Mathematics."
   exit 1
 fi
-if ar rcs libZiltoidMath.a Mathematics.o DoolittleAlgorithm.o Fourier.o Polynomial.o RandomNumbers.o
+if ar rcs libZiltoidMath.a LinearAlgebra.o Mathematics.o DoolittleAlgorithm.o Fourier.o Polynomial.o RandomNumbers.o
 then
   echo "  libZiltoidMath.a created."
 else
