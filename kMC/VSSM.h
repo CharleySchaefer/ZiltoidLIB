@@ -46,8 +46,9 @@
       events have the same rate may speed up the cpu 
       time from ~ log N_rates to ~ log Ngroup. 
 */
-
-#include "../NumericalMethods/NumericalMethods.h"
+#ifndef VSSM_H
+  #define VSSM_H 1
+  #include "../ZiltoidLIB.h"
 
 typedef struct {
   int 	max_iter;        // number of kMC time steps
@@ -75,6 +76,7 @@ int VSSM_initialise(VSSM **Vssm, int max_iter, int max_rates)
   (*Vssm)->event_list=(int  *)malloc(max_rates*sizeof(int  ));
   (*Vssm)->rate      =(float*)malloc(max_rates*sizeof(float));
   (*Vssm)->S         =(float*)malloc(max_rates*sizeof(float));
+  return(1);
 }
 
 int VSSM_sum_rates(VSSM *Vssm)
@@ -93,20 +95,22 @@ int VSSM_sum_rates(VSSM *Vssm)
     }
     Vssm->sum_rates=Vssm->S[Vssm->N_rates-1];
   }
+  return(1);
 }
 
 int VSSM_get_time_step(VSSM *Vssm)
 {
   float u=(float)rand()/(RAND_MAX); // Uniform deviate on unit interval
   Vssm->dt=-log(u)/Vssm->sum_rates; // Time step
+  return(1);
 }
 
 int VSSM_select_event(VSSM *Vssm)
 {
   int selected_event;
   float r=Vssm->sum_rates*(float)rand()/RAND_MAX;
-
   find_index_above_y0_float(Vssm->S, Vssm->N_rates, r, &selected_event );
   Vssm->selected_event=selected_event;
+  return(1);
 }
-
+#endif
