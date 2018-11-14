@@ -22,6 +22,38 @@ double absolute(double x)
   return (x > 0.0 ? x : -x);
 }
 
+int dec2bin(int dec, int *bin, int Nbin) 
+{
+  int remainder; 
+  int binary = 0, i = 1, j=0;
+  
+  while(dec != 0) 
+  {
+    remainder = dec%2;
+    dec = dec/2;
+    binary= binary + (remainder*i);
+    i = i*10;
+
+    bin[Nbin-1-j]=remainder; j++;
+  }
+  while(j<Nbin)
+  {
+    bin[Nbin-1-j]=0; j++;
+  }
+  return 1;
+}
+
+int bin2dec(int *n, int *bin, int Nbin)
+{
+  int i,j=1;
+  *n=0;
+  for(i=0; i<Nbin; i++)
+  {
+    *n+=bin[Nbin-1-i]*j;
+    j*=2;
+  }
+  return(1);
+}
 
 
 
