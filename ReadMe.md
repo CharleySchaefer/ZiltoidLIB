@@ -2,7 +2,7 @@
 
 ## ABOUT
 
-Dependency-free C library of functions that are commonly encoutered in C programs for physical modelling and simulation.
+Dependence-free C library of functions that are commonly encoutered in C programs for physical modelling and simulation.
 
 
 ## FEATURES
@@ -15,7 +15,7 @@ Dependency-free C library of functions that are commonly encoutered in C program
   * Polynomial (adapted from [uni-koeln](http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c))
   * QR decomposition (adapted from [jcchurch](https://github.com/jcchurch/C-Linear-Algebra))
   * Array statistics: min, max, abs, mean, variance, standard deviation 
-  * (LAPACK dependency) Solve eigenvalue problem symmetric matrices
+  * (LAPACK dependence) Solve eigenvalue problem symmetric matrices
 * Numerical Methods
   * Interpolation
   * Bisection method
@@ -39,9 +39,9 @@ Dependency-free C library of functions that are commonly encoutered in C program
 
 ## Installation
 
-The main programs only require a **gcc compiler** without external dependencies.
+The main programs only require a **gcc compiler** without external dependences.
 Modules may be build separately using a simple script, see e.g. *Mathematics/makeZiltoidMathLib.sh*, to create a library, e.g., *Mathematics/build/libZiltoidMath.a*.
-To install all modules (except for *Structure Factor*, *Kinetic Monte Carlo*, and functions with external dependencies), run the script *makeZiltoidMathLib.sh* which builds a single library in *build/libZiltoidLIB.a*. 
+To install all modules (except for *Structure Factor*, *Kinetic Monte Carlo*, and functions with external dependences), run the script *makeZiltoidMathLib.sh* which builds a single library in *build/libZiltoidLIB.a*. 
 
 
 
