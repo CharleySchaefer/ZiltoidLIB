@@ -5,29 +5,73 @@ int analyse_data_file_properties(char *fname, int *Nlines, int *Ncol, int *Nhead
   if(verbose)
     printf("#Analyse data file \'%s\'\n", fname);
 
-  if(!countLines(fname, Nlines))
-  {printf("ERROR: countLines() failed!\n");   return(0);}
-
-  if(!getNheader(fname, Nheader))
-  {printf("ERROR: getNheader() failed!\n");   return(0);}
-
-  if(!countColumns(fname, (*Nheader), Ncol))
-  {printf("ERROR: countColumns() failed!\n"); return(0);}
-
   if(verbose)
 {
-    printf("#Ndata estimated as Ndata=Nlines-Nheader; TODO: Identify white lines at end file.\n");
+    printf("#Warning: Function expects same number of data points in each column.\n");
 }
-  *Ndata=(*Nlines)-(*Nheader); // TODO: remove white lines
+
+
+  if(!countLines(fname, Nlines))
+  {printf("Error: countLines() failed!\n");   return(0);}
+
+  if(!getNheader(fname, Nheader))
+  {printf("Error: getNheader() failed!\n");   return(0);}
+
+//  if(!countColumns(fname, (*Nheader), Ncol))
+//  {printf("Error: countColumns() failed!\n"); return(0);}
+
+  if(!countDataLines(fname, *Nlines, *Nheader, Ncol, Ndata))
+  {printf("Error: countColumns() failed!\n"); return(0);}
+
 
 
   if(verbose)
   {
-    printf("#Number of lines:        %d\n", *Nlines);
-    printf("#Number of columns:      %d\n", *Ncol);
-    printf("#Number of header lines: %d\n", *Nheader);
-    printf("#Number of data lines:   %d\n", *Ndata);
+    printf("#Number of lines:                        %d\n", *Nlines);
+    printf("#Number of columns:                      %d\n", *Ncol);
+    printf("#Number of header lines:                 %d\n", *Nheader);
+    printf("#Number of data lines:                   %d\n", *Ndata);
+    printf("#Number of white lines at end of file:   %d\n", *Nlines-*Nheader-*Ndata);
   }
+  return(1);
+}
+/*
+  countDataLines expects the same number of datapoints in each column
+
+  Nlines and Nheader expected as input:
+  Run countLines() and getNheader() first
+*/
+int countDataLines(char *fname, int Nlines, int Nheader, int *Ncol, int *Ndata)
+{
+  int i, Nwords;
+  char line[MAX_LINE_WIDTH], word[MAX_STR_L];
+  FILE *ifp;
+
+
+  if( (ifp = fopen(fname, "r")) == NULL)
+    {printf("\nError: Failed to open file \'%s\'!\n\n", fname); return(0);}
+
+  for(i=0; i<Nheader; i++)
+    fgets( line, sizeof line, ifp);
+
+  // First data line
+  fgets( line, sizeof line, ifp);
+  if(!countWords(line, word, &(*Ncol) ))
+    {printf("Error: countWords() failed.\n"); return(0);}
+
+  // Sweep following lines until number of columns does not match
+  for((*Ndata)=1; (*Ndata)<Nlines-Nheader; (*Ndata)++)
+  {
+    fgets( line, sizeof line, ifp);
+    if(!countWords(line, word, &Nwords ))
+      {printf("Error: countWords() failed.\n"); return(0);}
+
+    if(Nwords!=(*Ncol))
+    {
+      break;
+    }
+  }
+  fclose(ifp);
   return(1);
 }
 
@@ -39,7 +83,7 @@ int getNheader(const char *fname, int *Nheader)
   char c;
 
   if( (ifp = fopen(fname, "r")) == NULL)
-    {printf("\nERROR: Failed to open file \'%s\'!\n\n", fname); return(0);}
+    {printf("\nError: Failed to open file \'%s\'!\n\n", fname); return(0);}
 
   *Nheader=-1; atheader=1;
   while( atheader & fgets( line, sizeof line, ifp) != NULL )
@@ -63,7 +107,7 @@ int countColumns(char *fname, int atline, int *Ncols)
 
   // Open file
   if( (ifp = fopen(fname, "r")) == NULL)
-    {printf("\nERROR: Failed to open file \"%s\" in countLines()!\n\n", fname); return(0);}
+    {printf("\nError: Failed to open file \"%s\" in countLines()!\n\n", fname); return(0);}
 
   // Get line (counting starts at 0) from which number of columns is determined
   for(i=0; i<=atline; i++)
@@ -71,7 +115,7 @@ int countColumns(char *fname, int atline, int *Ncols)
 
   // Read words in the line till end of line has been reached
   if( !countWords(line, word, &(*Ncols)) )
-    {printf("\nERROR: Failed to execute countWords()!\n\n", fname); return(0);}
+    {printf("\nError: Failed to execute countWords()!\n\n", fname); return(0);}
 
   // Close file
   fclose(ifp);
@@ -85,7 +129,7 @@ int countLines(char *fname, int *Nlines)
   char line[MAX_LINE_WIDTH];
 
   if( (ifp = fopen(fname, "r")) == NULL)
-    {printf("\nERROR: Failed to open file \"%s\" in countLines()!\n\n", fname);return(0);}
+    {printf("\nError: Failed to open file \"%s\" in countLines()!\n\n", fname);return(0);}
 
   (*Nlines) = 0;
   while( fgets( line, sizeof line, ifp) != NULL)
@@ -103,7 +147,7 @@ int transpose_plain_data_file(char *fname, double **buffer)
   countColumns(fname, 0, &Ncol);
 
   if(!readMatrix(fname, buffer, Nlines, Ncol))
-    {printf("ERROR: readMatrix() failed!\n"); return(0);}
+    {printf("Error: readMatrix() failed!\n"); return(0);}
 
   ifp=fopen(fname, "w");
   for(i=0; i<Ncol; i++)
@@ -143,7 +187,7 @@ int checkFileName(char *fname)
       fileNameTmp[0]='\0';
       strcat(fileNameTmp, fname);
       if(!fileNumber(fileNameTmp, N, Nmax, newfileName))
-        {printf("ERROR: fileNumber() failed!\n"); return(0);}
+        {printf("Error: fileNumber() failed!\n"); return(0);}
 
       if( (ifp = fopen( newfileName , "r")) == NULL ) // File found!
         exists=0;
@@ -178,7 +222,7 @@ int countFiles(char *fname, int Nmax, int *Nfiles)
   {
     if(!fileNumber(fname, i, Nmax, ctmp))
     {
-      printf("ERROR: fileNumber function not executed!\n");
+      printf("Error: fileNumber function not executed!\n");
       return(0);
     }
     if( (ifp=fopen(ctmp, "r")) != NULL) // file exists
@@ -208,7 +252,7 @@ int dreadColumn(char *fname, int Ndata, int Nheader, int Ncol, double *col)
     printf("WARNING: algorithm starts reading data at Ncol=1!\n");
     return(0);
   }
-  if((ifp = fopen(fname, "r")) == NULL){printf("ERROR: Failed to open \'%s\'!\n", fname); return(0);}
+  if((ifp = fopen(fname, "r")) == NULL){printf("Error: Failed to open \'%s\'!\n", fname); return(0);}
 
   // Go to first line in file that contains data
 
@@ -267,7 +311,7 @@ int freadColumn(char *fname, int Ndata, int Nheader, int Ncol, float *col)
     printf("WARNING: algorithm starts reading data at Ncol=1!\n");
     return(0);
   }
-  if((ifp = fopen(fname, "r")) == NULL){printf("ERROR: Failed to open \'%s\'!\n", fname); return(0);}
+  if((ifp = fopen(fname, "r")) == NULL){printf("Error: Failed to open \'%s\'!\n", fname); return(0);}
 
   // Go to first line in file that contains data
 
@@ -334,7 +378,7 @@ int ireadColumn(
       return(0);
     }
 
-    if((ifp = fopen(fname, "r")) == NULL){printf("ERROR: Failed to open \'%s\' in readColumn!\n", fname); return(0);}
+    if((ifp = fopen(fname, "r")) == NULL){printf("Error: Failed to open \'%s\' in readColumn!\n", fname); return(0);}
 
   /* Go to first line with data */  
     for(i=0; i<dataLine; i++)
@@ -383,7 +427,7 @@ int readRow(char *fname, int Nrow, double *row)
   FILE   *ifp;
   
   if( (ifp = fopen(fname, "r")) == NULL){
-    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", fname);
+    printf("\nError: Failed to open file \"%s\" in countLines!\n\n", fname);
     return(0);
     }
   // get to line at Nrow (Nrow=0) is the first line
@@ -410,7 +454,7 @@ int readRow_short(char *fname, int Nrow, short *row, int *Nword)
   FILE   *ifp;
   
   if( (ifp = fopen(fname, "r")) == NULL){
-    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", fname);
+    printf("\nError: Failed to open file \"%s\" in countLines!\n\n", fname);
     return(0);
     }
   // get to line at Nrow (Nrow=0) is the first line
@@ -437,7 +481,7 @@ int readRow_int(char *fname, int Nrow, int *row, int *Nword)
   FILE   *ifp;
   
   if( (ifp = fopen(fname, "r")) == NULL){
-    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", fname);
+    printf("\nError: Failed to open file \"%s\" in countLines!\n\n", fname);
     return(0);
     }
   // get to line at Nrow (Nrow=0) is the first line
@@ -463,7 +507,7 @@ int readLine(char *fname, char *line, int Nline)
   int i;
   FILE *ifp;
   if(NULL==(ifp = fopen(fname, "r")))
-    {printf("ERROR: Failed to read file \'%s\'!\n", fname); return(0);}
+    {printf("Error: Failed to read file \'%s\'!\n", fname); return(0);}
   for(i=0; i<Nline; i++)
     fgets(line, MAX_LINE_WIDTH*sizeof(char), ifp);
   fclose(ifp);
@@ -478,7 +522,7 @@ int readMatrix(char *fname, double **mat, int Nlines, int Ncols)
   FILE   *ifp;
   
   if( (ifp = fopen(fname, "r")) == NULL){
-    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", fname);
+    printf("\nError: Failed to open file \"%s\" in countLines!\n\n", fname);
     return(0);
     }
   i=0;
@@ -508,7 +552,7 @@ int readMatrix_short(char *fname, short **mat, int Nlines, int Ncols)
   FILE   *ifp;
   
   if( (ifp = fopen(fname, "r")) == NULL){
-    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", fname);
+    printf("\nError: Failed to open file \"%s\" in countLines!\n\n", fname);
     return(0);
     }
   i=0;
@@ -534,7 +578,7 @@ int readMatrix_int(char *fname, int **mat, int Nlines, int Ncols)
   FILE   *ifp;
   
   if( (ifp = fopen(fname, "r")) == NULL){
-    printf("\nERROR: Failed to open file \"%s\" in countLines!\n\n", fname);
+    printf("\nError: Failed to open file \"%s\" in countLines!\n\n", fname);
     return(0);
     }
   i=0;
