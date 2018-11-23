@@ -249,7 +249,7 @@ int dreadColumn(char *fname, int Ndata, int Nheader, int Ncol, double *col)
 
   if(Ncol<0)
   {
-    printf("WARNING: algorithm starts reading data at Ncol=1!\n");
+    printf("WARNING: algorithm starts reading data at Ncol=0!\n");
     return(0);
   }
   if((ifp = fopen(fname, "r")) == NULL){printf("Error: Failed to open \'%s\'!\n", fname); return(0);}
@@ -308,7 +308,7 @@ int freadColumn(char *fname, int Ndata, int Nheader, int Ncol, float *col)
 
   if(Ncol<0)
   {
-    printf("WARNING: algorithm starts reading data at Ncol=1!\n");
+    printf("WARNING: algorithm starts reading data at Ncol=0!\n");
     return(0);
   }
   if((ifp = fopen(fname, "r")) == NULL){printf("Error: Failed to open \'%s\'!\n", fname); return(0);}
@@ -360,10 +360,10 @@ int freadColumn(char *fname, int Ndata, int Nheader, int Ncol, float *col)
 }
   
 int ireadColumn(
-  char  *fname,    // File name         
-  int   Ngrid,     // Number of datapoints     
-  int   dataLine,   // Line number with first data points
-  int    Ncol,    // Column number      
+  char  *fname,     // File name         
+  int   Ndata,      // Number of datapoints     
+  int   Nheader,   // Line number with first data points
+  int    Ncol,      // Column number: Starts counting from zero    
   int  *col    // Output array in with column values   
   ) // End of function arguments
   {
@@ -374,18 +374,18 @@ int ireadColumn(
 
     if(Ncol<0)
     {
-      printf("WARNING: algorithm starts reading data at Ncol=1!\n");
+      printf("WARNING: algorithm starts reading data at Ncol=0!\n");
       return(0);
     }
 
     if((ifp = fopen(fname, "r")) == NULL){printf("Error: Failed to open \'%s\' in readColumn!\n", fname); return(0);}
 
   /* Go to first line with data */  
-    for(i=0; i<dataLine; i++)
+    for(i=0; i<Nheader; i++)
       fgets(line, sizeof(line), ifp);
 
   /* Get data from last column */
-    for(i=dataLine-1; i<Ngrid+dataLine-1; i++){
+    for(i=Nheader-1; i<Ndata+Nheader-1; i++){
       fgets(line, sizeof(line), ifp);
       j=0;countCol=0;
 
@@ -414,7 +414,7 @@ int ireadColumn(
         if( (c=line[j]) != ' ' & c != '\0' & c != '\n')
           countCol++;
         }
-      col[i+1-dataLine] = atoi(line+j);  
+      col[i+1-Nheader] = atoi(line+j);  
       }
     fclose(ifp);
     return(1);
