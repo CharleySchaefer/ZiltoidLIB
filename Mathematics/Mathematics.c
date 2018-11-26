@@ -65,14 +65,14 @@ int isPowerOfTwo (unsigned int x)
 }
 
 
-double min1(double *arr, int N) // Minimum of array
+double d1min(double *arr, int N) // Minimum of array
 {
   int i; double min=arr[0];
   for (i=1; i<N; i++)
     min=(arr[i]<min ? arr[i] : min);
   return min;
 }
-double max1(double *arr, int N) // Maximum of array
+double d1max(double *arr, int N) // Maximum of array
 {
   int i; double max=arr[0];
   for (i=1; i<N; i++)
@@ -80,7 +80,7 @@ double max1(double *arr, int N) // Maximum of array
   return max;
 }
 
-double mean1(double *arr, int N) // Mean of array
+double d1mean(double *arr, int N) // Mean of array
 {
   int i; double mean=0;
   for (i=0; i<N; i++)
@@ -89,7 +89,7 @@ double mean1(double *arr, int N) // Mean of array
   return mean;
 }
 
-double variance1(double *arr, int N) // variance of array
+double d1variance(double *arr, int N) // variance of array
 {
   int i; 
   double mean=mean1(arr, N);
@@ -99,6 +99,58 @@ double variance1(double *arr, int N) // variance of array
   variance/=N;
   return variance;
 }
+
+float f1min(float *arr, int N) // Minimum of array
+{
+  int i; float min=arr[0];
+  for (i=1; i<N; i++)
+    min=(arr[i]<min ? arr[i] : min);
+  return min;
+}
+float f1max(float *arr, int N) // Maximum of array
+{
+  int i; float max=arr[0];
+  for (i=1; i<N; i++)
+    max=(arr[i]>max ? arr[i] : max);
+  return max;
+}
+
+float f1mean(float *arr, int N) // Mean of array
+{
+  int i; float mean=0;
+  for (i=0; i<N; i++)
+    mean += arr[i];
+  mean/=N;
+  return mean;
+}
+
+float f1variance(float *arr, int N) // variance of array
+{
+  int i; 
+  float mean=mean1(arr, N);
+  float variance=0;
+  for (i=0; i<N; i++)
+    variance += pow(arr[i]-mean,2);
+  variance/=N;
+  return variance;
+}
+
+
+int i1min(int *arr, int N) // Minimum of array
+{
+  int i; int min=arr[0];
+  for (i=1; i<N; i++)
+    min=(arr[i]<min ? arr[i] : min);
+  return min;
+}
+int i1max(int *arr, int N) // Maximum of array
+{
+  int i; int max=arr[0];
+  for (i=1; i<N; i++)
+    max=(arr[i]>max ? arr[i] : max);
+  return max;
+}
+
 
 
 //-----------------------------------------------------------------------------------------------
