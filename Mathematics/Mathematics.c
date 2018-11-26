@@ -92,7 +92,7 @@ double d1mean(double *arr, int N) // Mean of array
 double d1variance(double *arr, int N) // variance of array
 {
   int i; 
-  double mean=mean1(arr, N);
+  double mean=d1mean(arr, N);
   double variance=0;
   for (i=0; i<N; i++)
     variance += pow(arr[i]-mean,2);
@@ -127,7 +127,7 @@ float f1mean(float *arr, int N) // Mean of array
 float f1variance(float *arr, int N) // variance of array
 {
   int i; 
-  float mean=mean1(arr, N);
+  float mean=f1mean(arr, N);
   float variance=0;
   for (i=0; i<N; i++)
     variance += pow(arr[i]-mean,2);
