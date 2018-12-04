@@ -151,6 +151,54 @@ int i1max(int *arr, int N) // Maximum of array
   return max;
 }
 
+/*
+  x1find:
+    Find value in an array
+    Output:
+      -1: Did not find the value
+     >-1: Smallest array index where value was found
+*/
+int i1find( int target, int *array, int N) // Find value in array
+{
+  int i; 
+  for(i=0; i<N; i++)
+  {
+    if(array[i]==target)
+    {
+      return(i); // on success
+      break;
+    }
+  }
+  return(-1);    // on fail
+}
+
+int f1find( float target, float *array, int N) // Find value in array
+{
+  int i; 
+  for(i=0; i<N; i++)
+  {
+    if(array[i]==target)
+    {
+      return(i); // on success
+      break;
+    }
+  }
+  return(-1);    // on fail
+}
+
+int d1find( double target, double *array, int N) // Find value in array
+{
+  int i; 
+  for(i=0; i<N; i++)
+  {
+    if(array[i]==target)
+    {
+      return(i); // on success
+      break;
+    }
+  }
+  return(-1);    // on fail
+}
 
 
 //-----------------------------------------------------------------------------------------------

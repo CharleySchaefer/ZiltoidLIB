@@ -22,18 +22,30 @@
   int    maximum_int(int, int);
 
   // 1D array analysis
-  double d1min(     double *, int); // Minimum of array
-  double d1max(     double *, int); // Maximum of array
-  double d1mean(    double *, int); // Mean of array
-  double d1variance(double *, int); // Variance of array
+  // Find value in array
+  int    i1find( int   , int    *, int);
+  int    f1find( float , float  *, int);
+  int    d1find( double, double *, int);
 
-  float  f1min(      float *, int); // Minimum of array
-  float  f1max(      float *, int); // Maximum of array
-  float  f1mean(     float *, int); // Mean of array
-  float  f1variance( float *, int); // Variance of array
+  // Find minimum in array
+  int    i1min(        int *, int); // integers
+  float  f1min(      float *, int); // floats
+  double d1min(     double *, int); // double precision
 
-  int    i1min(        int *, int); // Minimum of array
-  int    i1max(        int *, int); // Maximum of array
+  // Find maximum in array
+  int    i1max(        int *, int); // integers
+  float  f1max(      float *, int); // floats
+  double d1max(     double *, int); // double precision
+
+  // Mean of array
+  float  f1mean(     float *, int); // floats
+  double d1mean(    double *, int); // double precision
+
+  // Variance of array
+  float  f1variance( float *, int); // floats
+  double d1variance(double *, int); // double precision
+
+
 
   // 2D array analysis
   void gradarray2D(double **, char, int, double, int, int, double *);
