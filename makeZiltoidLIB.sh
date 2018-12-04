@@ -10,13 +10,15 @@ for i in `seq 1 $#`
 do
   if [ "${@:$i:1}" == "--includeZiltoidLAPACK" ]; then
     includeZiltoidLapack=1
+  elif [ "${@:$i:1}" == "--include-lapack" ]; then
+    includeZiltoidLapack=1
   fi
 done
 
 if [ $includeZiltoidLapack -eq 1 ]; then
   echo "LAPACK-dependent functions: included"
 else
-  echo "LAPACK-dependent functions: excluded - to include, run $0 --includeZiltoidLAPACK"
+  echo "LAPACK-dependent functions: excluded - to include, run $0 --include-lapack"
 fi
 echo " "
 #================================================================
@@ -47,6 +49,11 @@ pushd ../ReadTextFiles  >/dev/null
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
+pushd ../kMC  >/dev/null
+./makeZiltoidKMC.sh
+popd  >/dev/null # BACK TO ZILTOID/BUILD
+echo " "
+
 
 
 
@@ -65,6 +72,7 @@ then
 fi
 
 echo "  Extracting dependency-free modules in build:"
+ar x ../kMC/build/libZiltoidKMC.a
 ar x ../Mathematics/build/libZiltoidMath.a
 ar x ../NumericalMethods/build/libZiltoidNum.a
 ar x ../StringOperations/build/libZiltoidStrings.a
