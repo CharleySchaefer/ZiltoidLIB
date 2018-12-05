@@ -596,3 +596,40 @@ int readMatrix_int(char *fname, int **mat, int Nlines, int Ncols)
   fclose(ifp);
   return(1);
 }
+
+// Column counter starts at zero
+// cbuff1: array of length max_line_width
+int count_occurences_of_word_in_file_column(char *fname, char *word, int col, char *cbuff1, char *cbuff2, int max_line_width)
+{
+  FILE *ifp;
+  int Nchar;
+  int count=0, offset=0, col_curr; // initial value
+  char *line=cbuff1;
+  char *str =cbuff2;
+  if(col<0)
+    {printf("Error: \"col\" should be a positive integer.\n"); return(-1);}
+
+  if( (ifp = fopen(fname, "r")) == NULL)
+    {printf("\nError: fopen() failed.\n", fname);return(-1);}
+
+  while( fgets( line, max_line_width*sizeof(char), ifp) != NULL)
+  {
+    if( !getWord( line+offset, str, &Nchar) )
+      {printf("Error: getWord() failed.\n"); return(-1);}
+    col_curr=0; 
+
+    while(col_curr<col)
+    {
+      offset+=Nchar;
+      if( !getWord( line+offset, str, &Nchar) )
+        {printf("Error: getWord() failed.\n"); return(-1);}
+      col_curr++;
+    }
+
+    if(  !strcmp(str, word) )
+      count++;
+  }
+  fclose(ifp);
+
+  return count; // on success 
+}

@@ -19,15 +19,22 @@
   int countLines(char *, int *);
   int checkFileName(char *);
   int countFiles(char *, int, int *);
+
   int readMatrix(char *, double **, int, int);
   int readMatrix_short(char *, short **, int, int);
   int readMatrix_int(char *, int **, int, int);
+
   int readLine(char *, char *, int);
+
   int readRow_int(char *, int, int *, int *);
   int readRow_short(char *, int, short *, int *);
   int readRow(char *, int, double *);
+
   int ireadColumn(char *, int, int, int, int *);
   int freadColumn(char *, int, int, int, float *);
   int dreadColumn(char *, int, int, int, double *);
+
+  int count_occurences_of_word_in_file_column(char *, char *, int, char *, char *, int);
+
   int transpose_plain_data_file(char *, double ** );
 #endif
