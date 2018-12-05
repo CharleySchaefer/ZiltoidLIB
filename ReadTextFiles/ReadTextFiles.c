@@ -614,20 +614,21 @@ int count_occurences_of_word_in_file_column(char *fname, char *word, int col, ch
 
   while( fgets( line, max_line_width*sizeof(char), ifp) != NULL)
   {
-    if( !getWord( line+offset, str, &Nchar) )
-      {printf("Error: getWord() failed.\n"); return(-1);}
-    col_curr=0; 
-
-    while(col_curr<col)
+    offset=0;
+    if( getWord( line+offset, str, &Nchar) )
     {
       offset+=Nchar;
-      if( !getWord( line+offset, str, &Nchar) )
-        {printf("Error: getWord() failed.\n"); return(-1);}
-      col_curr++;
-    }
+      col_curr=0; 
+      while( (col_curr<col) )
+      {
+        getWord( line+offset, str, &Nchar);
+        col_curr++;
+        offset+=Nchar;
+      }
 
-    if(  !strcmp(str, word) )
-      count++;
+      if(  !strcmp(str, word) )
+        count++;
+    }
   }
   fclose(ifp);
 
