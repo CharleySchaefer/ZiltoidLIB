@@ -5,7 +5,9 @@
 
 // Generate random number in interval [0, 1, ..., max-1, max]
 int  irand(int max)
+{
   return rand()%(max+1);
+}
 
 // Generate array of random numbers in interval [0, 1, ..., max-1, max]
 void i1rand(int *arr, int N, int max)
