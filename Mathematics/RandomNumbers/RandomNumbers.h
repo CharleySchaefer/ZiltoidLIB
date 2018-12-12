@@ -3,8 +3,12 @@
   #include <stdlib.h>
   #include <math.h>
 
+  int    irand(  int);              // random int scalar
+  void   i1rand( int *, int, int);  // random int array
 
-  int    randint(int);
+  void   randperm(int *, int);      // random permutation of input array
+
+  int    randint(int); // identical to irand
   int    randint2(int, int);
   double randf(double);
   double randf2(double, double);

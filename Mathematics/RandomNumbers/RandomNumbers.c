@@ -4,6 +4,35 @@
 #include "RandomNumbers.h"
 
 // Generate random number in interval [0, 1, ..., max-1, max]
+int  irand(int max)
+  return rand()%(max+1);
+
+// Generate array of random numbers in interval [0, 1, ..., max-1, max]
+void i1rand(int *arr, int N, int max)
+{
+  int i;
+  for(i=0; i<N; i++)
+    arr[i]=irand(max);
+}
+
+// Get random permutation of some input array of integers
+void randperm(int *arr, int N)
+{
+  int i, j;
+  int itmp;
+
+  for (i=0; i<N; i++)     // loop elements i
+  {
+    j = rand()%(N-i) + i; // pick random element j
+
+    // swap arr[i] with arr[j]
+    itmp   = arr[j]; 
+    arr[j] = arr[i]; 
+    arr[i] = itmp;
+  }
+}
+
+// Generate random number in interval [0, 1, ..., max-1, max]
 int randint(int max) 
 { 
   return rand()%(max+1);
