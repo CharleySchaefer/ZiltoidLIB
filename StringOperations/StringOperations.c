@@ -43,7 +43,7 @@ int countStr(char* str, int num)
 
 //---------------------------------------------------------------------
 //
-//  getWord
+//  getWord (alternative to strok
 
 //  Get word from string.
 //  In this function a word is defined as the string of characters, 
