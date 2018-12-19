@@ -46,28 +46,53 @@
       events have the same rate may speed up the cpu 
       time from ~ log N_rates to ~ log Ngroup. 
 */
-#ifndef VSSM_H
-  #define VSSM_H 1
+#include "VSSM.h"
 
-  typedef struct {
-    int 	max_iter;        // number of kMC time steps
-    int 	max_rates;       // number of possible rates
-    float *rate;           // all possible rates
-    float *S;              // cummulative rates
-    int   *event_list;     // list with labels that refer to events
+int VSSM_initialise(VSSM **Vssm, int max_iter, int max_rates)
+{
+  *Vssm              = ( VSSM*)malloc(sizeof( VSSM));
+  (*Vssm)->max_iter  = max_iter;  // maximum number of iterations
+  (*Vssm)->max_rates = max_rates; // number of events/rates
+  (*Vssm)->t         = 0.0;    // initialise time
+  (*Vssm)->N_iter    = 0;      // number of kMC time steps
+  (*Vssm)->N_rates   = max_rates;
+  (*Vssm)->event_list=(int  *)malloc(max_rates*sizeof(int  ));
+  (*Vssm)->rate      =(float*)malloc(max_rates*sizeof(float));
+  (*Vssm)->S         =(float*)malloc(max_rates*sizeof(float));
+  return(1);
+}
 
-    int   selected_event;  // label of event after selection
-    int   N_iter;          // iteration counter
-    int   N_rates;         // number of non-zero rates
-    float sum_rates;       // sum over all rates *rate
-    float t;               // time
-    float dt;              // (adaptive) time step
-  } VSSM;
+int VSSM_sum_rates(VSSM *Vssm)
+{
+  int i;
+  if(Vssm->N_rates==0)
+  {
+    Vssm->sum_rates=0.0;
+  }
+  else
+  {
+    Vssm->S[0]=Vssm->rate[0];
+    for(i=1; i<Vssm->N_rates; i++)
+    {
+      Vssm->S[i] = Vssm->S[i-1] + Vssm->rate[i];
+    }
+    Vssm->sum_rates=Vssm->S[Vssm->N_rates-1];
+  }
+  return(1);
+}
 
-  int VSSM_initialise(   VSSM **, int max_iter, int max_rates);
-  int VSSM_sum_rates(    VSSM * );
-  int VSSM_get_time_step(VSSM * );
-  int VSSM_select_event( VSSM * );
+int VSSM_get_time_step(VSSM *Vssm)
+{
+  float u=(float)rand()/(RAND_MAX); // Uniform deviate on unit interval
+  Vssm->dt=-log(u)/Vssm->sum_rates; // Time step
+  return(1);
+}
 
-  #include "../ZiltoidLIB.h"
-#endif
+int VSSM_select_event(VSSM *Vssm)
+{
+  int selected_event;
+  float r=Vssm->sum_rates*(float)rand()/RAND_MAX;
+  find_index_above_y0_float(Vssm->S, Vssm->N_rates, r, &selected_event );
+  Vssm->selected_event=selected_event;
+  return(1);
+}
