@@ -8,6 +8,10 @@ int  irand(int max)
 {
   return rand()%(max+1);
 }
+double drand(double max)
+{
+  return (max*rand()/(RAND_MAX+1.0));
+}
 
 // Generate array of random numbers in interval [0, 1, ..., max-1, max]
 void i1rand(int *arr, int N, int max)
@@ -16,6 +20,13 @@ void i1rand(int *arr, int N, int max)
   for(i=0; i<N; i++)
     arr[i]=irand(max);
 }
+void d1rand(double *arr, int N, double max)
+{
+  int i;
+  for(i=0; i<N; i++)
+    arr[i]=drand(max);
+}
+
 
 // Get random permutation of some input array of integers
 void randperm(int *arr, int N)
