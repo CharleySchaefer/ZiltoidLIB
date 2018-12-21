@@ -1,4 +1,4 @@
-![image](doc/ZiltoidLIB.png)
+<img src="doc/ZiltoidLIB.png" alt="img" width="200"/>
 
 ## ABOUT
 
