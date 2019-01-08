@@ -5,6 +5,7 @@ test.*
 Test
 Test.*
 *.eps
+*.err
 *.pdf
 *.o
 *.out
