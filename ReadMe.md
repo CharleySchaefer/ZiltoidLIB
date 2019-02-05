@@ -3,6 +3,7 @@
 ## ABOUT
 
 Collection of functions commonly encoutered in C programs for physical modelling and simulation.
+This library does not require external dependencies, except for some eigenvalue problems (BLAS/LAPACK).
 
 
 ## FEATURES
@@ -15,7 +16,7 @@ Collection of functions commonly encoutered in C programs for physical modelling
   * Polynomial (adapted from [uni-koeln](http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c))
   * QR decomposition (adapted from [jcchurch](https://github.com/jcchurch/C-Linear-Algebra))
   * Array statistics: min, max, abs, mean, variance, standard deviation 
-  * (LAPACK dependence) Solve eigenvalue problem symmetric matrices
+  * (LAPACK dependency) Solve eigenvalue problem symmetric matrices
 * Numerical Methods
   * Interpolation
   * Bisection method
