@@ -2,7 +2,7 @@
 
 ## ABOUT
 
-Dependence-free C library of functions that are commonly encoutered in C programs for physical modelling and simulation.
+Collection of functions commonly encoutered in C programs for physical modelling and simulation.
 
 
 ## FEATURES
