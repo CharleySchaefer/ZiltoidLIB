@@ -135,6 +135,27 @@ float f1variance(float *arr, int N) // variance of array
   return variance;
 }
 
+double di1mean(int *arr, int N) // Mean of array
+{
+  int i; double mean=0;
+  for (i=0; i<N; i++)
+    mean += arr[i];
+  mean/=N;
+  return mean;
+}
+
+double di1variance(int *arr, int N) // variance of array
+{
+  int i; 
+  double mean=di1mean(arr, N);
+  double variance=0;
+  for (i=0; i<N; i++)
+    variance += pow(arr[i]-mean,2);
+  variance/=N;
+  return variance;
+}
+
+
 
 int i1min(int *arr, int N) // Minimum of array
 {

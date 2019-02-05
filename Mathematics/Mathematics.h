@@ -38,10 +38,12 @@
   double d1max(     double *, int); // double precision
 
   // Mean of array
+  double di1mean(      int *, int); 
   float  f1mean(     float *, int); // floats
   double d1mean(    double *, int); // double precision
 
   // Variance of array
+  double di1variance(int *, int); // double precision
   float  f1variance( float *, int); // floats
   double d1variance(double *, int); // double precision
 
