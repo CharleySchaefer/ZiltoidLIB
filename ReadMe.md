@@ -3,7 +3,7 @@
 ## ABOUT
 
 Collection of functions commonly encoutered in C programs for physical modelling and simulation.
-This library does not require external libraries, except for some eigenvalue problems (BLAS/LAPACK).
+This library does not require external libraries, except for solving some eigenvalue problems (BLAS/LAPACK).
 
 
 ## FEATURES
