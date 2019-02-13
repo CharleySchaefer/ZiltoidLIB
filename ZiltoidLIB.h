@@ -16,8 +16,9 @@
 
   #include "ReadTextFiles/ReadTextFiles.h"
   #include "StringOperations/StringOperations.h"
-  #include "StructureFactor/StructureFactor.h"
   #include "Mathematics/Mathematics.h"
   #include "NumericalMethods/NumericalMethods.h"
   #include "kMC/VSSM.h"
+
+  #include "Applications/StructureFactor/StructureFactor.h"
 #endif
