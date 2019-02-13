@@ -54,6 +54,11 @@ pushd ../kMC  >/dev/null
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
+pushd ../Applications  >/dev/null
+./makeZiltoidApps.sh
+popd  >/dev/null # BACK TO ZILTOID/BUILD
+echo " "
+
 
 
 
