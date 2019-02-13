@@ -21,4 +21,5 @@
   #include "kMC/VSSM.h"
 
   #include "Applications/StructureFactor/StructureFactor.h"
+  #include "Applications/PrincipleMomentsOfInertia/PrincipleMomentsOfInertia.h"
 #endif
