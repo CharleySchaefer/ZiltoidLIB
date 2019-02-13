@@ -53,6 +53,6 @@ To install all modules (except for *Structure Factor*, *Kinetic Monte Carlo*, an
 
 ## Examples
 
-![Demo](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/StructureFactor/Demo) for reading a data file (without headers), representing a 2D lattice configuration, and calculating the structure factor and correlation function.
+![Demo](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/Applications/StructureFactor/Demo) for reading a data file (without headers), representing a 2D lattice configuration, and calculating the structure factor and correlation function.
 
-<img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/StructureFactor/Demo/matrix.png" alt="drawing" width="215"/>  <img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/StructureFactor/Demo/SF.png" alt="drawing" width="300"/>   <img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/StructureFactor/Demo/CF.png" alt="drawing" width="300"/>
+<img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/Applications/StructureFactor/Demo/matrix.png" alt="drawing" width="215"/>  <img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/Applications/StructureFactor/Demo/SF.png" alt="drawing" width="300"/>   <img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/Applications/StructureFactor/Demo/CF.png" alt="drawing" width="300"/>
