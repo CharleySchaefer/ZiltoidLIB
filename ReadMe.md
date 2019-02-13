@@ -25,12 +25,15 @@ This library does not require external libraries, except for solving some eigenv
 * Read Text Files (uses String Operations module)
   * Determine number of header lines, number of columns, number of data lines.
   * Read rows and columns
+* Kinetic Monte Carlo 
+  * Variable step size method
+
+### Applications
+* Principle Moments of Inertia (uses Mathematics and BLAS/LAPACK)
 * Structure Factor (uses Mathematics module)
   * Fourier transform to Q space
   * Radial averaging in Q space
   * Radial correlation function
-* Kinetic Monte Carlo 
-  * Variable step size method
 
 ### Utils
 
