@@ -31,6 +31,7 @@
   int readRow(char *, int, double *);
 
   int ireadColumn(char *, int, int, int, int *);
+  int creadColumn(char *, int, int, int, char *);
   int freadColumn(char *, int, int, int, float *);
   int dreadColumn(char *, int, int, int, double *);
 

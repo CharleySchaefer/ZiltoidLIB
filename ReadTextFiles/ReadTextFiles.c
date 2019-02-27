@@ -419,6 +419,67 @@ int ireadColumn(
     fclose(ifp);
     return(1);
   }
+  
+int creadColumn(
+  char  *fname,     // File name         
+  int   Ndata,      // Number of datapoints     
+  int   Nheader,   // Line number with first data points
+  int    Ncol,      // Column number: Starts counting from zero    
+  char  *col    // Output array in with column values   
+  ) // End of function arguments
+  {
+    int  i,j,countCol;
+    char  c;
+    char  line[MAX_LINE_WIDTH];
+    FILE  *ifp;
+
+    if(Ncol<0)
+    {
+      printf("WARNING: algorithm starts reading data at Ncol=0!\n");
+      return(0);
+    }
+
+    if((ifp = fopen(fname, "r")) == NULL){printf("Error: Failed to open \'%s\' in readColumn!\n", fname); return(0);}
+
+  /* Go to first line with data */  
+    for(i=0; i<Nheader; i++)
+      fgets(line, sizeof(line), ifp);
+
+  /* Get data from last column */
+    for(i=Nheader-1; i<Ndata+Nheader-1; i++){
+      fgets(line, sizeof(line), ifp);
+      j=0;countCol=0;
+
+      // Skip white space before first column
+      if((c=line[j])==' ')
+         {/* Read line until space is found */  
+        while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+          j++;
+
+        /* Read line until end of space */    
+        while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+          j++;}
+      
+      // start reading columns
+      while( countCol<Ncol & (c=line[j]) != '\0' & c != '\n' ){
+    
+        /* Read line until space is found */  
+        while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+          j++;
+
+        /* Read line until end of space */    
+        while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+          j++;
+
+        /* If character after space is not the end of the line a column is found */
+        if( (c=line[j]) != ' ' & c != '\0' & c != '\n')
+          countCol++;
+        }
+      col[i+1-Nheader] = line[j];  
+      }
+    fclose(ifp);
+    return(1);
+  }
 
 int readRow(char *fname, int Nrow, double *row)
 {
