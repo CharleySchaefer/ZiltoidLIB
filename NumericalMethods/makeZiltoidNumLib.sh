@@ -4,6 +4,7 @@
 # CONFIGURATION
 includeInterpolation=1
 includeBisection=1
+includeMergeSort=1
 #===============================
 
 echo "COMPILING ZiltoidNum"
@@ -18,7 +19,7 @@ if [ $includeInterpolation -eq 1 ]; then
     echo "Error: Failed to compile Interpolation."
     exit 1
   fi
-fi; 
+fi
 if [ $includeBisection -eq 1 ]; then
   if gcc -fPIC -c ../Bisection/Bisection.c ; then
     echo "  Bisection compiled."
@@ -27,8 +28,16 @@ if [ $includeBisection -eq 1 ]; then
     exit 1
   fi
 fi
+if [ $includeMergeSort -eq 1 ]; then
+  if gcc -fPIC -c ../mergesort.c ; then
+    echo "  Mergesort compiled."
+   else
+    echo "Error: Failed to compile Mergesort."
+    exit 1
+  fi
+fi
 
-if ar rcs libZiltoidNum.a Interpolation.o Bisection.o
+if ar rcs libZiltoidNum.a Interpolation.o Bisection.o mergesort.o
 then
   echo "  libZiltoidNum.a created."
 else
