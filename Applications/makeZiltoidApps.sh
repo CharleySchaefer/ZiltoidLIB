@@ -7,8 +7,8 @@ ModuleName=ZiltoidApps
 #===============================
 
 echo "COMPILING $ModuleName"
-mkdir -p build
-pushd build >/dev/null
+mkdir -p bin
+pushd bin >/dev/null
 
 
 
@@ -21,14 +21,12 @@ if [ $cnf -eq 1 ]; then
   fi
 fi
 
-if [ $cnf -eq 1 ]; then
-  if gcc -fPIC -c ../ColumnStats/get_column_stats_from_file.c ; then
-    echo "  ColumnStats compiled."
-   else
-    echo "Error: Failed to compile ColumnStats."
-    exit 1
-  fi
-fi
+pushd ../ColumnStats > /dev/null
+  ./compile_ColumnStats.sh > /dev/null
+popd > /dev/null
+mv ../ColumnStats/getColumnStats.o .
+
+
 
 if ar rcs lib$ModuleName.a PrincipleMomentsOfInertia.o 
 then
