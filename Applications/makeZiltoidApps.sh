@@ -21,6 +21,15 @@ if [ $cnf -eq 1 ]; then
   fi
 fi
 
+if [ $cnf -eq 1 ]; then
+  if gcc -fPIC -c ../ColumnStats/get_column_stats_from_file.c ; then
+    echo "  ColumnStats compiled."
+   else
+    echo "Error: Failed to compile ColumnStats."
+    exit 1
+  fi
+fi
+
 if ar rcs lib$ModuleName.a PrincipleMomentsOfInertia.o 
 then
   echo "  lib$ModuleName.a created."
