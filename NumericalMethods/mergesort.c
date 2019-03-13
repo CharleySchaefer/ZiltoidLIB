@@ -19,8 +19,8 @@ void dmergesort(double *arr, int N){
     p2 = arr+N1;
 
     // mergesort
-    mergesortU(p1, N1);
-    mergesortU(p2, N2);
+    dmergesort(p1, N1);
+    dmergesort(p2, N2);
   
     // merge
     i1=0; i2=0;
