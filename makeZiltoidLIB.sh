@@ -54,11 +54,6 @@ pushd ../kMC  >/dev/null
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
-pushd ../Applications  >/dev/null
-./makeZiltoidApps.sh
-popd  >/dev/null # BACK TO ZILTOID/BUILD
-echo " "
-
 
 
 
@@ -93,6 +88,13 @@ ar rcs libZiltoidLIB.a *.o
 popd  >/dev/null # BACK TO ZILTOID
 cp build/libZiltoidLIB.a .
 echo "  libZiltoidLIB.a created"
+
+
+pushd Applications  >/dev/null
+./makeZiltoidApps.sh
+popd  >/dev/null # BACK TO ZILTOID/BUILD
+echo " "
+
 
 echo "FINISHED BUILDING ZILTOIDLIB"
 echo " "
