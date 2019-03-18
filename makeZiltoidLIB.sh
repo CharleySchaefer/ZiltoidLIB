@@ -24,7 +24,7 @@ echo " "
 #================================================================
 
 
-rm build -r
+rm build -rf
 mkdir -p build
 
 pushd build  >/dev/null
