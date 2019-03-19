@@ -2,7 +2,7 @@
 
 ## ABOUT
 
-Collection of functions commonly encoutered in C programs for physical modelling and simulation.
+Collection of functions commonly encountered in C programs for physical modelling and simulation.
 This library does not require external libraries, except for solving some eigenvalue problems (BLAS/LAPACK).
 
 
@@ -33,11 +33,14 @@ This library does not require external libraries, except for solving some eigenv
 * Statistics from file with column data
   * Header recognition
   * min/max, mean, variance, se of mean, median, quartiles
-* Structure Factor
+* ![Structure Factor](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/Applications/StructureFactor/Demo) 
   * Fourier transform to Q space
   * Radial averaging in Q space
   * Radial correlation function
 * Principle Moments of Inertia (uses Mathematics and BLAS/LAPACK)
+
+<img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/Applications/StructureFactor/Demo/matrix.png" alt="drawing" width="215"/>  <img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/Applications/StructureFactor/Demo/SF.png" alt="drawing" width="300"/>   <img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/Applications/StructureFactor/Demo/CF.png" alt="drawing" width="300"/>
+
 
 ### Utils
 
@@ -82,11 +85,8 @@ Compile the software using
 ```gcc main.c -Lpath-to-ziltoidlib -lZiltoidLIB -lm```
 
 
+## Development
 
+* Extension of the library is not a goal in itself; new features are developed and appear when they are needed in specific applications / custom software.  
+* At some point, the library will be tested on Mac OS and Windows  
 
-
-## Examples
-
-![Demo](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/Applications/StructureFactor/Demo) for reading a data file (without headers), representing a 2D lattice configuration, and calculating the structure factor and correlation function.
-
-<img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/Applications/StructureFactor/Demo/matrix.png" alt="drawing" width="215"/>  <img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/Applications/StructureFactor/Demo/SF.png" alt="drawing" width="300"/>   <img src="https://raw.githubusercontent.com/CharleySchaefer/ZiltoidLIB/master/Applications/StructureFactor/Demo/CF.png" alt="drawing" width="300"/>
