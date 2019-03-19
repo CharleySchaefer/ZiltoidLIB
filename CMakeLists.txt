@@ -9,8 +9,8 @@ cmake_minimum_required (VERSION 2.6)
 #version number
 set (ZiltoidLIB_VERSION_MAJOR 1)
 set (ZiltoidLIB_VERSION_MINOR 0)
-#set (BOMBYX_VERSION_PATCH 0)
-#set (BOMBYX_VERSION_TWEAK 0)
+#set (ZiltoidLIB_VERSION_PATCH 0)
+#set (ZiltoidLIB_VERSION_TWEAK 0)
 
 
 include_directories("lib")
