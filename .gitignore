@@ -7,6 +7,7 @@ Test.*
 *.eps
 *.err
 *.pdf
+*.a
 *.o
 *.out
 
@@ -16,4 +17,3 @@ DemoDoolittleAlgorithm
 DemoRandomNumbers
 Demo_ReadTextFiles
 Demo_NumericalMethods
-libZiltoidLIB.a
