@@ -77,7 +77,7 @@ ar x ../Mathematics/build/libZiltoidMath.a
 ar x ../NumericalMethods/build/libZiltoidNum.a
 ar x ../StringOperations/build/libZiltoidStrings.a
 ar x ../ReadTextFiles/build/libZiltoidRead.a
-ar x ../Applications/bin/libZiltoidApps.a
+
 for file in `find *.o`
 do
   echo "    "$file
