@@ -5,6 +5,8 @@
 Collection of functions commonly encountered in C programs for physical modelling and simulation.
 This library does not require external libraries, except for solving some eigenvalue problems (BLAS/LAPACK).
 
+This software is freely distributed under the Apache 2.0 (Version 2.0, January 2004) license WITHOUT WARRANTY, see LICENSE.txt.
+
 
 ## FEATURES
 
