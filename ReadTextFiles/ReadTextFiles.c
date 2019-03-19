@@ -481,7 +481,7 @@ int creadColumn(
     return(1);
   }
 
-int readRow(char *fname, int Nrow, double *row)
+int dreadRow(char *fname, int Nrow, double *row)
 {
   int    i,j,ind, Nchar;
   char   word[MAX_STR_L], line[MAX_LINE_WIDTH];
@@ -508,7 +508,7 @@ int readRow(char *fname, int Nrow, double *row)
   return(1);
 }
 
-int readRow_short(char *fname, int Nrow, short *row, int *Nword)
+int sreadRow(char *fname, int Nrow, float *row, int *Nword)
 {
   int    i,j,ind, Nchar;
   char   word[MAX_STR_L], line[MAX_LINE_WIDTH];
@@ -527,7 +527,7 @@ int readRow_short(char *fname, int Nrow, short *row, int *Nword)
   while( getWord( line+ind, word, &Nchar) )
   {
     ind+= Nchar;
-    row[(*Nword)] = atof(word);
+    row[(*Nword)] = (float)atof(word);
     (*Nword)++; // Count number of words
   }
   
@@ -535,7 +535,7 @@ int readRow_short(char *fname, int Nrow, short *row, int *Nword)
   return(1);
 }
 
-int readRow_int(char *fname, int Nrow, int *row, int *Nword)
+int ireadRow(char *fname, int Nrow, int *row, int *Nword)
 {
   int    i,j,ind, Nchar;
   char   word[MAX_STR_L], line[MAX_LINE_WIDTH];

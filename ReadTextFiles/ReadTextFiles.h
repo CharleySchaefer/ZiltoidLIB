@@ -26,9 +26,9 @@
 
   int readLine(char *, char *, int);
 
-  int readRow_int(char *, int, int *, int *);
-  int readRow_short(char *, int, short *, int *);
-  int readRow(char *, int, double *);
+  int ireadRow(char *, int, int *, int *);
+  int sreadRow(char *, int, float *, int *);
+  int dreadRow(char *, int, double *);
 
   int ireadColumn(char *, int, int, int, int *);
   int creadColumn(char *, int, int, int, char *);
