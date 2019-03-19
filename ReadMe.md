@@ -29,11 +29,15 @@ This library does not require external libraries, except for solving some eigenv
   * Variable step size method
 
 ### Applications
-* Principle Moments of Inertia (uses Mathematics and BLAS/LAPACK)
-* Structure Factor (uses Mathematics module)
+
+* Statistics from file with column data
+  * Header recognition
+  * min/max, mean, variance, se of mean, median, quartiles
+* Structure Factor
   * Fourier transform to Q space
   * Radial averaging in Q space
   * Radial correlation function
+* Principle Moments of Inertia (uses Mathematics and BLAS/LAPACK)
 
 ### Utils
 
@@ -45,7 +49,7 @@ This library does not require external libraries, except for solving some eigenv
 ### Software dependencies:
 
 * gcc compiler
-* bash
+* bash (for installation script)
 * (optional) Postprocessing and other utilities:  
   * gnuplot: plotting of data. (see http://www.gnuplot.info)  
   * Matlab  / gnu octave to run .m scripts
