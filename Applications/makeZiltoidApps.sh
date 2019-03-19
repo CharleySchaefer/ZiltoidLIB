@@ -22,10 +22,15 @@ if [ $cnf -eq 1 ]; then
 fi
 
 pushd ../ColumnStats > /dev/null
-  ./compile_ColumnStats.sh > /dev/null
+  ./compile_ColumnStats.sh
 popd > /dev/null
 mv ../ColumnStats/getColumnStats.o .
 
+
+pushd ../StructureFactor/Demo > /dev/null
+  ./compile_StructureFactor.sh  
+popd > /dev/null
+mv ../StructureFactor/Demo/StructureFactorAndCorrelationFunction.o .
 
 
 if ar rcs lib$ModuleName.a PrincipleMomentsOfInertia.o 
