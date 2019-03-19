@@ -59,6 +59,7 @@ This software is freely distributed under the Apache 2.0 (Version 2.0, January 2
   * gnuplot: plotting of data. (see http://www.gnuplot.info)  
   * Matlab  / gnu octave to run .m scripts
 * (optional) debugging: valgrind memcheck
+* (optional) BLAS/LAPACK. Can be installed on Linux using ```sudo apt-get install libblas-dev liblapack-dev```
 
 ### Versions the software has been tested on
 
