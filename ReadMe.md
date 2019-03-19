@@ -61,13 +61,21 @@ This library does not require external libraries, except for solving some eigenv
 * .m scripts: GNU Octave, version 4.0.0 (configured for "x86_64-unknown-linux-gnu")
 
 
-### Installation
+### Installation / usage
 
-Without BLAS/LAPACK functionality:  
+
+**Installation:**  
+Without BLAS/LAPACK functionality compile ZiltoidLIB by running:  
 ``` ./makeZiltoidLIB.sh ```  
-
-With BLAS/LAPACK functionality:  
+With BLAS/LAPACK functionality compile ZiltoidLIB by running:  
 ``` ./makeZiltoidLIB.sh --include-lapack```
+
+
+**Usage:**  
+Include the library in main.c or main.h of custom software using  
+```#include "path-to-ziltoidlib/ZiltoidLIB.h"```  
+Compile the software using  
+```gcc main.c -Lpath-to-ziltoidlib -lZiltoidLIB -lm```
 
 
 
