@@ -3,7 +3,7 @@
 #include <complex.h>
 #include <unistd.h> // check if file exists
 #include "../StructureFactor.h"
-#include "../../ReadTextFiles/ReadTextFiles.h"
+#include "../../../ReadTextFiles/ReadTextFiles.h"
 
 int main(int argc, char *argv[])
 {
