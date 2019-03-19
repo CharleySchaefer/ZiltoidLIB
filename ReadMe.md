@@ -40,12 +40,34 @@ This library does not require external libraries, except for solving some eigenv
 * Gnuplot demo for producing .eps and .pdf format graphs 
 * GNU Octave / Matlab scripts
 
+## System requirements and Installation
 
-## Installation
+### Software dependencies:
 
-The main programs only require a **gcc compiler** without external dependences.
-Modules may be build separately using a simple script, see e.g. *Mathematics/makeZiltoidMathLib.sh*, to create a library, e.g., *Mathematics/build/libZiltoidMath.a*.
-To install all modules (except for *Structure Factor*, *Kinetic Monte Carlo*, and functions with external dependences), run the script *makeZiltoidMathLib.sh* which builds a single library in *build/libZiltoidLIB.a*. 
+* gcc compiler
+* bash
+* (optional) Postprocessing and other utilities:  
+  * gnuplot: plotting of data. (see http://www.gnuplot.info)  
+  * Matlab  / gnu octave to run .m scripts
+* (optional) debugging: valgrind memcheck
+
+### Versions the software has been tested on
+
+* operating system: Linux clinux 3.16.0-7-amd64 #1 SMP Debian 3.16.59-1 (2018-10-03) x86_64 GNU/Linux  
+* compiler: gcc version 4.9.2 (Debian 4.9.2-10+deb8u2)  
+* using shell scripts: GNU bash, version 4.3.30(1)-release (x86_64-pc-linux-gnu)  
+* plotting: gnuplot 4.6 patchlevel 6 
+* debugging: valgrind-3.10.0  
+* .m scripts: GNU Octave, version 4.0.0 (configured for "x86_64-unknown-linux-gnu")
+
+
+### Installation
+
+Without BLAS/LAPACK functionality:  
+``` ./makeZiltoidLIB.sh ```  
+
+With BLAS/LAPACK functionality:  
+``` ./makeZiltoidLIB.sh --include-lapack```
 
 
 
