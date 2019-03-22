@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
   //-----------------------------------
   dx = 1.0;
   if( Lx_set ){
-    dx = Lx / NX;
+    dx = Lx / (NX-1);
   }
   Nbins  =(int)( (double)(NX<NY?NX:NY)/sqrt(2) ) - 1;
   counter=(    int*)malloc(          Nbins*sizeof(int    ));
