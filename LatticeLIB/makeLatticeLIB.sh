@@ -3,9 +3,9 @@
 
 #================================================================
 echo " "
-echo "BUILDING LatticeLIB"
+echo "  >BUILDING LatticeLIB"
 
-rm build -r
+rm build -rf
 mkdir -p build
 
 pushd build >/dev/null
@@ -41,6 +41,5 @@ fi
 
 popd >/dev/null
 
-mv build/libLatticeLIB.a .
 
-echo "FINISHED COMPILING LatticeLIB"
+echo "  >FINISHED COMPILING LatticeLIB"

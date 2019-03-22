@@ -5,7 +5,7 @@
 includeStringOperations=1
 #===============================
 
-echo "COMPILING ZiltoidStrings"
+echo "  >COMPILING ZiltoidStrings"
 mkdir -p build
 pushd build >/dev/null
 
@@ -27,5 +27,5 @@ else
 fi
 
 popd >/dev/null
-echo "FINISHED COMPILING ZiltoidStrings"
+echo "  >FINISHED COMPILING ZiltoidStrings"
 

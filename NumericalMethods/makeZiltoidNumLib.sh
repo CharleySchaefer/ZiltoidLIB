@@ -7,7 +7,7 @@ includeBisection=1
 includeMergeSort=1
 #===============================
 
-echo "COMPILING ZiltoidNum"
+echo "  >COMPILING ZiltoidNum"
 mkdir -p build
 pushd build >/dev/null
 
@@ -45,5 +45,5 @@ else
 fi
 
 popd >/dev/null
-echo "FINISHED COMPILING ZiltoidNum"
+echo "  >FINISHED COMPILING ZiltoidNum"
 

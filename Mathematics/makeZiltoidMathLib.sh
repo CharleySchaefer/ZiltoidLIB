@@ -8,7 +8,7 @@ includeRandomNumbers=1
 includeLinearAlgebra=1
 #===============================
 
-echo "COMPILING ZiltoidMath"
+echo "  >COMPILING ZiltoidMath"
 mkdir -p build
 pushd build >/dev/null
 
@@ -68,5 +68,5 @@ else
 fi
 
 popd >/dev/null
-echo "FINISHED COMPILING ZiltoidMath"
+echo "  >FINISHED COMPILING ZiltoidMath"
 

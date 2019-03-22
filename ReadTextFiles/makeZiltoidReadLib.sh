@@ -5,7 +5,7 @@
 includeReadTextFiles=1
 #===============================
 
-echo "COMPILING ZiltoidRead"
+echo "  >COMPILING ZiltoidRead"
 mkdir -p build
 pushd build >/dev/null
 
@@ -27,5 +27,5 @@ else
 fi
 
 popd >/dev/null
-echo "FINISHED COMPILING ZiltoidRead"
+echo "  >FINISHED COMPILING ZiltoidRead"
 

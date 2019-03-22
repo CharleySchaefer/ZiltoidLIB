@@ -29,6 +29,11 @@ mkdir -p build
 
 pushd build  >/dev/null
 
+pushd ../LatticeLIB  >/dev/null
+./makeLatticeLIB.sh
+popd  >/dev/null  # BACK TO ZILTOID/BUILD 
+echo " "
+
 pushd ../Mathematics  >/dev/null
 ./makeZiltoidMathLib.sh
 popd  >/dev/null  # BACK TO ZILTOID/BUILD 
@@ -71,8 +76,9 @@ then
   echo " "
 fi
 
-echo "  Extracting dependency-free modules in build:"
+echo "  Extracting modules in build:"
 ar x ../kMC/build/libZiltoidKMC.a
+ar x ../LatticeLIB/build/libLatticeLIB.a
 ar x ../Mathematics/build/libZiltoidMath.a
 ar x ../NumericalMethods/build/libZiltoidNum.a
 ar x ../StringOperations/build/libZiltoidStrings.a
@@ -88,6 +94,7 @@ ar rcs libZiltoidLIB.a *.o
 popd  >/dev/null # BACK TO ZILTOID
 cp build/libZiltoidLIB.a .
 echo "  libZiltoidLIB.a created"
+echo " "
 
 
 pushd Applications  >/dev/null

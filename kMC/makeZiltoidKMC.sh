@@ -5,7 +5,7 @@
 includeVSSM=1
 #===============================
 
-echo "COMPILING ZiltoidKMC"
+echo "  >COMPILING ZiltoidKMC"
 mkdir -p build
 pushd build >/dev/null
 
@@ -30,5 +30,5 @@ fi
 
 
 popd >/dev/null
-echo "FINISHED COMPILING ZiltoidKMC"
+echo "  >FINISHED COMPILING ZiltoidKMC"
 

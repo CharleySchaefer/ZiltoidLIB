@@ -6,7 +6,7 @@ cnf=1
 ModuleName=ZiltoidApps
 #===============================
 
-echo "COMPILING $ModuleName"
+echo "  >COMPILING $ModuleName"
 mkdir -p bin
 pushd bin >/dev/null
 
@@ -43,5 +43,5 @@ fi
 
 
 popd >/dev/null
-echo "FINISHED COMPILING $ModuleName"
+echo "  >FINISHED COMPILING $ModuleName"
 
