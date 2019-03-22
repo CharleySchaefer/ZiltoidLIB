@@ -23,6 +23,9 @@ fi
 echo " "
 #================================================================
 
+script=$(readlink -f $0)
+scriptpath=`dirname $script`
+pushd $scriptpath >/dev/null
 
 rm build -rf
 mkdir -p build
@@ -102,7 +105,7 @@ pushd Applications  >/dev/null
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
-
+popd >/dev/null
 echo "FINISHED BUILDING ZILTOIDLIB"
 echo " "
 
