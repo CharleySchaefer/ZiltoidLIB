@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
   // Calculate correlation function C(r)
   R_arr  =( double*)malloc(         (2*Nbins-1)*sizeof(double ));
   C_arr  =(complex*)malloc(         (2*Nbins-1)*sizeof(complex ));
-  //free(buff1D);
+  free(buff1D);
   buff1D  =(complex*)malloc(         (2*Nbins-1)*sizeof(complex ));
 
   for (i=0; i<Nbins; i++)
@@ -157,6 +157,22 @@ int main(int argc, char *argv[])
   {
     printf("%16e %16e %16e %16e\n", q_arr[i], SF_arr[i]/(NX*NY), dx*i, creal(buff1D[i])/sumf );
   }
+
+  // Free memory
+  for(i=0; i<NX; i++)
+  {
+    free(Psi2D_FT[i]);        Psi2D_FT[i]=NULL;
+    free(Psi2D_stretched[i]); Psi2D_stretched[i]=NULL;
+  }
+  free(Psi2D_FT);
+  free(Psi2D_stretched);
+  free(counter);
+  free(q_arr);
+  free(SF_arr);
+  free(buff1D);
+  free(R_arr);
+  free(C_arr);
+
 
   return(0);
 }
