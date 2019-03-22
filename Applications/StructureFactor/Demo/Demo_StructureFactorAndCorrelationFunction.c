@@ -34,6 +34,11 @@ int main(int argc, char *argv[])
   // READ ARGUMENTS FROM COMMAND LINE:
   i = 1;
   const char *fname = "config100.dat";
+  if(argc<2)
+  {
+    printf("Usage: %s --file <file name>\n", argv[0]);
+    return(-1);
+  }
 
   while( i < argc ){
     const char *arg = argv[i];
@@ -45,7 +50,7 @@ int main(int argc, char *argv[])
       fname = argv[i+1];
       if( access( fname, F_OK ) == -1 ) 
       {
-        printf("ERROR: File \'%s\' does not exist!\n"); return(0);
+        printf("Error: File \'%s\' does not exist!\n"); return(0);
       }
       i += 2;
     }else{
@@ -90,7 +95,7 @@ int main(int argc, char *argv[])
     Psi2D_FT[i]=(complex*)malloc(NY*sizeof(complex));
 
   // Calculate radially averaged S(q)
-  calculateStructureFactor(NX, NY, dx, Psi2D, Psi2D_FT, Nbins, buff1D, q_arr, SF_arr);
+  calculateStructureFactor2D(NX, NY, dx, Psi2D, Psi2D_FT, Nbins, buff1D, q_arr, SF_arr);
 
   // Calculate correlation function C(r)
   R_arr  =( double*)malloc(         (2*Nbins-1)*sizeof(double ));

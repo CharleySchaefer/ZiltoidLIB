@@ -27,7 +27,7 @@
     Psi2D:  complex NX x NY
     buff1D: complex length 2*min(NX, NY)  >>>> NOTE THE FACTOR TWO <<<<
 */
-int calculateStructureFactor(int NX, int NY, double dx, double **Psi2D, complex **Psi2D_FT, int Nbins, complex *buff1D, double *q_arr, double *SF)
+int calculateStructureFactor2D(int NX, int NY, double dx, double **Psi2D, complex **Psi2D_FT, int Nbins, complex *buff1D, double *q_arr, double *SF)
 {
   int i,j, ind;
   int Nmin=(NX<NY ? NX : NY);
