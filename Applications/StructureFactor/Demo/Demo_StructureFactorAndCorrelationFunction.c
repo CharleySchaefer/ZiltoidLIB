@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
   //-----------------------------------
   // READ MATRIX
   if(!analyse_data_file_properties( (char*)fname, &NX, &NY, &Nheader, &Ndata, verbose))
-  {printf("ERROR: analyse_data_file_properties() failed!\n"); exit(1);}
+  {printf("Error: analyse_data_file_properties() failed!\n"); exit(1);}
 
   // allocate memory
   Psi2D=(double**)malloc(NX*sizeof(double*));
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
     Psi2D[i]=(double*)malloc(NY*sizeof(double));
 
   if(!readMatrix((char*)fname, Psi2D, NX, NY))
-    {printf("ERROR: Failed to execute readMatrix()!\n"); return(0);}
+    {printf("Error: Failed to execute readMatrix()!\n"); return(0);}
   // MATRIX READ
   //-----------------------------------
 
