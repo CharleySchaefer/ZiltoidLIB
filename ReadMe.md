@@ -12,6 +12,12 @@ This software is freely distributed under the Apache 2.0 (Version 2.0, January 2
 
 ### Modules
 
+* Kinetic Monte Carlo 
+  * Variable step size method
+* [LatticeLIB](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/LatticeLIB)
+  * Periodic and non-periodic simple cubic (sc) and hexagonal close packed (hcp) lattices
+  * Transformations (reflect, rotate), finding neighbours within cutoff radius.
+  * (in development) Structure to build custom lattices.
 * Mathematics
   * Fourier (adapted from [RosettaCode](https://github.com/acmeism/RosettaCodeDatatree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C))
   * LUdecomposition (adapted from [lawliet89](https://github.com/lawliet89/DoolittleDeterminant))
@@ -22,13 +28,11 @@ This software is freely distributed under the Apache 2.0 (Version 2.0, January 2
 * Numerical Methods
   * Interpolation
   * Bisection method
-* String Operations
-  * Read word from string, count words in a string.
 * Read Text Files (uses String Operations module)
   * Determine number of header lines, number of columns, number of data lines.
   * Read rows and columns
-* Kinetic Monte Carlo 
-  * Variable step size method
+* String Operations
+  * Read word from string, count words in a string.
 
 ### Applications
 
