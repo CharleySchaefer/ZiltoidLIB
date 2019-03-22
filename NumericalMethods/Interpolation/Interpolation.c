@@ -74,3 +74,115 @@ int interp1(double *xarr, double *yarr, int N, double xint, double *yint)
   }
   return(1);
 }
+
+/*
+  mode
+  0: non-periodic boundaries
+  1: periodic boundaries
+*/
+int stretch_matrix(int mode, double **mat_in, int Nx_in, int Ny_in, double **mat_out, int Nx_out, int Ny_out)
+{
+  int i,j,k,l;
+  double x, xL, xU; // upper and lower x values
+  double F,fx,fy,G, dx, dy;
+
+  if(Nx_out<Nx_in | Ny_out<Ny_in)
+  {
+    printf("Error: New Nx and Ny should be larger or equal to the original ones.\n");
+    return(-1);
+  }
+
+
+  if(mode==0) // non-periodic
+  {
+    dx=(double)(Nx_in-1)/(Nx_out-1); 
+    dy=(double)(Ny_in-1)/(Ny_out-1);
+    for(i=0; i<Nx_out; i++)
+    {
+      F  = i*dx;
+      k  = (int)F; // floor
+      fx = 1-(F-k);
+
+      for(j=0; j<Ny_out; j++)
+      {
+        F  = j*dy;
+        l  = (int)F; // floor
+        fy = 1-(F-l);
+
+        G     = (  fx)*(  fy)*mat_in[k  ][l  ];
+        if(k<Nx_in-1)
+        {
+          G+= (1-fx)*(  fy)*mat_in[k+1][l  ];
+          if(l<Ny_in-1)
+          {
+            G+= (  fx)*(1-fy)*mat_in[k  ][l+1];
+            G+= (1-fx)*(1-fy)*mat_in[k+1][l+1];
+          }
+        }
+        else if(l<Ny_in-1)
+          G+=   (  fx)*(1-fy)*mat_in[k  ][l+1];
+
+        mat_out[i][j]=G;
+      }
+    }
+  }
+  else if(mode==1) // periodic
+  {
+    dx=(double)((Nx_out)*(Nx_in-2))/((Nx_in)*(Nx_out-2)); 
+    dy=(double)((Ny_out)*(Ny_in-2))/((Ny_in)*(Ny_out-2)); 
+    for(i=0; i<Nx_out; i++)
+    {
+      F  = i*dx;
+      k  = (int)F; // floor
+      fx = 1-(F-k);
+
+      for(j=0; j<Ny_out; j++)
+      {
+        F  = j*dy;
+        l  = (int)F; // floor
+        fy = 1-(F-l);
+
+
+        G     = (  fx)*(  fy)*mat_in[k  ][l  ];
+        if(k<Nx_in-1)
+        {
+          G+= (1-fx)*(  fy)*mat_in[k+1][l  ];
+          if(l<Ny_in-1)
+          {
+            G+= (  fx)*(1-fy)*mat_in[k  ][l+1];
+            G+= (1-fx)*(1-fy)*mat_in[k+1][l+1];
+          }
+          else // periodic boundary
+          {
+            G+= (  fx)*(1-fy)*mat_in[k  ][0  ];
+            G+= (1-fx)*(1-fy)*mat_in[k+1][0  ];
+          }
+        }
+        else 
+        {
+          G+= (1-fx)*(  fy)*mat_in[0  ][l  ];
+          if(l<Ny_in-1)
+          {
+            G+= (  fx)*(1-fy)*mat_in[k  ][l+1];
+            G+= (1-fx)*(1-fy)*mat_in[0  ][l+1];
+          }
+          else // periodic boundary
+          {
+            G+= (  fx)*(1-fy)*mat_in[k  ][0  ];
+            G+= (1-fx)*(1-fy)*mat_in[0  ][0  ];
+          }
+        }
+
+
+        mat_out[i][j]=G;
+      }
+    }
+  }
+  else
+  {
+    printf("Error: mode should be 0 (non-periodic) or 1 (non-periodic).\n");
+    return(-1);
+  }
+
+  return(1);
+}
