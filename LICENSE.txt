@@ -1,7 +1,5 @@
-   ZiltoidLIB: Simple C library
-
-
-   Copyright 2018, Charley Schaefer (charley.schaefer@gmail.com)
+   ZiltoidLIB: C library for physical modelling and simulation.
+   Copyright 2018, Charley Schaefer (charley.schaefer@york.ac.uk)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
