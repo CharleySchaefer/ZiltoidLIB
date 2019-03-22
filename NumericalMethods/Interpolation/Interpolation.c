@@ -128,8 +128,8 @@ int stretch_matrix(int mode, double **mat_in, int Nx_in, int Ny_in, double **mat
   }
   else if(mode==1) // periodic
   {
-    dx=(double)((Nx_out)*(Nx_in-2))/((Nx_in)*(Nx_out-2)); 
-    dy=(double)((Ny_out)*(Ny_in-2))/((Ny_in)*(Ny_out-2)); 
+    dx=(double)((Nx_out))/((Nx_in)); 
+    dy=(double)((Ny_out))/((Ny_in)); 
     for(i=0; i<Nx_out; i++)
     {
       F  = i*dx;

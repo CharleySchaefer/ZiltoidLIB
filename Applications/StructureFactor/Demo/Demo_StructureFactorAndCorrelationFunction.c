@@ -3,7 +3,8 @@
 #include <complex.h>
 #include <unistd.h> // check if file exists
 #include "../StructureFactor.h"
-#include "../../../ReadTextFiles/ReadTextFiles.h"
+//#include "../../../ReadTextFiles/ReadTextFiles.h"
+#include "../../../ZiltoidLIB.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,6 +22,7 @@ int main(int argc, char *argv[])
   // output
   int     Nbins;
   int     *counter;
+  int stretchmatrix=0;
   double  dx, sumf;
   complex *buff1D;
   complex **Psi2D_FT;
@@ -36,7 +38,15 @@ int main(int argc, char *argv[])
   const char *fname = "config100.dat";
   if(argc<2)
   {
-    printf("Usage: %s --file <file name>\n", argv[0]);
+    printf("Usage: %s --file <file name> [options]\n", argv[0]);
+    printf("file: plain text row/column data representing a matrix.\n");
+    printf("      This demo assumes periodic boundaries and calculates the.\n");
+    printf("      structure factor and correlation function.\n");
+    printf("\nOptions:\n");
+    printf("  --L <value>:      set physical length scale of the square field.\n");
+    printf("  --stretch-matrix: interpolate square N x N to N' x N', with N'=2^(n) >= N.\n");
+    printf("  For demo, see ZiltoidLIB/Applications/StructureFactor/Demo, and run\n");
+    printf("            ./demo_StructureFactor.sh.\n");
     return(-1);
   }
 
@@ -53,6 +63,9 @@ int main(int argc, char *argv[])
         printf("Error: File \'%s\' does not exist!\n"); return(0);
       }
       i += 2;
+    }else if( strcmp( arg, "--stretch-matrix" ) == 0 ){
+      stretchmatrix=1;
+      i += 1;
     }else{
       printf( "Error parsing args! Arg \"%s\" not recognized!\n", arg );
       return -1;
@@ -81,9 +94,32 @@ int main(int argc, char *argv[])
   //-----------------------------------
 
   //-----------------------------------
+  if(NX!=NY)
+  {printf("Error: non-square matrices not yet implemented.\n") ; return(-1);}
+
+  double **Psi2D_stretched=Psi2D;
+  if(stretchmatrix)
+  {
+    int NX_old=NX, NY_old=NY;
+     
+    NX=1;
+    while (NX<NX_old)
+      NX*=2;
+    NY=NX;
+    if (NX!=NX_old)
+    {
+      Psi2D_stretched=(double**)malloc(NX*sizeof(double*));
+      for(i=0; i<NX; i++)
+        Psi2D_stretched[i]=(double*)malloc(NY*sizeof(double));
+      printf("testA %d %d;\n", NX, NY);
+      stretch_matrix(0, Psi2D, NX_old, NY_old, Psi2D_stretched, NX, NY);
+      printf("testB;\n");
+    }
+  }
+
   dx = 1.0;
   if( Lx_set ){
-    dx = Lx / (NX-1);
+    dx = Lx / (NX);
   }
   Nbins  =(int)( (double)(NX<NY?NX:NY)/sqrt(2) ) - 1;
   counter=(    int*)malloc(          Nbins*sizeof(int    ));
@@ -95,7 +131,7 @@ int main(int argc, char *argv[])
     Psi2D_FT[i]=(complex*)malloc(NY*sizeof(complex));
 
   // Calculate radially averaged S(q)
-  calculateStructureFactor2D(NX, NY, dx, Psi2D, Psi2D_FT, Nbins, buff1D, q_arr, SF_arr);
+  calculateStructureFactor2D(NX, NY, dx, Psi2D_stretched, Psi2D_FT, Nbins, buff1D, q_arr, SF_arr);
 
   // Calculate correlation function C(r)
   R_arr  =( double*)malloc(         (2*Nbins-1)*sizeof(double ));
