@@ -102,7 +102,16 @@ echo " "
 
 pushd Applications  >/dev/null
 ./makeZiltoidApps.sh
-popd  >/dev/null # BACK TO ZILTOID/BUILD
+popd  >/dev/null # BACK TO ZILTOID
+echo " "
+
+echo "  adding applications to libZiltoidLIB.a"
+pushd build >/dev/null
+ar x ../Applications/bin/libZiltoidApps.a
+ar rcs libZiltoidLIB.a *.o
+popd  >/dev/null # BACK TO ZILTOID
+cp build/libZiltoidLIB.a .
+echo "  libZiltoidLIB.a created"
 echo " "
 
 popd >/dev/null
