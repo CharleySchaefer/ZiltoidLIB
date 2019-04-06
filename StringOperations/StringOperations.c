@@ -1,5 +1,25 @@
 #include "StringOperations.h"
 
+// from stackoverflow.com/questions/8512958/is-there-a-windows-variant-of-strsep#8514474
+char *windows_strsep(char** stringp, const char * delim)
+{
+  char * start = *stringp;
+  char * p;
+  
+  p = (start != NULL ) ? strpbrk(start, delim ) : NULL ;
+  
+  if (p==NULL)
+  {
+    *stringp=NULL;
+  }
+  else
+  {
+    *p = '\0';
+	*stringp = p+1;
+  }
+  return start;
+}
+
 //==============================================================================================
 //
 //    A. NUMBER TO STRING CONVERSION								
@@ -104,13 +124,13 @@ int fileNumber(char *fileName, int Num, int Nmax, char *newName)
     return(0);
   }
 
-  token = strsep(&fileName, ".");
-  newName[0]='\0';
-  newName=strcat(newName, token);
+  // TODO: only use windows_strsep on windows; strsep otherwises
+  token = windows_strsep(&fileName, ".");
+  sprintf("%s", token);
   numStr(str, Nmax,Num);
   newName=strcat(newName, str);
   newName=strcat(newName, ".");
-  token = strsep(&fileName, ".");
+  token = windows_strsep(&fileName, ".");
   newName=strcat(newName, token);
 
   return(1);

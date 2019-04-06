@@ -67,12 +67,19 @@ This software is freely distributed under the Apache 2.0 (Version 2.0, January 2
 
 ### Versions the software has been tested on
 
-* operating system: Linux clinux 3.16.0-7-amd64 #1 SMP Debian 3.16.59-1 (2018-10-03) x86_64 GNU/Linux  
-* compiler: gcc version 4.9.2 (Debian 4.9.2-10+deb8u2)  
-* using shell scripts: GNU bash, version 4.3.30(1)-release (x86_64-pc-linux-gnu)  
-* plotting: gnuplot 4.6 patchlevel 6 
-* debugging: valgrind-3.10.0  
-* .m scripts: GNU Octave, version 4.0.0 (configured for "x86_64-unknown-linux-gnu")
+* Linux:  
+  * Linux clinux 3.16.0-7-amd64 #1 SMP Debian 3.16.59-1 (2018-10-03) x86_64 GNU/Linux  
+  * gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)  
+  * gcc version 4.9.2 (Debian 4.9.2-10+deb8u2)  
+  * GNU bash, version 4.3.30(1)-release (x86_64-pc-linux-gnu)  
+  * GNU bash, GNU bash, version 4.2.46(2)-release (x86_64-redhat-linux-gnu)
+  * gnuplot 4.6 patchlevel 2, patchlevel 6 
+  * valgrind-3.10.0  
+  * GNU Octave, version 4.0.0 (configured for "x86_64-unknown-linux-gnu")
+* Microsoft Windows 10.0.15063 (only compilation tested; not functionality)
+  * gcc (i686-posix-dwarf-rev1, Built by MingWG-W64 project) 6.2.0  
+  * GNU bash, version 4.3.46(2)-release (x86_64-pc-msys)
+  * gnuplot 5.0, patchlevel 5 
 
 
 ### Installation / usage
@@ -92,8 +99,4 @@ Compile the software using
 ```gcc main.c -Lpath-to-ziltoidlib -lZiltoidLIB -lm```
 
 
-## Development
-
-* Extension of the library is not a goal in itself; new features are developed and appear when they are needed in specific applications / custom software.  
-* At some point, the library will be tested on Mac OS and Windows  
 
