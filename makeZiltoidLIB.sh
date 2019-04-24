@@ -69,7 +69,7 @@ popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
 pushd ../Memory  >/dev/null
-./makeZiltoidMemory.sh
+./makeZiltoidMemory.sh $debug_arg
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 

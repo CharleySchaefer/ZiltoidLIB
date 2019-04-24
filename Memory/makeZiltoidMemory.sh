@@ -15,7 +15,14 @@
 #   limitations under the License.
 #!/bin/bash
 
-
+arg=""
+if [ $# -eq 1 ]; then
+  arg=$1
+  if [ $arg != "-g" ]; then
+    echo "Unexpected argument $arg - exiting."
+    exit 1
+  fi
+fi
 
 echo "  >COMPILING ZiltoidMemory"
 mkdir -p build
@@ -24,7 +31,7 @@ pushd build >/dev/null
 
 
 
-if gcc -fPIC -c ../Memory.c ; then
+if gcc -fPIC -c ../Memory.c $arg ; then
   echo "  Memory.c compiled."
 else
   echo "Error: Failed to compile Memory.c."
