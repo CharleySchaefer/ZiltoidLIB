@@ -52,11 +52,13 @@ VSSM * VSSM_make(void)
 {
   VSSM *Vssm= (VSSM*)malloc(sizeof(VSSM));
 
-  (Vssm)->event_list=NULL;
-  (Vssm)->rate=NULL;
-  (Vssm)->S=NULL;
+  Vssm->event_list=NULL;
+  Vssm->rate=NULL;
+  Vssm->S=NULL;
 
 
+  Vssm->t=0;               // time
+  Vssm->dt;              // (adaptive) time step
   return (Vssm);
 }
 
