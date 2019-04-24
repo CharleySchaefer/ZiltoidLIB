@@ -20,6 +20,15 @@
 includeVSSM=1
 #===============================
 
+arg=""
+if [ $# -eq 1 ]; then
+  arg=$1
+  if [ $arg != "-g" ]; then
+    echo "Unexpected argument $arg - exiting."
+    exit 1
+  fi
+fi
+
 echo "  >COMPILING ZiltoidKMC"
 mkdir -p build
 pushd build >/dev/null
@@ -27,7 +36,7 @@ pushd build >/dev/null
 
 
 if [ $includeVSSM -eq 1 ]; then
-  if gcc -fPIC -c ../VSSM.c ; then
+  if gcc -fPIC -c ../VSSM.c $arg ; then
     echo "  VSSM compiled."
    else
     echo "Error: Failed to compile VSSM."

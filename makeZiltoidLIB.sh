@@ -5,6 +5,8 @@
 echo " "
 echo "BUILDING ZILTOIDLIB"
 
+do_debug=0
+debug_arg="" #default
 includeZiltoidLapack=0 # default
 for i in `seq 1 $#`
 do
@@ -12,6 +14,10 @@ do
     includeZiltoidLapack=1
   elif [ "${@:$i:1}" == "--include-lapack" ]; then
     includeZiltoidLapack=1
+  elif [ "${@:$i:1}" == "--debug" ]; then
+    do_debug=1
+    debug_arg="-g"
+    echo "Debugging mode."
   fi
 done
 
@@ -38,12 +44,12 @@ popd  >/dev/null  # BACK TO ZILTOID/BUILD
 echo " "
 
 pushd ../Mathematics  >/dev/null
-./makeZiltoidMathLib.sh
+./makeZiltoidMathLib.sh $debug_arg
 popd  >/dev/null  # BACK TO ZILTOID/BUILD 
 echo " "
 
 pushd ../NumericalMethods  >/dev/null
-./makeZiltoidNumLib.sh
+./makeZiltoidNumLib.sh $debug_arg
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
@@ -58,7 +64,7 @@ popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
 pushd ../kMC  >/dev/null
-./makeZiltoidKMC.sh
+./makeZiltoidKMC.sh $debug_arg
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 

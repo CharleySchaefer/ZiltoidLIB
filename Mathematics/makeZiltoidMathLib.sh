@@ -23,6 +23,15 @@ includeRandomNumbers=1
 includeLinearAlgebra=1
 #===============================
 
+arg=""
+if [ $# -eq 1 ]; then
+  arg=$1
+  if [ $arg != "-g" ]; then
+    echo "Unexpected argument $arg - exiting."
+    exit 1
+  fi
+fi
+
 echo "  >COMPILING ZiltoidMath"
 mkdir -p build
 pushd build >/dev/null
@@ -30,7 +39,7 @@ pushd build >/dev/null
 
 
 if [ $includeFourier -eq 1 ]; then
-  if gcc -fPIC -c ../Fourier/Fourier.c ; then
+  if gcc -fPIC -c ../Fourier/Fourier.c $arg ; then
     echo "  Fourier compiled."
    else
     echo "Error: Failed to compile Fourier."
@@ -38,7 +47,7 @@ if [ $includeFourier -eq 1 ]; then
   fi
 fi
 if [ $includePolynomial -eq 1 ]; then
-  if gcc -fPIC -c ../Polynomial/Polynomial.c ; then
+  if gcc -fPIC -c ../Polynomial/Polynomial.c $arg ; then
     echo "  Polynomial compiled."
    else
     echo "Error: Failed to compile Polynomial."
@@ -46,7 +55,7 @@ if [ $includePolynomial -eq 1 ]; then
   fi
 fi
 if [ $includeRandomNumbers -eq 1 ]; then
-  if gcc -fPIC -c ../RandomNumbers/RandomNumbers.c ; then
+  if gcc -fPIC -c ../RandomNumbers/RandomNumbers.c $arg ; then
     echo "  RandomNumbers compiled."
    else
     echo "Error: Failed to compile RandomNumbers."
@@ -54,7 +63,7 @@ if [ $includeRandomNumbers -eq 1 ]; then
   fi
 fi
 if [ $includeLinearAlgebra -eq 1 ]; then
-  if gcc -fPIC -c ../LinearAlgebra/LinearAlgebra.c ; then
+  if gcc -fPIC -c ../LinearAlgebra/LinearAlgebra.c $arg ; then
     echo "  LinearAlgebra compiled."
    else
     echo "Error: Failed to compile LinearAlgebra."
@@ -62,14 +71,14 @@ if [ $includeLinearAlgebra -eq 1 ]; then
   fi
 fi
 if [ $includeLinearAlgebra -eq 1 ]; then
-  if gcc -fPIC -c ../LinearAlgebra/DoolittleAlgorithm/DoolittleAlgorithm.c ; then
+  if gcc -fPIC -c ../LinearAlgebra/DoolittleAlgorithm/DoolittleAlgorithm.c $arg ; then
     echo "  DoolittleAlgorithm compiled."
    else
     echo "Error: Failed to compile DoolittleAlgorithm."
     exit 1
   fi
 fi
-if gcc -fPIC -c ../Mathematics.c ; then
+if gcc -fPIC -c ../Mathematics.c $arg ; then
   echo "  Mathematics compiled."
 else
   echo "Error: Failed to compile Mathematics."
