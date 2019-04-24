@@ -21,6 +21,15 @@
 cnf=1
 ModuleName=ZiltoidApps
 #===============================
+arg=""
+if [ $# -eq 1 ]; then
+  arg=$1
+  if [ $arg != "-g" ]; then
+    echo "Unexpected argument $arg - exiting."
+    exit 1
+  fi
+fi
+
 
 echo "  >COMPILING $ModuleName"
 mkdir -p bin
@@ -29,7 +38,7 @@ pushd bin >/dev/null
 
 
 if [ $cnf -eq 1 ]; then
-  if gcc -fPIC -c ../PrincipleMomentsOfInertia/PrincipleMomentsOfInertia.c ; then
+  if gcc -fPIC -c ../PrincipleMomentsOfInertia/PrincipleMomentsOfInertia.c $arg ; then
     echo "  PrincipleMomentsOfInertia compiled."
    else
     echo "Error: Failed to compile PrincipleMomentsOfInertia."
@@ -38,13 +47,13 @@ if [ $cnf -eq 1 ]; then
 fi
 
 pushd ../ColumnStats > /dev/null
-  ./compile_ColumnStats.sh
+  ./compile_ColumnStats.sh $arg
 popd > /dev/null
 mv ../ColumnStats/getColumnStats.o .
 
 
 pushd ../StructureFactor/Demo > /dev/null
-  ./compile_StructureFactor.sh  
+  ./compile_StructureFactor.sh $arg
 popd > /dev/null
 mv ../StructureFactor/Demo/StructureFactorAndCorrelationFunction.o .
 

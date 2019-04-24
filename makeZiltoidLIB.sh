@@ -39,7 +39,7 @@ mkdir -p build
 pushd build  >/dev/null
 
 pushd ../LatticeLIB  >/dev/null
-./makeLatticeLIB.sh
+./makeLatticeLIB.sh $debug_arg
 popd  >/dev/null  # BACK TO ZILTOID/BUILD 
 echo " "
 
@@ -54,12 +54,12 @@ popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
 pushd ../StringOperations  >/dev/null
-./makeZiltoidStringsLib.sh
+./makeZiltoidStringsLib.sh $debug_arg
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
 pushd ../ReadTextFiles  >/dev/null
-./makeZiltoidReadLib.sh
+./makeZiltoidReadLib.sh $debug_arg
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
@@ -113,7 +113,7 @@ echo " "
 
 
 pushd Applications  >/dev/null
-./makeZiltoidApps.sh
+./makeZiltoidApps.sh $debug_arg
 popd  >/dev/null # BACK TO ZILTOID
 echo " "
 

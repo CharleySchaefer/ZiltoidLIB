@@ -20,13 +20,22 @@
 includeReadTextFiles=1
 #===============================
 
+arg=""
+if [ $# -eq 1 ]; then
+  arg=$1
+  if [ $arg != "-g" ]; then
+    echo "Unexpected argument $arg - exiting."
+    exit 1
+  fi
+fi
+
 echo "  >COMPILING ZiltoidRead"
 mkdir -p build
 pushd build >/dev/null
 
 
 if [ $includeReadTextFiles -eq 1 ]; then
-  if gcc -fPIC -c ../ReadTextFiles.c ; then
+  if gcc -fPIC -c ../ReadTextFiles.c $arg ; then
     echo "  ReadTextFiles compiled."
    else
     echo "Error: Failed to compile ReadTextFiles."

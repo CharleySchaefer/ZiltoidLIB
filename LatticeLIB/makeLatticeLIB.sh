@@ -20,26 +20,35 @@
 echo " "
 echo "  >BUILDING LatticeLIB"
 
+arg=""
+if [ $# -eq 1 ]; then
+  arg=$1
+  if [ $arg != "-g" ]; then
+    echo "Unexpected argument $arg - exiting."
+    exit 1
+  fi
+fi
+
 rm build -rf
 mkdir -p build
 
 pushd build >/dev/null
 
-if gcc -fPIC -c ../LatticeCube/LatticeCube.c ; then
+if gcc -fPIC -c ../LatticeCube/LatticeCube.c $arg ; then
   echo "  LatticeCube compiled."
  else
   echo "Error: Failed to compile LatticeCube."
   exit 1
 fi
 
-if gcc -fPIC -c ../LatticeHCP/LatticeHCP.c ; then
+if gcc -fPIC -c ../LatticeHCP/LatticeHCP.c $arg ; then
   echo "  LatticeHCP compiled."
  else
   echo "Error: Failed to compile LatticeHCP."
   exit 1
 fi
 
-if gcc -fPIC -c ../NN/NN.c ; then
+if gcc -fPIC -c ../NN/NN.c $arg ; then
   echo "  NN compiled."
  else
   echo "Error: Failed to compile NN."
