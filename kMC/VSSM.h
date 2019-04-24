@@ -64,7 +64,9 @@
     float dt;              // (adaptive) time step
   } VSSM;
 
-  int VSSM_initialise(   VSSM **, int max_iter, int max_rates);
+  VSSM * VSSM_make(void);
+  int VSSM_free(VSSM *);
+  int VSSM_initialise(   VSSM *, int max_iter, int max_rates);
   int VSSM_sum_rates(    VSSM * );
   int VSSM_get_time_step(VSSM * );
   int VSSM_select_event( VSSM * );

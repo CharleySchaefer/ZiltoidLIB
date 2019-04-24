@@ -48,17 +48,54 @@
 */
 #include "VSSM.h"
 
-int VSSM_initialise(VSSM **Vssm, int max_iter, int max_rates)
+VSSM * VSSM_make(void)
 {
-  *Vssm              = ( VSSM*)malloc(sizeof( VSSM));
-  (*Vssm)->max_iter  = max_iter;  // maximum number of iterations
-  (*Vssm)->max_rates = max_rates; // number of events/rates
-  (*Vssm)->t         = 0.0;    // initialise time
-  (*Vssm)->N_iter    = 0;      // number of kMC time steps
-  (*Vssm)->N_rates   = max_rates;
-  (*Vssm)->event_list=(int  *)malloc(max_rates*sizeof(int  ));
-  (*Vssm)->rate      =(float*)malloc(max_rates*sizeof(float));
-  (*Vssm)->S         =(float*)malloc(max_rates*sizeof(float));
+  VSSM *Vssm= (VSSM*)malloc(sizeof(VSSM));
+
+  (Vssm)->event_list=NULL;
+  (Vssm)->rate=NULL;
+  (Vssm)->S=NULL;
+
+
+  return (Vssm);
+}
+
+int VSSM_free(VSSM *Vssm)
+{
+  if(Vssm!=NULL)
+  {
+    if(Vssm->event_list!=NULL)
+    {
+      free(Vssm->event_list);
+      Vssm->event_list=NULL;
+    }
+    if(Vssm->rate!=NULL)
+    {
+      free(Vssm->rate);
+      Vssm->rate=NULL;
+    }
+    if(Vssm->S!=NULL)
+    {
+      free(Vssm->S);
+      Vssm->S=NULL;
+    }
+
+    free(Vssm); Vssm=NULL;
+  }
+  return(1);
+}
+
+int VSSM_initialise(VSSM *Vssm, int max_iter, int max_rates)
+{
+  //*Vssm              = ( VSSM*)malloc(sizeof( VSSM));
+  (Vssm)->max_iter  = max_iter;  // maximum number of iterations
+  (Vssm)->max_rates = max_rates; // number of events/rates
+  (Vssm)->t         = 0.0;    // initialise time
+  (Vssm)->N_iter    = 0;      // number of kMC time steps
+  (Vssm)->N_rates   = max_rates;
+  (Vssm)->event_list=(int  *)malloc(max_rates*sizeof(int  ));
+  (Vssm)->rate      =(float*)malloc(max_rates*sizeof(float));
+  (Vssm)->S         =(float*)malloc(max_rates*sizeof(float));
   return(1);
 }
 
