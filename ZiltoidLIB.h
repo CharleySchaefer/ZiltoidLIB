@@ -32,6 +32,7 @@
 
   #include "kMC/VSSM.h"
   #include "Mathematics/Mathematics.h"
+  #include "Memory/Memory.h"
   #include "LatticeLIB/LatticeLIB.h"
   #include "NumericalMethods/NumericalMethods.h"
   #include "ReadTextFiles/ReadTextFiles.h"
