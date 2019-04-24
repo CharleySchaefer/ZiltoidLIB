@@ -17,10 +17,10 @@ int  find_index_closest_to_Yvalue(double* y, int Ndata, double y0, int *ind )
     yU=y[Ndata-1]; yL=y[0]; mode=2;
   }
   else
-    {printf("ERROR: y[0]=%e equals y[Ndata-1]=%e", y[0], y[Ndata-1]); return(0);}
+    {printf("Error: y[0]=%e equals y[Ndata-1]=%e", y[0], y[Ndata-1]); return(0);}
 
   if ((y0<yL) | (y0>yU))
-    {printf("ERROR: y0=%e out of boundary [%e; %e]\n", y0, yL, yU); return(0);}
+    {printf("Error: y0=%e out of boundary [%e; %e]\n", y0, yL, yU); return(0);}
 
   //--------------------------------------  
   // find two y values closest to y0
@@ -84,13 +84,13 @@ int  find_index_above_y0_float(float* y, int Ndata, float y0, int *ind )
     yU=y[Ndata-1]; yL=y[0]; mode=2;
   }
   else
-    {printf("ERROR: y[0]=%e equals y[Ndata-1]=%e", y[0], y[Ndata-1]); return(0);}
+    {printf("Error: y[0]=%e equals y[Ndata-1]=%e", y[0], y[Ndata-1]); return(0);}
 
   if (y0<yL)
   {(*ind)=0; return(0);}
 
   if ((y0>yU))
-    {printf("ERROR: y0=%e out of boundary [%e; %e]\n", y0, yL, yU); return(0);}
+    {printf("Error: y0=%e out of boundary [%e; %e]\n", y0, yL, yU); return(0);}
 
   //--------------------------------------  
   // find two y values closest to y0
