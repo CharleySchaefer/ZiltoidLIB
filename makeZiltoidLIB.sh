@@ -62,6 +62,11 @@ pushd ../kMC  >/dev/null
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
+pushd ../Memory  >/dev/null
+./makeZiltoidMemory.sh
+popd  >/dev/null # BACK TO ZILTOID/BUILD
+echo " "
+
 
 
 
@@ -83,6 +88,7 @@ echo "  Extracting modules in build:"
 ar x ../kMC/build/libZiltoidKMC.a
 ar x ../LatticeLIB/build/libLatticeLIB.a
 ar x ../Mathematics/build/libZiltoidMath.a
+ar x ../Memory/build/libZiltoidMemory.a
 ar x ../NumericalMethods/build/libZiltoidNum.a
 ar x ../StringOperations/build/libZiltoidStrings.a
 ar x ../ReadTextFiles/build/libZiltoidRead.a
