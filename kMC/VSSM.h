@@ -49,27 +49,28 @@
 #ifndef VSSM_H
   #define VSSM_H 1
 
-  typedef struct {
-    int 	max_iter;        // number of kMC time steps
-    int 	max_rates;       // number of possible rates
-    float *rate;           // all possible rates
-    float *S;              // cummulative rates
-    int   *event_list;     // list with labels that refer to events
+  #include "../ZiltoidLIB.h"
 
+  typedef struct {
     int   selected_event;  // label of event after selection
     int   N_iter;          // iteration counter
     int   N_rates;         // number of non-zero rates
-    float sum_rates;       // sum over all rates *rate
-    float t;               // time
-    float dt;              // (adaptive) time step
+    double sum_rates;       // sum over all rates *rate
+    double t;               // time
+    double dt;              // (adaptive) time step
+    int 	max_iter;        // number of kMC time steps
+    int 	max_rates;       // number of possible rates
+    double *rate;           // all possible rates
+    double *S;              // cummulative rates
+    int   *event_list;     // list with labels that refer to events
+
   } VSSM;
 
   VSSM * VSSM_make(void);
   int VSSM_free(VSSM *);
-  int VSSM_initialise(   VSSM *, int max_iter, int max_rates);
+  int VSSM_initialise(   VSSM *, int, int);
   int VSSM_sum_rates(    VSSM * );
   int VSSM_get_time_step(VSSM * );
   int VSSM_select_event( VSSM * );
 
-  #include "../ZiltoidLIB.h"
 #endif

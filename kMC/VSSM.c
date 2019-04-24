@@ -52,14 +52,15 @@ VSSM * VSSM_make(void)
 {
   VSSM *Vssm= (VSSM*)malloc(sizeof(VSSM));
 
+  Vssm->t=0.0;               // time
+  Vssm->dt=0.0;              // (adaptive) time step
+
   Vssm->event_list=NULL;
   Vssm->rate=NULL;
   Vssm->S=NULL;
 
 
-  Vssm->t=0;               // time
-  Vssm->dt;              // (adaptive) time step
-  return (Vssm);
+  return Vssm;
 }
 
 int VSSM_free(VSSM *Vssm)
@@ -96,8 +97,8 @@ int VSSM_initialise(VSSM *Vssm, int max_iter, int max_rates)
   (Vssm)->N_iter    = 0;      // number of kMC time steps
   (Vssm)->N_rates   = max_rates;
   (Vssm)->event_list=(int  *)malloc(max_rates*sizeof(int  ));
-  (Vssm)->rate      =(float*)malloc(max_rates*sizeof(float));
-  (Vssm)->S         =(float*)malloc(max_rates*sizeof(float));
+  (Vssm)->rate      =(double*)malloc(max_rates*sizeof(double));
+  (Vssm)->S         =(double*)malloc(max_rates*sizeof(double));
   return(1);
 }
 
@@ -122,7 +123,7 @@ int VSSM_sum_rates(VSSM *Vssm)
 
 int VSSM_get_time_step(VSSM *Vssm)
 {
-  float u=(float)rand()/(RAND_MAX); // Uniform deviate on unit interval
+  double u=(double)rand()/(RAND_MAX); // Uniform deviate on unit interval
   Vssm->dt=-log(u)/Vssm->sum_rates; // Time step
   return(1);
 }
@@ -130,8 +131,8 @@ int VSSM_get_time_step(VSSM *Vssm)
 int VSSM_select_event(VSSM *Vssm)
 {
   int selected_event;
-  float r=Vssm->sum_rates*(float)rand()/RAND_MAX;
-  find_index_above_y0_float(Vssm->S, Vssm->N_rates, r, &selected_event );
+  double r=Vssm->sum_rates*(double)rand()/(RAND_MAX+1.0);
+  find_index_above_y0_double(Vssm->S, Vssm->N_rates, r, &selected_event );
   Vssm->selected_event=selected_event;
   return(1);
 }
