@@ -89,8 +89,9 @@ This software is freely distributed under the Apache 2.0 (Version 2.0, January 2
 Without BLAS/LAPACK functionality compile ZiltoidLIB by running:  
 ``` ./makeZiltoidLIB.sh ```  
 With BLAS/LAPACK functionality compile ZiltoidLIB by running:  
-``` ./makeZiltoidLIB.sh --include-lapack```
-
+``` ./makeZiltoidLIB.sh --include-lapack```  
+For development/debugging the argument ```--debug``` can be used,  
+which calls ```gcc -g```.
 
 **Usage:**  
 Include the library in main.c or main.h of custom software using  
