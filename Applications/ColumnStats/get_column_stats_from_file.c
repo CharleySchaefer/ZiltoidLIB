@@ -30,7 +30,9 @@ int main(int argc, char *argv[])
     const char *arg = argv[i];
    
     if( strcmp( arg, "--file" ) == 0 ){
-      sprintf(fname, argv[i+1]);
+      fname[0]='\0';
+      if(strlen(argv[i+1])>0)
+        strcat(fname, argv[i+1]);
       if( access( fname, F_OK ) == -1 ) 
       {
         printf("Error: File \'%s\' does not exist!\n", fname); return(0);
