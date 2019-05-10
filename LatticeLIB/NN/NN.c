@@ -73,14 +73,16 @@ NN_STRUCT *copy_nn_struct(NN_STRUCT *NNin)
 
 void free_nn_struct(NN_STRUCT *NN)
 {
-  free(NN->dx);
-  if(NN->dim>1)
+  if(NN!=NULL)
   {
-    free(NN->dy);
-    if(NN->dim>2)
-      free(NN->dz);
+    if(NN->dx!=NULL)
+      {free(NN->dx); NN->dx=NULL;}
+    if(NN->dy!=NULL)
+      {free(NN->dy); NN->dy=NULL;}
+    if(NN->dz!=NULL)
+      {free(NN->dz); NN->dz=NULL;}
+    free(NN); NN=NULL;
   }
-  free(NN);
 }
 int nn_analyse(NN_STRUCT *NN)
 {
