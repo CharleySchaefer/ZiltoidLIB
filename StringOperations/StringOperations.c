@@ -162,35 +162,25 @@ int str_2_dir_and_file(const char *str, char *dir, char *file)
 {
   int i,ind1,ind2;
   char c;
-//  dir =(char*)malloc(MAX_STR_L*sizeof(char));
-//  file=(char*)malloc(MAX_STR_L*sizeof(char));
 
-  ind1=0;ind2=-1;
-  
-  while( (c=str[ind1]) != '\0' & (( c=='.' )|(c=='/')|(c=='\\' )) )
+  // Go to end of line
+  ind1=0;
+  while((c=str[ind1]) != '\0' )
     ind1++;
 
-  i=ind1; 
-  while( (c=str[i]) != '\0' )
-  {
-    i++;
-    if(c=='/' | c=='\\')
-    {   
-      if(ind2!=-1)
-        ind1=ind2;
-      ind2=i;
-    }   
-  }
+  while( ind1>=0 && (c=str[ind1]) != '/')
+    ind1--;
 
-  if(ind2==-1)
-    ind2=i+1;
-  else
-  {
-    file[0]='\0';
-    strcat(file, str+ind2);
+  if(ind1<0){
+    dir[0]='.'; dir[1]='\0';
+    sprintf(file, str);
+  } else if ( (c=str[ind1])=='/' ) {
+
+    sprintf(dir,  str);
+    dir[ind1]='\0';
+    sprintf(file, str+ind1+1);
+
   }
-  for(i=ind1; i<ind2-1;i++)
-    dir[i-ind1]= *(str+i);
 
   return(1);
 }
