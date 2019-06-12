@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 
   // input
   int NX,NY;
-  int Nheader, Ndata, verbose=1;
+  int Nheader, Ndata, verbose=0;
   double **Psi2D;
 
 
@@ -76,8 +76,6 @@ int main(int argc, char *argv[])
   // VARIABLES DECLARED
   //-----------------------------------
 
-  printf("\n#Demo StructureFactor\n");
-
   //-----------------------------------
   // READ MATRIX
   if(!analyse_data_file_properties( (char*)fname, &NX, &NY, &Nheader, &Ndata, verbose))
@@ -111,9 +109,8 @@ int main(int argc, char *argv[])
       Psi2D_stretched=(double**)malloc(NX*sizeof(double*));
       for(i=0; i<NX; i++)
         Psi2D_stretched[i]=(double*)malloc(NY*sizeof(double));
-      printf("testA %d %d;\n", NX, NY);
+
       stretch_matrix(0, Psi2D, NX_old, NY_old, Psi2D_stretched, NX, NY);
-      printf("testB;\n");
     }
   }
 
