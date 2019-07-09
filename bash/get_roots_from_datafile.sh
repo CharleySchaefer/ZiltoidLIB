@@ -1,3 +1,4 @@
+### ZiltoidLIB: https://github.com/CharleySchaefer/ZiltoidLIB
 #!/bin/bash
 
 if [ $# -lt 4 ]
