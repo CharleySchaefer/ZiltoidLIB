@@ -27,17 +27,17 @@ int getPrincipalMomentsOfInertia(double *M, double  *X, double  *Y, double  *Z, 
   int x,y,z;
   double R, d, RdotU, theta;
 
-  // Get inertia tensor
+  // Get gyration tensor
   for(i=0; i<N; i++)
   {
-    I11 += M[i]*(  (Y[i]-ymean)*(Y[i]-ymean) + (Z[i]-zmean)*(Z[i]-zmean)  );
+    I11 += M[i]*(  (X[i]-xmean)*(X[i]-xmean) /*(Y[i]-ymean)*(Y[i]-ymean) + (Z[i]-zmean)*(Z[i]-zmean)*/  );
     I12 -= M[i]*(  (X[i]-xmean)*(Y[i]-ymean)  );
     I13 -= M[i]*(  (X[i]-xmean)*(Z[i]-zmean)  );
 
-    I22 += M[i]*(  (X[i]-xmean)*(X[i]-xmean) + (Z[i]-zmean)*(Z[i]-zmean)  );
+    I22 += M[i]*(  (Y[i]-ymean)*(Y[i]-ymean) /*(X[i]-xmean)*(X[i]-xmean) + (Z[i]-zmean)*(Z[i]-zmean)*/  );
     I23 -= M[i]*(  (Z[i]-zmean)*(Y[i]-ymean)  );
 
-    I33 += M[i]*(  (X[i]-xmean)*(X[i]-xmean) + (Y[i]-ymean)*(Y[i]-ymean)  );
+    I33 += M[i]*(  (Z[i]-zmean)*(Z[i]-zmean) /*(X[i]-xmean)*(X[i]-xmean) + (Y[i]-ymean)*(Y[i]-ymean)*/  );
   }
   I21=I12;
   I31=I13;
