@@ -8,21 +8,21 @@
   #endif
 
   // Discrete Fourier transform
-  void  dft(    complex *, complex *, int);
-  void  dft2( complex **, complex *, int,  int);
+  void  dft(    complex double *,  complex double *, int);
+  void  dft2(   complex double **, complex double *, int,  int);
 
   // Fast Fourier transform (1D) Adapted from RosettaCodeData https://github.com/acmeism/RosettaCodeData/tree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C
-  void  fft(    complex *, complex *, int);
-  void  fft_emb(complex *, complex *, int, int);
-  void ifft(    complex *, complex *, int);
-  void ifft_emb(complex *, complex *, int, int);
+  void  fft(    complex double *, complex double *, int);
+  void  fft_emb(complex double *, complex double *, int, int);
+  void ifft(    complex double *, complex double *, int);
+  void ifft_emb(complex double *, complex double *, int, int);
 
   // Fast Fourier transform (2D) - uses 1D version
-  void  fft2( complex **, complex *, int, int);
-  void ifft2( complex **, complex *, int, int);
+  void  fft2( complex double **, complex double *, int, int);
+  void ifft2( complex double **, complex double *, int, int);
 
   // Fast Fourier transform (3D) - uses 1D version
-  void  fft3(complex ***, complex *, int, int, int);
-  void ifft3(complex ***, complex *, int, int, int);
+  void  fft3(complex double ***, complex double *, int, int, int);
+  void ifft3(complex double ***, complex double *, int, int, int);
 #endif
 

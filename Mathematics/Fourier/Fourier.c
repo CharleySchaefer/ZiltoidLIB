@@ -2,16 +2,14 @@
 #include "Fourier.h"
 
 
-void dft(complex *arr, complex *arrFT, int N)
+void dft(complex double *arr, complex double *arrFT, int N)
 {
   int m, n;
   double re, im, fac;
-  complex sum;
-  for (n = 0; n < N; n++)
-  { 
+  complex double sum;
+  for (n = 0; n < N; n++) { 
     sum = 0;
-    for (m = 0; m < N; m++) 
-    {
+    for (m = 0; m < N; m++) {
       fac=2*M_PI*m*n/N;
       re = creal(arr[m]);
       im = cimag(arr[m]);
@@ -20,16 +18,15 @@ void dft(complex *arr, complex *arrFT, int N)
     arrFT[n] = sum;
   }
 }
-void dft2(complex **arr2, complex *buf, int Nx, int Ny)
+void dft2(complex double **arr2, complex double *buf, int Nx, int Ny)
 {
   int     i,j;
   int     maxN=(Nx>Ny?Nx:Ny);
-  complex *buf2=buf+maxN;
+  complex double *buf2=buf+maxN;
 	
   // Fourier transform
   // 1. rows
-  for (i=0; i<Nx; i++)
-  {
+  for (i=0; i<Nx; i++) {
     // Copy a row
     for ( j = 0; j < Ny; j++) 
       buf[j] = arr2[i][j];
@@ -43,8 +40,7 @@ void dft2(complex **arr2, complex *buf, int Nx, int Ny)
   }
 
   // 2. columns
-  for (i=0; i<Ny; i++)
-  {
+  for (i=0; i<Ny; i++) {
     // Copy a row
     for ( j = 0; j < Nx; j++) 
       buf[j] = arr2[j][i];
@@ -66,7 +62,7 @@ void dft2(complex **arr2, complex *buf, int Nx, int Ny)
 
 //==============================================
 // FAST FOURIER TRANSFORM  Adapted from RosettaCodeData https://github.com/acmeism/RosettaCodeData/tree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C
-void fft(complex *arr, complex *buff, int N)
+void fft(complex double *arr, complex double *buff, int N)
 {
   int i;
 
@@ -76,18 +72,16 @@ void fft(complex *arr, complex *buff, int N)
   fft_emb(arr, buff, N, 1);
 }
 
-void fft_emb(complex *arr, complex *buff, int N, int iter)
+void fft_emb(complex double *arr, complex double *buff, int N, int iter)
 {
   int n;
-  complex tmp;
+  complex double tmp;
 
-  if (iter < N) 
-  {
+  if (iter < N) {
     fft_emb(     buff,      arr, N, 2*iter);
     fft_emb(iter+buff, iter+arr, N, 2*iter);
 
-    for (n=0; n<N; n+=2*iter)
-    {
+    for (n=0; n<N; n+=2*iter) {
       tmp = cexp(-M_PI*I*n/N)*buff[n+iter];
       arr[    n/2] = buff[n] + tmp;
       arr[(n+N)/2] = buff[n] - tmp;
@@ -98,7 +92,7 @@ void fft_emb(complex *arr, complex *buff, int N, int iter)
 
 //==============================================
 // FAST FOURIER TRANSFORM - INVERSE
-void ifft(complex *arr, complex *buff, int N)
+void ifft(complex double *arr, complex double *buff, int N)
 {
   int i;
 
@@ -108,18 +102,16 @@ void ifft(complex *arr, complex *buff, int N)
   ifft_emb(arr, buff, N, 1);
 }
 
-void ifft_emb(complex *arr, complex *buff, int N, int iter)
+void ifft_emb(complex double *arr, complex double *buff, int N, int iter)
 {
   int n;
-  complex tmp;
+  complex double tmp;
 
-  if (iter < N) 
-  {
+  if (iter < N) {
     ifft_emb(     buff,      arr, N, 2*iter);
     ifft_emb(iter+buff, iter+arr, N, 2*iter);
 
-    for (n=0; n<N; n+=2*iter)
-    {
+    for (n=0; n<N; n+=2*iter) {
       tmp = cexp( M_PI*I*n/N)*buff[n+iter];
       arr[    n/2] = 0.5*(buff[n] + tmp);
       arr[(n+N)/2] = 0.5*(buff[n] - tmp);
@@ -127,16 +119,15 @@ void ifft_emb(complex *arr, complex *buff, int N, int iter)
   }
 }
 // LENGTH BUFFER SHOULD BE TWICE THE MAXIMUM LINEAR DIMENSION, i.e., 2*max(Nx,Ny)
-void fft2(complex **arr2, complex *buf, int Nx, int Ny)
+void fft2(complex double **arr2, complex double *buf, int Nx, int Ny)
 {
   int     i,j;
   int     maxN=(Nx>Ny?Nx:Ny);
-  complex *buf2=buf+maxN;
+  complex double *buf2=buf+maxN;
 	
   // Fourier transform
   // 1. rows
-  for (i=0; i<Nx; i++)
-  {
+  for (i=0; i<Nx; i++) {
     // Copy a row
     for ( j = 0; j < Ny; j++) 
       buf[j] = arr2[i][j];
@@ -150,8 +141,7 @@ void fft2(complex **arr2, complex *buf, int Nx, int Ny)
   }
 
   // 2. columns
-  for (i=0; i<Ny; i++)
-  {
+  for (i=0; i<Ny; i++) {
     // Copy a row
     for ( j = 0; j < Nx; j++) 
       buf[j] = arr2[j][i];
@@ -164,16 +154,15 @@ void fft2(complex **arr2, complex *buf, int Nx, int Ny)
       arr2[j][i] = buf[j];
   }
 }
-void ifft2(complex **arr2, complex *buf, int Nx, int Ny)
+void ifft2(complex double **arr2, complex double *buf, int Nx, int Ny)
 {
   int     i,j;
   int     maxN=(Nx>Ny?Nx:Ny);
-  complex *buf2=buf+maxN;
+  complex double *buf2=buf+maxN;
 	
   // Fourier transform
   // 1. rows
-  for (i=0; i<Nx; i++)
-  {
+  for (i=0; i<Nx; i++) {
     // Copy a row
     for ( j = 0; j < Ny; j++) 
       buf[j] = arr2[i][j];
@@ -187,8 +176,7 @@ void ifft2(complex **arr2, complex *buf, int Nx, int Ny)
   }
 
   // 2. columns
-  for (i=0; i<Ny; i++)
-  {
+  for (i=0; i<Ny; i++) {
     // Copy a row
     for ( j = 0; j < Nx; j++) 
       buf[j] = arr2[j][i];
@@ -205,73 +193,73 @@ void ifft2(complex **arr2, complex *buf, int Nx, int Ny)
 
 
 // LENGTH BUFFER SHOULD BE TWICE THE MAXIMUM LINEAR DIMENSION, i.e., 2*max(Nx,Ny)
-void fft3(complex ***arr3, complex *buf, int Nx, int Ny, int Nz)
+void fft3(complex double ***arr3, complex double *buf, int Nx, int Ny, int Nz)
 {	
   int i,j,k;
   int maxN=(Nx>Ny?Nx:Ny);
       maxN=(Nz>maxN?Nz:maxN);
-  complex *buf2=buf+maxN;
+  complex double *buf2=buf+maxN;
 
-  for(j=0; j<Ny;j++)
-    for(k=0; k<Nz;k++)
-    {
+  for(j=0; j<Ny;j++) {
+    for(k=0; k<Nz;k++) {
       for(i=0; i<Nx; i++)
         buf[i] = arr3[i][j][k];
       fft(buf, buf2, Nx);
       for(i=0; i<Nx; i++)
         arr3[i][j][k] = buf[i];
     }
-  for(i=0; i<Nx; i++)
-    for(k=0; k<Nz;k++)
-    {
+  }
+  for(i=0; i<Nx; i++) {
+    for(k=0; k<Nz;k++) {
       for(j=0; j<Ny;j++)
         buf[j] = arr3[i][j][k];
       fft(buf, buf2, Ny);
       for(j=0; j<Ny;j++)
         arr3[i][j][k] = buf[j];
-    }	
-  for(j=0; j<Ny;j++)
-    for(i=0; i<Nx; i++)
-    {
+    }
+  }
+  for(j=0; j<Ny;j++) {
+    for(i=0; i<Nx; i++) {
       for(k=0; k<Nz;k++)
         buf[k] = arr3[i][j][k];
       fft(buf, buf2, Nz);
       for(k=0; k<Nz;k++)
         arr3[i][j][k] = buf[k];
     }
+  }
 }
-void ifft3(complex ***arr3, complex *buf, int Nx, int Ny, int Nz)
+void ifft3(complex double ***arr3, complex double *buf, int Nx, int Ny, int Nz)
 {	
   int i,j,k;
   int maxN=(Nx>Ny?Nx:Ny);
       maxN=(Nz>maxN?Nz:maxN);
-  complex *buf2=buf+maxN;
+  complex double *buf2=buf+maxN;
 
-  for(j=0; j<Ny;j++)
-    for(k=0; k<Nz;k++)
-    {
+  for(j=0; j<Ny;j++) {
+    for(k=0; k<Nz;k++) {
       for(i=0; i<Nx; i++)
         buf[i] = arr3[i][j][k];
       ifft(buf, buf2, Nx);
       for(i=0; i<Nx; i++)
         arr3[i][j][k] = buf[i];
     }
-  for(i=0; i<Nx; i++)
-    for(k=0; k<Nz;k++)
-    {
+  }
+  for(i=0; i<Nx; i++) {
+    for(k=0; k<Nz;k++) {
       for(j=0; j<Ny;j++)
         buf[j] = arr3[i][j][k];
       ifft(buf, buf2, Ny);
       for(j=0; j<Ny;j++)
         arr3[i][j][k] = buf[j];
-    }	
-  for(j=0; j<Ny;j++)
-    for(i=0; i<Nx; i++)
-    {
+    }
+  }
+  for(j=0; j<Ny;j++) {
+    for(i=0; i<Nx; i++) {
       for(k=0; k<Nz;k++)
         buf[k] = arr3[i][j][k];
       ifft(buf, buf2, Nz);
       for(k=0; k<Nz;k++)
         arr3[i][j][k] = buf[k];
     }
+  }
 }

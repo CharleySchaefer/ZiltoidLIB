@@ -24,11 +24,11 @@ int main(int argc, char *argv[])
   int     *counter;
   int stretchmatrix=0;
   double  dx, sumf;
-  complex *buff1D;
-  complex **Psi2D_FT;
+  complex double *buff1D;
+  complex double **Psi2D_FT;
   double  *q_arr, *SF_arr;
   double  *R_arr;
-  complex *C_arr;
+  complex double *C_arr;
 
   double Lx = 1.0;  /* Command-line specification of the domain size. */
   int Lx_set = 0;
@@ -122,19 +122,19 @@ int main(int argc, char *argv[])
   counter=(    int*)malloc(          Nbins*sizeof(int    ));
   q_arr  =( double*)malloc(          Nbins*sizeof(double ));
   SF_arr =( double*)malloc(          Nbins*sizeof(double ));
-  buff1D =(complex*)malloc(2*(NX>NY?NX:NY)*sizeof(complex));
-  Psi2D_FT=(complex**)malloc(NX*sizeof(complex*));
+  buff1D =(complex double*)malloc(2*(NX>NY?NX:NY)*sizeof(complex double));
+  Psi2D_FT=(complex double**)malloc(NX*sizeof(complex double*));
   for(i=0; i<NX; i++)
-    Psi2D_FT[i]=(complex*)malloc(NY*sizeof(complex));
+    Psi2D_FT[i]=(complex double*)malloc(NY*sizeof(complex double));
 
   // Calculate radially averaged S(q)
   calculateStructureFactor2D(NX, NY, dx, Psi2D_stretched, Psi2D_FT, Nbins, buff1D, q_arr, SF_arr);
 
   // Calculate correlation function C(r)
   R_arr  =( double*)malloc(         (2*Nbins-1)*sizeof(double ));
-  C_arr  =(complex*)malloc(         (2*Nbins-1)*sizeof(complex ));
+  C_arr  =(complex double*)malloc(         (2*Nbins-1)*sizeof(complex double ));
   free(buff1D);
-  buff1D  =(complex*)malloc(         (2*Nbins-1)*sizeof(complex ));
+  buff1D  =(complex double*)malloc(         (2*Nbins-1)*sizeof(complex double ));
 
   for (i=0; i<Nbins; i++)
     C_arr[i]=SF_arr[i];

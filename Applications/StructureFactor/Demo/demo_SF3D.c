@@ -139,14 +139,12 @@ int main(int argc, char *argv[])
 
   // Get density matrix
   double*** Psi3D=(double***)malloc(Ngrid*sizeof(double**));
-  for(i=0; i<Ngrid; i++)
-  {
+  for(i=0; i<Ngrid; i++) {
     Psi3D[i]=(double**)malloc(Ngrid*sizeof(double*));
     for(j=0; j<Ngrid; j++)
       Psi3D[i][j]=(double*)calloc(Ngrid, sizeof(double));
   }
-  for(i=0; i<Ndata; i++)
-  {
+  for(i=0; i<Ndata; i++) {
     Psi3D[ x_col[i]-xmin ][ y_col[i]-ymin ][ z_col[i]-zmin ] = 1;
   }
   
@@ -157,22 +155,20 @@ int main(int argc, char *argv[])
   int*counter=(    int*)malloc(          Nbins*sizeof(int    ));
   double*q_arr  =( double*)malloc(          Nbins*sizeof(double ));
   double*SF_arr =( double*)malloc(          Nbins*sizeof(double ));
-  complex* buff1D =(complex*)malloc(2*(Ngrid)*sizeof(complex));
-  complex*** Psi3D_FT=(complex***)malloc(Ngrid*sizeof(complex**));
-  for(i=0; i<Ngrid; i++)
-  {
-    Psi3D_FT[i]=(complex**)malloc(Ngrid*sizeof(complex*));
+  complex double* buff1D =(complex double*)malloc(2*(Ngrid)*sizeof(complex double));
+  complex double*** Psi3D_FT=(complex double***)malloc(Ngrid*sizeof(complex double**));
+  for(i=0; i<Ngrid; i++) {
+    Psi3D_FT[i]=(complex double**)malloc(Ngrid*sizeof(complex double*));
     for(j=0; j<Ngrid; j++)
-      Psi3D_FT[i][j]=(complex*)malloc(Ngrid*sizeof(complex));
+      Psi3D_FT[i][j]=(complex double*)malloc(Ngrid*sizeof(complex double));
   }
   calculateStructureFactor3D(Ngrid, Ngrid, Ngrid, dx, Psi3D, Psi3D_FT, Nbins, buff1D, q_arr, SF_arr);
 
 
   // Calculate correlation function C(r)
   double*R_arr  =( double*)malloc(         (2*Nbins-1)*sizeof(double ));
-  complex* C_arr  =(complex*)malloc(         (2*Nbins-1)*sizeof(complex ));
-  //free(buff1D);
-  //complex* buff1D  =(complex*)malloc(         (2*Nbins-1)*sizeof(complex ));
+  complex double* C_arr  =(complex double*)malloc(         (2*Nbins-1)*sizeof(complex double ));
+
 
   for (i=0; i<Nbins; i++)
     C_arr[i]=SF_arr[i];
@@ -188,8 +184,7 @@ int main(int argc, char *argv[])
   dx=2.0*M_PI/q_arr[Nbins-1];
 
   printf("%16s %16s %16s %16s\n", "#q", "S(q)", "R", "C(R)");
-  for (i=0; i<Nbins; i++)
-  {
+  for (i=0; i<Nbins; i++) {
     printf("%16e %16e %16e %16e\n", q_arr[i], SF_arr[i]/(Ngrid*Ngrid*Ngrid), dx*i, creal(buff1D[i])/sumf );
   }
 
