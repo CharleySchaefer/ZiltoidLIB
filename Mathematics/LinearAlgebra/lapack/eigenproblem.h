@@ -1,6 +1,6 @@
 /*
   
-  Eigenvalues & Eigenvectors of a real symmetric matrix using LAPACK
+  Eigenvalues and Eigenvectors of a real symmetric matrix using LAPACK
 
   Routines: DSYTRD, DORGTR, DSTEQR are detailed below.
 
@@ -52,6 +52,11 @@
             Cholesky factor
 */
 #include <stdio.h>
+
+extern void dsytrd_(char *, int *, double *, int *, double *, double *, double *, double * , int*, int *);
+extern void dorgtr_(char *, int *, double *, int *, double *, double *, int*, int *);
+extern void dsteqr_(char *, int *, double *, double *, double *, int *, double *, int *);
+
 int eigenproblem_real_symmetric_matrix(char,  double **, int, double *, double *, double *, double *, double *);
 
 
@@ -103,7 +108,9 @@ ARGUMENTS
 	  are over- written by the corresponding elements of the tridiagonal
 	  matrix T, and	the elements below the first subdiagonal, with the
 	  array	TAU, represent the orthogonal matrix Q as a product of ele-
-	  mentary reflectors. See Further Details.  LDA	    (input) INTEGER
+	  mentary reflectors. See Further Details.  
+
+  LDA     (input) INTEGER
 	  The leading dimension	of the array A.	 LDA >=	max(1,N).
 
   D	  (output) DOUBLE PRECISION array, dimension (N)

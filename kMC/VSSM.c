@@ -27,7 +27,7 @@
       3.A. calculate total rate
          - using VSSM_sum_rates
 
-      3.B. determine (stochastic & adaptive) time step
+      3.B. determine (stochastic and adaptive) time step
          - using VSSM_get_time_step
 
       3.C. select event

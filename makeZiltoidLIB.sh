@@ -82,7 +82,7 @@ then
   echo " "
   echo "COMPILING ZILTOIDLAPACK"
   pushd ../Mathematics/LinearAlgebra/lapack  >/dev/null
-    gcc -fPIC -c eigenproblem.c  
+    gcc -fPIC -c eigenproblem.c
   popd >/dev/null
   cp ../Mathematics/LinearAlgebra/lapack/eigenproblem.o lapack_eigenproblem.o
   echo "  lapack_eigenproblem.o compiled"

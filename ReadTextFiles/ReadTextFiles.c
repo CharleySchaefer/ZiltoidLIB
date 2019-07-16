@@ -86,13 +86,13 @@ int getNheader(const char *fname, int *Nheader)
     {printf("\nError: Failed to open file \'%s\'!\n\n", fname); return(0);}
 
   *Nheader=-1; atheader=1;
-  while( atheader & fgets( line, sizeof line, ifp) != NULL )
+  while( atheader && fgets( line, sizeof line, ifp) != NULL )
   {
     (*Nheader)++;
     i=0;
-    while( ((c=line[i]) == ' ' | c == '\t') & c!='\n' & c!='\0') // Skip white space
+    while( ((c=line[i]) == ' ' || c == '\t') && c!='\n' && c!='\0') // Skip white space
       i++;
-    atheader=!('0'<=c & c<='9');
+    atheader=!('0'<=c && c<='9');
   }
   fclose(ifp); 
 
@@ -271,27 +271,27 @@ int dreadColumn(char *fname, int Ndata, int Nheader, int Ncol, double *col)
     // Find position of first column in the line
     if((c=line[j])==' ') // Read line until space is found (column delimiter)
     {
-      while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+      while( (c=line[j]) != '\0' && c != '\n' && c != ' ')
         j++;
 
       // Read line until end of space
-      while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+      while( (c=line[j]) == ' ' && c != '\0' && c != '\n')
         j++;
     }
 
     // start reading columns
-    while( countCol<Ncol & (c=line[j]) != '\0' & c != '\n' )
+    while( countCol<Ncol && (c=line[j]) != '\0' && c != '\n' )
     {
       // Read line until space is found
-      while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+      while( (c=line[j]) != '\0' && c != '\n' && c != ' ')
         j++;
 
       // Read line until end of space
-      while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+      while( (c=line[j]) == ' ' && c != '\0' && c != '\n')
         j++;
 
       // If character after space is not the end of the line a column is found
-      if( (c=line[j]) != ' ' & c != '\0' & c != '\n')
+      if( (c=line[j]) != ' ' && c != '\0' && c != '\n')
         countCol++;
     }
     col[i+1-Nheader] = atof(line+j); // Read column entry 
@@ -330,27 +330,27 @@ int freadColumn(char *fname, int Ndata, int Nheader, int Ncol, float *col)
     // Find position of first column in the line
     if((c=line[j])==' ') // Read line until space is found (column delimiter)
     {
-      while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+      while( (c=line[j]) != '\0' && c != '\n' && c != ' ')
         j++;
 
       // Read line until end of space
-      while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+      while( (c=line[j]) == ' ' && c != '\0' && c != '\n')
         j++;
     }
 
     // start reading columns
-    while( countCol<Ncol & (c=line[j]) != '\0' & c != '\n' )
+    while( countCol<Ncol && (c=line[j]) != '\0' && c != '\n' )
     {
       // Read line until space is found
-      while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+      while( (c=line[j]) != '\0' && c != '\n' && c != ' ')
         j++;
 
       // Read line until end of space
-      while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+      while( (c=line[j]) == ' ' && c != '\0' && c != '\n')
         j++;
 
       // If character after space is not the end of the line a column is found
-      if( (c=line[j]) != ' ' & c != '\0' & c != '\n')
+      if( (c=line[j]) != ' ' && c != '\0' && c != '\n')
         countCol++;
     }
     col[i+1-Nheader] = atof(line+j); // Read column entry 
@@ -392,26 +392,26 @@ int ireadColumn(
       // Skip white space before first column
       if((c=line[j])==' ')
          {/* Read line until space is found */  
-        while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+        while( (c=line[j]) != '\0' && c != '\n' && c != ' ')
           j++;
 
         /* Read line until end of space */    
-        while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+        while( (c=line[j]) == ' ' && c != '\0' && c != '\n')
           j++;}
       
       // start reading columns
-      while( countCol<Ncol & (c=line[j]) != '\0' & c != '\n' ){
+      while( countCol<Ncol && (c=line[j]) != '\0' && c != '\n' ){
     
         /* Read line until space is found */  
-        while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+        while( (c=line[j]) != '\0' && c != '\n' && c != ' ')
           j++;
 
         /* Read line until end of space */    
-        while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+        while( (c=line[j]) == ' ' && c != '\0' && c != '\n')
           j++;
 
         /* If character after space is not the end of the line a column is found */
-        if( (c=line[j]) != ' ' & c != '\0' & c != '\n')
+        if( (c=line[j]) != ' ' && c != '\0' && c != '\n')
           countCol++;
         }
       col[i+1-Nheader] = atoi(line+j);  
@@ -453,26 +453,26 @@ int creadColumn(
       // Skip white space before first column
       if((c=line[j])==' ')
          {/* Read line until space is found */  
-        while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+        while( (c=line[j]) != '\0' && c != '\n' && c != ' ')
           j++;
 
         /* Read line until end of space */    
-        while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+        while( (c=line[j]) == ' ' && c != '\0' && c != '\n')
           j++;}
       
       // start reading columns
-      while( countCol<Ncol & (c=line[j]) != '\0' & c != '\n' ){
+      while( countCol<Ncol && (c=line[j]) != '\0' && c != '\n' ){
     
         /* Read line until space is found */  
-        while( (c=line[j]) != '\0' & c != '\n' & c != ' ')
+        while( (c=line[j]) != '\0' && c != '\n' && c != ' ')
           j++;
 
         /* Read line until end of space */    
-        while( (c=line[j]) == ' ' & c != '\0' & c != '\n')
+        while( (c=line[j]) == ' ' && c != '\0' && c != '\n')
           j++;
 
         /* If character after space is not the end of the line a column is found */
-        if( (c=line[j]) != ' ' & c != '\0' & c != '\n')
+        if( (c=line[j]) != ' ' && c != '\0' && c != '\n')
           countCol++;
         }
       col[i+1-Nheader] = line[j];  
@@ -493,7 +493,7 @@ int dreadRow(char *fname, int Nrow, double *row)
     }
   // get to line at Nrow (Nrow=0) is the first line
   i=0;
-  while( fgets( line, sizeof line, ifp) != NULL & i<Nrow)
+  while( fgets( line, sizeof line, ifp) != NULL && i<Nrow)
     i++;
   
   ind=0;i=0;
@@ -520,7 +520,7 @@ int sreadRow(char *fname, int Nrow, float *row, int *Nword)
     }
   // get to line at Nrow (Nrow=0) is the first line
   i=0;
-  while( fgets( line, sizeof line, ifp) != NULL & i<Nrow)
+  while( fgets( line, sizeof line, ifp) != NULL && i<Nrow)
     i++;
   
   ind=0;(*Nword)=0;
@@ -547,7 +547,7 @@ int ireadRow(char *fname, int Nrow, int *row, int *Nword)
     }
   // get to line at Nrow (Nrow=0) is the first line
   i=0;
-  while( fgets( line, sizeof line, ifp) != NULL & i<Nrow)
+  while( fgets( line, sizeof line, ifp) != NULL && i<Nrow)
     i++;
   
   ind=0;(*Nword)=0;
@@ -591,7 +591,7 @@ int readMatrix(char *fname, double **mat, int Nlines, int Ncols)
   {
     ind=0;j=0;
     // Skip white space before first column
-    while( (c=line[ind]) == ' ' & c != '\0' & c != '\n')
+    while( (c=line[ind]) == ' ' && c != '\0' && c != '\n')
       ind++;
         
     while( getWord( line+ind, word, &Nchar) )

@@ -23,7 +23,7 @@
 */
 int eigenproblem_real_symmetric_matrix(char compz, double **matrix, int n, double *U, double *dbuff1, double *dbuff2, double *dbuff3, double *D)
 {
-  if( (compz!='N')&(compz!='V') )
+  if( (compz!='N')&&(compz!='V') )
   {
     printf("Error: compz character should be 'N' or 'V'.\n");
     return(-1);

@@ -55,7 +55,7 @@ int main(int argc, char** argv)
 
 
   //--------------------------------------------------------------------
-  // DEMO 2: Calculate eigenvalues & eigenvectors (U will contain the eigenvectors)
+  // DEMO 2: Calculate eigenvalues and eigenvectors (U will contain the eigenvectors)
   printf("Demo eigenproblem_real_symmetric_matrix() with compz='V'.\n");
 
   if(eigenproblem_real_symmetric_matrix('V', matrix, n, U, dbuff1, dbuff2, dbuff3, D)!=1)

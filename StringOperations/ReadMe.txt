@@ -3,8 +3,8 @@ Manipulating file names
 1. str_2_dir_and_file
 
    Examples:
-    "./dir/file.txt" --> "dir" & "file.txt"
-    "dir/file.txt"   --> "dir" & "file.txt"
+    "./dir/file.txt" --> "dir" && "file.txt"
+    "dir/file.txt"   --> "dir" && "file.txt"
     "./dir/"         --> "dir"
     "dir"            --> "dir"
 

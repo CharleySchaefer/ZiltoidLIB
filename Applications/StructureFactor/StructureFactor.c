@@ -14,7 +14,7 @@
         concentration / order parameter.
       * Or integers of value -1, 0, 1, 2; 2 is converted to -1 in the script
         1 then represents a site occupied by particle A and -1 occupied by particle B
-        See Krishnan, Jaiwal & Puri, JCP 139, 174705 (2013)
+        See Krishnan, Jaiwal and Puri, JCP 139, 174705 (2013)
     > NX, NY should be powers of 2
     > dx is the grid spacing
 
@@ -50,7 +50,7 @@ int calculateStructureFactor2D(int NX, int NY, double dx, double **Psi2D, comple
     for(j=0; j<NY; j++)
       Psi2D_FT[i][j] = (Psi2D[i][j]==1 ? 1 : (Psi2D[i][j]==2 ? -1 : Psi2D[i][j]) ); 
 
-  if(  isPowerOfTwo(NX) & isPowerOfTwo(NY) )
+  if(  isPowerOfTwo(NX) && isPowerOfTwo(NY) )
     fft2(Psi2D_FT, buff1D, NX, NY);
   else
     dft2(Psi2D_FT, buff1D, NX, NY);
@@ -105,7 +105,7 @@ int calculateStructureFactor3D(int NX, int NY, int NZ, double dx, double ***Psi3
       for(k=0; k<NZ; k++)
       Psi3D_FT[i][j][k] = (Psi3D[i][j][k]==1 ? 1 : (Psi3D[i][j][k]==2 ? -1 : Psi3D[i][j][k]) ); 
 
-  if(  isPowerOfTwo(NX) & isPowerOfTwo(NY) & isPowerOfTwo(NZ) )
+  if(  isPowerOfTwo(NX) && isPowerOfTwo(NY) && isPowerOfTwo(NZ) )
     fft3(Psi3D_FT, buff1D, NX, NY, NZ);
   else
   {

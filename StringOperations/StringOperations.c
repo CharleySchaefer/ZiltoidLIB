@@ -77,15 +77,15 @@ int getWord(char *string, char *word, int *Nchar)
   int	i=0,j=0;
   char	c;
 
-  while( ((c=string[i]) == ' ' | c == '\t') & c!='\n' & c!='\0') // Skip white space
+  while( ((c=string[i]) == ' ' || c == '\t') && c!='\n' && c!='\0') // Skip white space
     i++;
 
-  if( c == '\n' | c == '\0' ) // No word found
+  if( c == '\n' || c == '\0' ) // No word found
     return(0);
 	
   // Get word from string
   word[j] = string[i+j]; 
-  while( (c=string[i+j]) != ' ' & c!='\t' & c!='\n' & c!='\0')
+  while( (c=string[i+j]) != ' ' && c!='\t' && c!='\n' && c!='\0')
   {
     word[j] = string[i + j];
     j++;
@@ -109,6 +109,7 @@ int getWord(char *string, char *word, int *Nchar)
 //  - Nmax is the number of characters used (3)
 //  - newName is the new filename
 //
+
 int fileNumber(char *fileName, int Num, int Nmax, char *newName)
 {
 
@@ -126,7 +127,7 @@ int fileNumber(char *fileName, int Num, int Nmax, char *newName)
 
   // TODO: only use windows_strsep on windows; strsep otherwises
   token = windows_strsep(&fileName, ".");
-  sprintf("%s", token);
+  sprintf(newName, "%s", token);
   numStr(str, Nmax,Num);
   newName=strcat(newName, str);
   newName=strcat(newName, ".");
@@ -152,12 +153,12 @@ int countWords(char *line, char *buffer, int *Nwords)
   while( getWord( line+i, word, &Nchar) )
   {
     i+= Nchar;
-    (*Nwords)++; // Count number of words
+    (*Nwords)++; /* Count number of words */
   }
 
   return(1);
 }
-
+/*
 int str_2_dir_and_file(const char *str, char *dir, char *file)
 {
   int i,ind1,ind2;
@@ -183,6 +184,6 @@ int str_2_dir_and_file(const char *str, char *dir, char *file)
   }
 
   return(1);
-}
+}*/
 
 
