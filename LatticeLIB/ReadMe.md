@@ -8,15 +8,31 @@ This software is a module of [ZiltoidLIB](https://github.com/CharleySchaefer/Zil
 
 ## Features
 
-* Cubic lattices (2D and 3D)
+### Cuboid lattices (2D and 3D) 
 
-* Sparse matrix transformations
-  * rotate (2-3 dimensions)
-  * reflect (1-3 dimensions) 
+**Data storage**  
+Data is stored in linear array of length (NX * NY * NZ) in so-called row-major form:  
+value at lattice site (x,y,z) is found in lattice at position/index (z + Nz * (y + Ny * x))  
+translating between (x,y,z) and (index) is done using coor2ind and ind2coor functions.  
+In 2D coor2ind_square/ind2coor_square and in 3D coor2ind_cube/ind2coor_cube  
+The column-major alternative of storing data is provided in the source code, and is currently commented.
 
-* Nearest-neighbour (NN) structures for custom lattice geometries
+**Transformation**  
 
-* (not yet extensively tested) Hexagonal lattices
+* Sparse matrix transformations  
+* rotate (2-3 dimensions)  
+* reflect (1-3 dimensions) 
+
+**Analysis**  
+
+* Nearest-neighbour (NN) N/S/E/W/U/D on periodic lattice  
+* Nearest-neighbourhood: creating and analysing lists with displacements/relative positions.  
+* Obtaining sites belonging in volume defined by (multiple) sphere(s) or sphere shell.  
+* Get angle between three sites  
+
+### Hexagonal lattices  
+
+Under construction 
 
 
 ## System requirements and Installation

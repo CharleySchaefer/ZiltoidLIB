@@ -27,16 +27,14 @@
 
   // 2D lattice
   int NN_square_periodic(int, int, int, int *, int);             // NX, NY, ind, newind, direction: 0-N , 1-S , 2-E , 3-W 
-                                                                 //                                 4-NE, 5-NW, 6-SE, 7-SW
+           
+  /*DATA STORAGE */  //                                 4-NE, 5-NW, 6-SE, 7-SW
   int coor2ind_square(LATTICE_CUBE *, int, int         );        // x,y   -> ind
   int ind2coor_square(LATTICE_CUBE *, int, int *, int *);        // ind   -> x,y
-
-  // 3D lattice
-  // TODO: add NN_cube_periodic
   int coor2ind_cube(  LATTICE_CUBE *, int, int,   int         ); // x,y,z -> ind
   int ind2coor_cube(  LATTICE_CUBE *, int, int *, int *, int *); // ind   -> x,y,z 
 
-
+  /*ANALYSIS*/
   int get_sites_in_sphere_shell(double, double, double, double, double, int *, int *, int *, int *);
   int get_sites_in_spheres(int, double *, double *, double *, double,  int *, int *, int *, int *);
   int is_cube_vacant( LATTICE_CUBE *, int, int, int);
