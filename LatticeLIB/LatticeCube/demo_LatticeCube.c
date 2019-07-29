@@ -1,5 +1,7 @@
 #include "LatticeCube.h"
-
+/*
+  compile: gcc demo_LatticeCube.c LatticeCube.c -lm
+*/
 int main(int argc, char *argv[])
 {
   int siteID, siteID_test;
@@ -22,7 +24,7 @@ int main(int argc, char *argv[])
     siteID=i;
 
     ind2coor_cube(Lattice, siteID, &x, &y, &z);
-    siteID_test) = coor2ind_cube(Lattice, x, y, z;
+    siteID_test = coor2ind_cube(Lattice, x, y, z);
 
     printf("%4d: %3d, %3d, %3d\n", siteID, x, y, z);
 
