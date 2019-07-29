@@ -25,6 +25,7 @@ LATTICE_CUBE *make_lattice_cube(int Nx, int Ny, int Nz)
   Lattice->Ny   = Ny;
   Lattice->Nz   = Nz;
   Lattice->dim  = dim;
+  Lattice->Nyz  = Lattice->Ny  * Lattice->Nz;
   Lattice->Nxy  = Lattice->Nx  * Lattice->Ny;
   Lattice->Nxyz = Lattice->Nxy * Lattice->Nz;
 
@@ -121,29 +122,45 @@ int NN_square_periodic(int Nx, int Ny, int site_in, int *p_site_out, int directi
 int ind2coor_square(LATTICE_CUBE *Lattice, int site, int *x, int *y)
 {
   *y=site%Lattice->Ny;
-  *x=(site-(*y))/Lattice->Ny;
+  *x=(site-(*y))/Lattice->Ny; /* Row-major format*/
 }
 
 int ind2coor_cube(LATTICE_CUBE *Lattice, int site, int *x, int *y, int *z)
 {
-  int sitexy = site%Lattice->Nxy;
-  *z=(site-sitexy)/Lattice->Nxy;
-  *y=sitexy%Lattice->Ny;
-  *x=(sitexy-(*y))/Lattice->Ny;
+  /* Row-major format */
+  int itmp = site%Lattice->Nyz;
+  *x=(site-itmp)/Lattice->Nyz;
+  *z=itmp%Lattice->Nz;
+  *y=(itmp-(*z))/Lattice->Nz; /**/
+
+  /* Column-major format *//*
+  int itmp = site%Lattice->Nxy;
+  *z=(site-itmp)/Lattice->Nxy;
+  *x=itmp%Lattice->Nx;
+  *y=(itmp-(*x))/Lattice->Nx;/**/
+
+  /* obsolete format *//*
+  int itmp = site%Lattice->Nxy;
+  *z=(site-itmp)/Lattice->Nxy;
+  *y=itmp%Lattice->Ny;
+  *x=(itmp-(*y))/Lattice->Ny;/**/
 }
 
 int coor2ind_square(LATTICE_CUBE *Lattice, int x, int y)
 {
   int xx=(x%Lattice->Nx); if(xx<0) {xx+=Lattice->Nx;};
   int yy=(y%Lattice->Ny); if(yy<0) {yy+=Lattice->Ny;};
-  return (xx)*Lattice->Ny+(yy);
+  /*return (xx)*Lattice->Ny+(yy); /* Row-major format*/
+  return (yy)*Lattice->Nx+(xx);   /* Column-major format*/
 }
 int coor2ind_cube(LATTICE_CUBE *Lattice, int x, int y, int z)
 {
   int xx=(x%Lattice->Nx); if(xx<0) {xx+=Lattice->Nx;};
   int yy=(y%Lattice->Ny); if(yy<0) {yy+=Lattice->Ny;};
   int zz=(z%Lattice->Nz); if(zz<0) {zz+=Lattice->Nz;};
-  return zz*Lattice->Nxy + xx*Lattice->Ny + yy;
+  return xx*Lattice->Nyz + yy*Lattice->Nz + zz; /* Row-major format*/
+  /*return zz*Lattice->Nxy + yy*Lattice->Nx + xx; /* Column-major format*/
+  /*return zz*Lattice->Nxy + xx*Lattice->Ny + yy;*/ /*obsolete format */
 }
 
 /*
