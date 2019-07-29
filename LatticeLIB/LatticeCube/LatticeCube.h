@@ -16,7 +16,7 @@
     int is_periodic_y; // default 1
     int is_periodic_z; // default 1
     int Nx, Ny, Nz;    // Size
-    int Nxy;
+    int Nxy, Nyz;
     int Nxyz; // Total number of sites: Nsites=Nx*Ny*Nz
   } LATTICE_CUBE;
 
