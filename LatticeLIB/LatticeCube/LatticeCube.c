@@ -371,5 +371,40 @@ int get_cosangle_between_lattice_sites(LATTICE_CUBE *Lattice, int siteID, int nn
   return(1);
 }
 
+/*
+  INPUT:
+    Lattice - cuboid geometry
+       ->Nx, ->Ny, ->Nz
+    NeighbourList - list with neighbours
+       ->dx, ->dy, ->dz : arrays of length ->N
+    x_in, y_in, z_in: central site
+    NNsite: neighbour index (<NeighbourList->N)
+  OUTPUT:
+    
+*/
+int get_NeighbourSite(LATTICE_CUBE *Lattice, NN_STRUCT *NeighbourList, int x_in, int y_in, int z_in, int NNsite, int *x_out, int *y_out, int *z_out)
+{
+  if(NNsite>NeighbourList->N) {
+    printf("Error: index NNsite=%d exceeded neighbour list of length %d.\n", NNsite, NeighbourList->N);
+    return(-1);
+  }
+  int delta;
+
+  delta=NeighbourList->dx[NNsite]; 
+  (*x_out)=((x_in+delta) % Lattice->Nx);
+  if((*x_out)<0)
+    (*x_out)+=Lattice->Nx;
+
+  delta=NeighbourList->dy[NNsite]; 
+  (*y_out)=((y_in+delta) % Lattice->Ny);
+  if((*y_out)<0)
+    (*y_out)+=Lattice->Ny;
+
+  delta=NeighbourList->dz[NNsite]; 
+  (*z_out)=((z_in+delta) % Lattice->Nz);
+  if((*z_out)<0)
+    (*z_out)+=Lattice->Nz;
+  return(1);
+}
 
 

@@ -4,6 +4,8 @@
   #include <stdlib.h>
   #include <math.h>
 
+  #include "../NN/NN.h"
+
   // Structure for lattice with square (2D) or cubic (3D) geometry
 
   // east  = x/i -direction
@@ -41,6 +43,7 @@
   int get_cosangle_between_lattice_coordinates(LATTICE_CUBE *, int, int, int, int, int, int, int, int, int, double, float *);
   int get_cosangle_between_lattice_sites(LATTICE_CUBE *, int , int , int , double, float *);
 
+  int get_NeighbourSite(LATTICE_CUBE *, NN_STRUCT *, int, int, int, int, int *, int *, int *);
 
 #endif
 
