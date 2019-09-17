@@ -84,6 +84,10 @@ This software is freely distributed under the Apache 2.0 (Version 2.0, January 2
 
 ### Installation / usage
 
+**Download**
+
+Download from ![here](https://github.com/CharleySchaefer/ZiltoidLIB), or clone  
+```git clone https://github.com/CharleySchaefer/ZiltoidLIB```  
 
 **Installation:**  
 Without BLAS/LAPACK functionality compile ZiltoidLIB by running:  
