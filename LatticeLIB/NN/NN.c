@@ -141,7 +141,7 @@ int nn_analyse(NN_STRUCT *NN)
     case 3:
     {
       for(i=0; i<NN->N; i++)
-        {if( NN->dx[i]==0 ) {NN->central_site=i;}}
+        {if( NN->dx[i]==0 && NN->dy[i]==0 && NN->dz[i]==0 ) {NN->central_site=i;}}
       break;
     }
   }
