@@ -150,8 +150,8 @@ int coor2ind_square(LATTICE_CUBE *Lattice, int x, int y)
 {
   int xx=(x%Lattice->Nx); if(xx<0) {xx+=Lattice->Nx;};
   int yy=(y%Lattice->Ny); if(yy<0) {yy+=Lattice->Ny;};
-  /*return (xx)*Lattice->Ny+(yy); /* Row-major format*/
-  return (yy)*Lattice->Nx+(xx);   /* Column-major format*/
+  return (xx)*Lattice->Ny+(yy); /* Row-major format*/
+  /*return (yy)*Lattice->Nx+(xx);   /* Column-major format*/
 }
 int coor2ind_cube(LATTICE_CUBE *Lattice, int x, int y, int z)
 {
