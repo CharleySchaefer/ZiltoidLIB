@@ -11,6 +11,8 @@ set xlabel \"R\"
 #set log y
 set ylabel \"C(R)\"
 
+set grid 
+
 unset key
 
 plot \"$datafile\" u 3:4 w l lt 1 lw 2 lc rgb \"#AA4444\"

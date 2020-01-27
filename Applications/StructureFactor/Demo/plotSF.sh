@@ -11,6 +11,7 @@ set xlabel \"q\"
 set log y
 set ylabel \"S(q)\"
 
+set grid 
 unset key
 
 plot \"$datafile\" u 1:2 w l lt 1 lw 2 lc rgb \"#AA4444\"
