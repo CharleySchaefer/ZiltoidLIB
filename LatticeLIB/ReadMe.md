@@ -57,7 +57,7 @@ Run ```./makeLatticeLIB.sh``` to compile the static library *libLatticeLIB.a*.
 
 **Usage:**  
 In the *main.h* or *main.c* file of custom software, include the library using  
-```#define "path-to-lib/LatticeLIB.h"```  
+```#include "path-to-lib/LatticeLIB.h"```  
 and compile the software using  
 ```gcc main.c -Lpath-to-lib -lLatticeLIB -lm```
 
