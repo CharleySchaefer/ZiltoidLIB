@@ -18,7 +18,7 @@ This software is freely distributed under the Apache 2.0 (Version 2.0, January 2
   * Periodic and non-periodic simple cubic (sc) and hexagonal close packed (hcp) lattices
   * Transformations (reflect, rotate), finding neighbours within cutoff radius.
   * (in development) Structure to build custom lattices.
-* Mathematics
+* [Mathematics](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/Mathematics) 
   * Fourier (adapted from [RosettaCode](https://github.com/acmeism/RosettaCodeDatatree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C); for an efficient alternative see e.g. [fftw](http://www.fftw.org/))
   * LUdecomposition (adapted from [lawliet89](https://github.com/lawliet89/DoolittleDeterminant))
   * Polynomial (adapted from [uni-koeln](http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c))
