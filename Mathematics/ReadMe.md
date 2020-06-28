@@ -1,7 +1,7 @@
 # ZiltoidLIB: Mathematics
 
 ## PURPOSE
-Small set of frequently encountered math functions without external dependencies.
+Small set of frequently encountered math functions without external dependencies. This library is a module of [ZiltoidLIB](https://github.com/CharleySchaefer/ZiltoidLIB), which is freely distributed under the Apache 2.0 (Version 2.0, January 2004) license WITHOUT WARRANTY, see LICENSE.txt.
 
 ## FEATURES
 
