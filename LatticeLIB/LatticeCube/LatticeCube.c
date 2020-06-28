@@ -30,6 +30,7 @@ LATTICE_CUBE *make_lattice_cube(int Nx, int Ny, int Nz)
   Lattice->Nxyz = Lattice->Nxy * Lattice->Nz;
 
   Lattice->site=(int*)calloc(Lattice->Nxyz, sizeof(int)); // array with sites
+  Lattice->num_neighbours = (int*)calloc(Lattice->Nxyz, sizeof(int));
   return Lattice;
 }
 
@@ -41,9 +42,14 @@ int free_lattice_cube(LATTICE_CUBE *Lattice)
       free(Lattice->site);
       Lattice->site=NULL;
     }
+      if(Lattice->num_neighbours!=NULL){
+        free(Lattice->num_neighbours);
+        Lattice->num_neighbours=NULL;
+      }
     free(Lattice);
     Lattice=NULL;
   }
+
   return(1);
 }
 
@@ -406,5 +412,49 @@ int get_NeighbourSite(LATTICE_CUBE *Lattice, NN_STRUCT *NeighbourList, int x_in,
     (*z_out)+=Lattice->Nz;
   return(1);
 }
+
+
+CUBOID * make_Cuboid(void) {
+  CUBOID *Cuboid=(CUBOID*)malloc(sizeof(CUBOID));
+  if(Cuboid == NULL)
+  {
+    printf("Malloc Error in make_Cuboid function\n");
+    exit(EXIT_FAILURE);
+  }
+
+  return Cuboid;
+}
+void free_Cuboid(CUBOID *Cuboid) {
+  if (Cuboid != NULL) {
+    free(Cuboid); Cuboid=NULL;
+  }
+}
+
+int add_CuboidToLattice(LATTICE_CUBE *Lattice, CUBOID *Cuboid){
+  if(Cuboid->xL<0 || Cuboid->yL<0 || Cuboid->zL<0 ||
+     Cuboid->xU>=Lattice->Nx ||
+     Cuboid->yU>=Lattice->Ny ||
+     Cuboid->zU>=Lattice->Nz ) {
+    printf("Error: Cuboid coordinates should be within the lattice domain.\n");
+    exit(-1);
+  }
+  if (Cuboid->xL>Cuboid->xU || Cuboid->yL>Cuboid->yU || Cuboid->zL>Cuboid->zU) {
+    printf("Error: xL/yL/zL should be smaller than xU/yU/zU");
+    exit(-1);
+  }
+  int i,j,k,siteID;
+
+  for(i=Cuboid->xL; i<=Cuboid->xU; i++) {
+    for(j=Cuboid->yL; j<=Cuboid->yU; j++) {
+      for(k=Cuboid->zL; k<=Cuboid->zU; k++) {
+        siteID = coor2ind_cube(Lattice, i, j, k);
+        Lattice->site[siteID]=Cuboid->val;
+      }
+    } 
+  }
+  return(1);
+}
+
+
 
 

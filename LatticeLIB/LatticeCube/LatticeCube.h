@@ -14,6 +14,7 @@
     int dim;   // 1, 2 or 3 dimensions
     int Ncomponents;   // 
     int *site;         // array with sites
+    int *num_neighbours;  // number of neighbours around a site
     int is_periodic_x; // default 1
     int is_periodic_y; // default 1
     int is_periodic_z; // default 1
@@ -24,6 +25,21 @@
 
   LATTICE_CUBE *make_lattice_cube(int, int, int); // input: NX, NY, NZ;
   int free_lattice_cube(LATTICE_CUBE *);
+
+
+  /* Adding cuboid domains to lattice (change 'site' values within a cuboid domain) */
+  typedef struct {
+    int val;
+    int xL,yL,zL; // Lower coordinates
+    int xU,yU,zU; // Upper coordinates
+  } CUBOID ;
+
+  CUBOID * make_Cuboid(void);
+  void free_Cuboid(CUBOID *);
+  int add_CuboidToLattice(LATTICE_CUBE *, CUBOID *); 
+
+
+
 
   // 2D lattice
   int NN_square_periodic(int, int, int, int *, int);             // NX, NY, ind, newind, direction: 0-N , 1-S , 2-E , 3-W 
