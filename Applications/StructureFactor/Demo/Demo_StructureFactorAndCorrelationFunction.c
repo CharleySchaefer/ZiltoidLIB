@@ -43,8 +43,9 @@ int main(int argc, char *argv[])
     printf("      This demo assumes periodic boundaries and calculates the.\n");
     printf("      structure factor and correlation function.\n");
     printf("\nOptions:\n");
-    printf("  --L <value>:      set physical length scale of the square field.\n");
-    printf("  --stretch-matrix: interpolate square N x N to N' x N', with N'=2^(n) >= N.\n");
+    printf("  --Lx <value>:      set physical length scale in x direction.\n");
+    printf("  --Ly <value>:      set physical length scale in y direction.\n");
+    printf("  --stretch-matrix: interpolate square Nx x Ny to Nx' x Ny', with Nx'=2^(nx) >= Nx and Ny'=2^(ny) >= Ny.\n");
     printf("  For demo, see ZiltoidLIB/Applications/StructureFactor/Demo, and run\n");
     printf("            ./demo_StructureFactor.sh.\n");
     return(-1);
