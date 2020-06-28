@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Calculation of the structure factor and radial correlation function of a concentration field. This code is part of [ZiltoidLIB](https://github.com/CharleySchaefer/ZiltoidLIB), which is freely distributed under the Apache 2.0 (Version 2.0, January 2004) license WITHOUT WARRANTY, see LICENSE.txt.
+Calculation of the structure factor and radial correlation function of a concentration field; See Schaefer et al., Soft Matter, 2019,15, 8450-8458, https://doi.org/10.1039/C9SM01344J. This code is part of [ZiltoidLIB](https://github.com/CharleySchaefer/ZiltoidLIB), which is freely distributed under the Apache 2.0 (Version 2.0, January 2004) license WITHOUT WARRANTY, see LICENSE.txt.
 
 ## Features
 
