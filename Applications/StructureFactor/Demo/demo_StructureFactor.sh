@@ -9,11 +9,12 @@ echo "  Compiling $executable"
 ./compile_StructureFactor.sh
 
 inputfile=psi_example.dat
-lengthscale=10.0
+LX=10.0
+LY=10.0
 
 # Run
 echo "  Running ./$executable"
-./$executable --file $inputfile --stretch-matrix --L $lengthscale > psi_example.out
+./$executable --file $inputfile --stretch-matrix --Lx $LX --Ly $LY > psi_example.out
 
 # Plot (requires gnuplot installed)
 echo "  Calling gnuplot:"

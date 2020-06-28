@@ -79,6 +79,78 @@ int calculateStructureFactor2D(int NX, int NY, double dx, double **Psi2D, comple
 
   return(1);
 }
+/*
+  input:
+    Psi2D  - NX x NY array with grid spacing dx, dy
+    buff1D - memory buffer, should be of length max(Nbins, NX, NY)
+  output:
+    Psi2D_FT - Fourier transform of Psi2D
+    q_arr    - array of length Nbins - memory should be allocated before calling this function 
+    SF       - array of length Nbins - memory should be allocated before calling this function
+*/
+int calculateStructureFactor2Drect(int NX, int NY, double dx, double dy, double **Psi2D, complex double **Psi2D_FT, int Nbins, complex double *buff1D, double *q_arr, double *SF)
+{
+  int i,j, ind;
+  int Nmax=(NX>NY ? NX : NY);
+  double a, b, q,qx,qy,
+         Lx=dx*NX, Ly=dy*NY,
+         dqx=2.0*M_PI/Lx, dqy=2.0*M_PI/Ly, dq_binned,// qmax=sqrt(2.0)*M_PI*Nmin;
+         qmax=2.0*M_PI/(dx<dy?dx:dy) ;//*(Nbins)/(  sqrt(2.0)*((Nmin/2-1))*dx  );
+  int *counter;
+  complex double psi;
+
+  dq_binned=qmax/(Nbins-1); // dq in output file
+
+  // Initialise output
+  for(i=0; i<Nbins; i++)
+  {
+    q_arr[i]=dq_binned*i;
+    SF[i]=0.0;
+  }
+
+  // Copy matrix
+  a=0.0;
+  for(i=0; i<NX; i++)
+    for(j=0; j<NY; j++){
+      a+=Psi2D[i][j]; 
+    }
+  a/=(NX*NY);
+  for(i=0; i<NX; i++)
+    for(j=0; j<NY; j++){
+      Psi2D_FT[i][j] = Psi2D[i][j]-a; 
+    }
+
+  // Obtain 2D fast Fourier transform (FFT)
+  if(  isPowerOfTwo(NX) && isPowerOfTwo(NY) ) /* this may be speeded up using eternal fftw library */
+    fft2(Psi2D_FT, buff1D, NX, NY);
+  else
+    dft2(Psi2D_FT, buff1D, NX, NY);
+
+  // Take square of the FFT and average radially
+  counter=(int*)buff1D;
+  for(i=0; i<Nbins; i++)
+    counter[i]=0;
+
+  for(i=0; i<NX/2; i++) {
+    qx=i*dqx;
+    for(j=0; j<NY/2; j++) {
+      qy=j*dqy;
+      q = sqrt(qx*qx+qy*qy);
+      ind=(int)((double)q/dq_binned);
+      psi=Psi2D_FT[i][j];
+      a=creal(psi);
+      b=cimag(psi);
+      SF[ind] += ( a*a + b*b );
+      counter[ ind]++;
+    }
+  }
+
+  // normalise
+  for(i=0; i<Nbins; i++)
+    SF[i] = (counter[i]==0 ? 0.0 : SF[i]/counter[i]);
+
+  return(1);
+}
 
 
 int calculateStructureFactor3D(int NX, int NY, int NZ, double dx, double ***Psi3D, complex double ***Psi3D_FT, int Nbins, complex double *buff1D, double *q_arr, double *SF)

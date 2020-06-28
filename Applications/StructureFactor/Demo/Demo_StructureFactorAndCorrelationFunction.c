@@ -23,15 +23,15 @@ int main(int argc, char *argv[])
   int     Nbins;
   int     *counter;
   int stretchmatrix=0;
-  double  dx, sumf;
+  double  dx,dy, sumf;
   complex double *buff1D;
   complex double **Psi2D_FT;
   double  *q_arr, *SF_arr;
   double  *R_arr;
   complex double *C_arr;
 
-  double Lx = 1.0;  /* Command-line specification of the domain size. */
-  int Lx_set = 0;
+  double Lx = 1.0, Ly = 1.0;  /* Command-line specification of the domain size. */
+  int Lx_set = 0, Ly_set = 0;
 
   // READ ARGUMENTS FROM COMMAND LINE:
   i = 1;
@@ -52,9 +52,13 @@ int main(int argc, char *argv[])
 
   while( i < argc ){
     const char *arg = argv[i];
-    if( strcmp( arg, "--L" ) == 0 ){
+    if( strcmp( arg, "--Lx" ) == 0 ){
       Lx = atof( argv[i+1] );
       Lx_set = 1;
+      i += 2;
+    } else if( strcmp( arg, "--Ly" ) == 0 ){
+      Ly = atof( argv[i+1] );
+      Ly_set = 1;
       i += 2;
     }else if( strcmp( arg, "--file" ) == 0 ){
       fname = argv[i+1];
@@ -92,9 +96,9 @@ int main(int argc, char *argv[])
   //-----------------------------------
 
   //-----------------------------------
-  if(NX!=NY)
+ /* if(NX!=NY)
   {printf("Error: non-square matrices not yet implemented.\n") ; return(-1);}
-
+*/
   double **Psi2D_stretched=Psi2D;
   if(stretchmatrix)
   {
@@ -103,8 +107,11 @@ int main(int argc, char *argv[])
     NX=1;
     while (NX<NX_old)
       NX*=2;
-    NY=NX;
-    if (NX!=NX_old)
+    NY=1;
+    while (NY<NY_old)
+      NY*=2;
+   // NY=NX;
+    if (NX!=NX_old && NY!=NY_old)
     {
       Psi2D_stretched=(double**)malloc(NX*sizeof(double*));
       for(i=0; i<NX; i++)
@@ -114,11 +121,16 @@ int main(int argc, char *argv[])
     }
   }
 
+  /* Grid spacing */
   dx = 1.0;
   if( Lx_set ){
     dx = Lx / (NX);
   }
-  Nbins  =(int)( (double)(NX<NY?NX:NY)/sqrt(2) ) - 1;
+  dy = 1.0;
+  if( Ly_set ){
+    dy = Ly / (NY);
+  }
+  Nbins  =(int)(    0.5*sqrt(( (NX*NX)+(NY*NY) ) )   ); // - 1;
   counter=(    int*)malloc(          Nbins*sizeof(int    ));
   q_arr  =( double*)malloc(          Nbins*sizeof(double ));
   SF_arr =( double*)malloc(          Nbins*sizeof(double ));
@@ -128,7 +140,8 @@ int main(int argc, char *argv[])
     Psi2D_FT[i]=(complex double*)malloc(NY*sizeof(complex double));
 
   // Calculate radially averaged S(q)
-  calculateStructureFactor2D(NX, NY, dx, Psi2D_stretched, Psi2D_FT, Nbins, buff1D, q_arr, SF_arr);
+  //calculateStructureFactor2D(    NX, NY, dx,     Psi2D_stretched, Psi2D_FT, Nbins, buff1D, q_arr, SF_arr);
+  calculateStructureFactor2Drect(NX, NY, dx, dy, Psi2D_stretched, Psi2D_FT, Nbins, buff1D, q_arr, SF_arr);
 
   // Calculate correlation function C(r)
   R_arr  =( double*)malloc(         (2*Nbins-1)*sizeof(double ));
@@ -147,12 +160,12 @@ int main(int argc, char *argv[])
   for (i=0; i<2*Nbins-1; i++)
     sumf+=creal( C_arr[i] );
 
-  dx=2.0*M_PI/q_arr[Nbins-1];
+  double dr=2.0*M_PI/q_arr[Nbins-1];
 
   printf("%16s %16s %16s %16s\n", "#q", "S(q)", "R", "C(R)");
   for (i=0; i<Nbins; i++)
   {
-    printf("%16e %16e %16e %16e\n", q_arr[i], SF_arr[i]/(NX*NY), dx*i, creal(buff1D[i])/sumf );
+    printf("%16e %16e %16e %16e\n", q_arr[i], SF_arr[i]/(NX*NY), dr*i, creal(buff1D[i])/sumf );
   }
 
   // Free memory

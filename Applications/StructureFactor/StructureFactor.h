@@ -7,6 +7,7 @@
   #include "../../Mathematics/Fourier/Fourier.h"
   #include "../../Mathematics/Mathematics.h"
   int calculateStructureFactor2D(int, int, double, double **, complex double **, int, complex double *, double *, double *);
+  int calculateStructureFactor2Drect(int, int, double, double, double **, complex double **, int, complex double *, double *, double *);
   int calculateStructureFactor3D(int, int, int, double, double ***, complex double ***, int, complex double *, double *, double *);
 #endif
 
