@@ -21,6 +21,7 @@ includeFourier=1
 includePolynomial=1
 includeRandomNumbers=1
 includeLinearAlgebra=1
+includeErfInv=1
 #===============================
 
 arg=""
@@ -78,13 +79,21 @@ if [ $includeLinearAlgebra -eq 1 ]; then
     exit 1
   fi
 fi
+if [ $includeErfInv -eq 1 ]; then
+  if gcc -fPIC -c ../ErfInv/erfinv.c $arg ; then
+    echo "  ErfInv compiled."
+   else
+    echo "Error: Failed to compile ErfInv."
+    exit 1
+  fi
+fi
 if gcc -fPIC -c ../Mathematics.c $arg ; then
   echo "  Mathematics compiled."
 else
   echo "Error: Failed to compile Mathematics."
   exit 1
 fi
-if ar rcs libZiltoidMath.a LinearAlgebra.o Mathematics.o DoolittleAlgorithm.o Fourier.o Polynomial.o RandomNumbers.o
+if ar rcs libZiltoidMath.a LinearAlgebra.o Mathematics.o erfinv.o DoolittleAlgorithm.o Fourier.o Polynomial.o RandomNumbers.o
 then
   echo "  libZiltoidMath.a created."
 else

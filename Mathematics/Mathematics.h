@@ -9,6 +9,8 @@
   #include "Fourier/Fourier.h"
   #include "RandomNumbers/RandomNumbers.h"
   #include "LinearAlgebra/LinearAlgebra.h"
+  #include "ErfInv/erfinv.h"
+
 
   // Scalar functions
   double absolute(double);

@@ -26,6 +26,11 @@ Compare two scalars (minimum, maximum)
  * Sampling normal distribution
  * Correlated noise
 
+
+### Inverse Error Function
+
+ * Adapted from C++ adaptation by [Lakshay Garg](https://github.com/lakshayg/erfinv)
+
 ## INSTALLATION
 
 ### Option 1: Dependency-free installation
