@@ -305,7 +305,7 @@ int freadColumn(char *fname, int Ndata, int Nheader, int Ncol, float *col)
 
   if(Ncol<0)
   {
-    printf("WARNING: algorithm starts reading data at Ncol=0!\n");
+    printf("Warning: algorithm starts reading data at Ncol=0!\n");
     return(0);
   }
   if((ifp = fopen(fname, "r")) == NULL){printf("Error: Failed to open \'%s\'!\n", fname); return(0);}
@@ -371,7 +371,7 @@ int ireadColumn(
 
     if(Ncol<0)
     {
-      printf("WARNING: algorithm starts reading data at Ncol=0!\n");
+      printf("Warning: algorithm starts reading data at Ncol=0!\n");
       return(0);
     }
 
