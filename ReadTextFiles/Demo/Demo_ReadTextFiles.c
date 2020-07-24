@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
       fname = argv[i+1];
       if( access( fname, F_OK ) == -1 ) 
       {
-        printf("ERROR: File \'%s\' does not exist!\n"); return(0);
+        printf("Error: File \'%s\' does not exist!\n", fname); return(0);
       }
       i += 2;
     }else{
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
   //-------------------------------------------------------------
   // CORE
   if(!analyse_data_file_properties(fname, &Nlines, &Ncol, &Nheader, &Ndata, 1))
-  {printf("ERROR: analyse_data_file_properties() failed!\n"); exit(1);}
+  {printf("Error: analyse_data_file_properties() failed!\n"); exit(1);}
 
   // END CORE
   //-------------------------------------------------------------
