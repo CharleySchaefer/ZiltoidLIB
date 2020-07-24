@@ -54,12 +54,12 @@ popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
 pushd ../StringOperations  >/dev/null
-./makeZiltoidStringsLib.sh $debug_arg
+./makeZiltoidStringsLib.sh $debug_arg --$CC
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
 pushd ../ReadTextFiles  >/dev/null
-./makeZiltoidReadLib.sh $debug_arg
+./makeZiltoidReadLib.sh $debug_arg --$CC
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 

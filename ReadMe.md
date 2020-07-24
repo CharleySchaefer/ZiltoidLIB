@@ -5,34 +5,34 @@
 Collection of functions commonly encountered in C programs for physical modelling and simulation.
 This library does not require external libraries, except for solving some eigenvalue problems (BLAS/LAPACK).
 
-This software is freely distributed under the Apache 2.0 (Version 2.0, January 2004) license WITHOUT WARRANTY, see LICENSE.txt.
+<sub>This software is freely distributed under the Apache 2.0 (Version 2.0, January 2004) license WITHOUT WARRANTY, see LICENSE.txt.</sub>
 
 
 ## FEATURES
 
 ### Modules
 
-* Kinetic Monte Carlo 
-  * Variable step size method
-* [LatticeLIB](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/LatticeLIB)
-  * Periodic and non-periodic simple cubic (sc) and hexagonal close packed (hcp) lattices
-  * Transformations (reflect, rotate), finding neighbours within cutoff radius.
-  * (in development) Structure to build custom lattices.
-* [Mathematics](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/Mathematics) 
-  * Fourier (adapted from [RosettaCode](https://github.com/acmeism/RosettaCodeDatatree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C); for an efficient alternative see e.g. [fftw](http://www.fftw.org/))
-  * LUdecomposition (adapted from [lawliet89](https://github.com/lawliet89/DoolittleDeterminant))
-  * Polynomial (adapted from [uni-koeln](http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c))
-  * QR decomposition (adapted from [jcchurch](https://github.com/jcchurch/C-Linear-Algebra))
-  * Array statistics: min, max, abs, mean, variance, standard deviation 
-  * (BLAS/LAPACK) Solve eigenvalue problem symmetric matrices
-* Numerical Methods
-  * Interpolation
-  * Bisection method
-* Read Text Files (uses String Operations module)
-  * Determine number of header lines, number of columns, number of data lines.
-  * Read rows and columns
-* String Operations
-  * Read word from string, count words in a string.
+* Kinetic Monte Carlo  
+  * Variable step size method  
+* [LatticeLIB](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/LatticeLIB)  
+  * Periodic and non-periodic simple cubic (sc) and hexagonal close packed (hcp) lattices  
+  * Transformations (reflect, rotate), finding neighbours within cutoff radius.  
+  * (in development) Structure to build custom lattices.  
+* [Mathematics](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/Mathematics) (both C/C++)  
+  * Fourier (adapted from [RosettaCode](https://github.com/acmeism/RosettaCodeDatatree/948b86eafab0e034330a3b6c31617370c6cca2fc/Task/Fast-Fourier-transform/C); for an efficient alternative see e.g. [fftw](http://www.fftw.org/))  
+  * LUdecomposition (adapted from [lawliet89](https://github.com/lawliet89/DoolittleDeterminant))  
+  * Polynomial (adapted from [uni-koeln](http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c))  
+  * QR decomposition (adapted from [jcchurch](https://github.com/jcchurch/C-Linear-Algebra))  
+  * Array statistics: min, max, abs, mean, variance, standard deviation  
+  * (BLAS/LAPACK) Solve eigenvalue problem symmetric matrices  
+* Numerical Methods  
+  * Interpolation  
+  * Bisection method  
+* Read Text Files (uses String Operations module) (both C/C++)  
+  * Determine number of header lines, number of columns, number of data lines.  
+  * Read rows and columns  
+* String Operations (both C/C++)  
+  * Read word from string, count words in a string.  
 
 ### Applications
 
@@ -57,12 +57,12 @@ This software is freely distributed under the Apache 2.0 (Version 2.0, January 2
 
 ### Software dependencies:
 
-* gcc compiler
-* bash (for installation script)
+* gcc compiler  
+* bash (for installation script)  
 * (optional) Postprocessing and other utilities:  
   * gnuplot: plotting of data. (see http://www.gnuplot.info)  
-  * Matlab  / gnu octave to run .m scripts
-* (optional) debugging: valgrind memcheck
+  * Matlab  / gnu octave to run .m scripts  
+* (optional) debugging: valgrind memcheck  
 * (optional) BLAS/LAPACK. Can be installed on Linux using ```sudo apt-get install libblas-dev liblapack-dev```
 
 ### Versions the software has been tested on
@@ -75,8 +75,8 @@ This software is freely distributed under the Apache 2.0 (Version 2.0, January 2
   * GNU bash, GNU bash, version 4.2.46(2)-release (x86_64-redhat-linux-gnu)
   * gnuplot 4.6 patchlevel 2, patchlevel 6 
   * valgrind-3.10.0  
-  * GNU Octave, version 4.0.0 (configured for "x86_64-unknown-linux-gnu")
-* Microsoft Windows 10.0.15063 (only compilation tested; not functionality)
+  * GNU Octave, version 4.0.0 (configured for "x86_64-unknown-linux-gnu")  
+* Microsoft Windows 10.0.15063 (only compilation tested; not functionality)  
   * gcc (i686-posix-dwarf-rev1, Built by MingWG-W64 project) 6.2.0  
   * GNU bash, version 4.3.46(2)-release (x86_64-pc-msys)
   * gnuplot 5.0, patchlevel 5 
