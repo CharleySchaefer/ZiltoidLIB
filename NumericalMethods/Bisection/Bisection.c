@@ -6,7 +6,6 @@ int  find_index_closest_to_Yvalue(double* y, int Ndata, double y0, int *ind )
   int mode;
   int indL=0, indU=Ndata, indnew;
   double yL, yU; // y values Lower and Upper around y0
-  double f; // used for linear interpolation
 
   if(  y[Ndata-1]>y[0]  ) // Mode 1: increasing y
   {
@@ -19,7 +18,7 @@ int  find_index_closest_to_Yvalue(double* y, int Ndata, double y0, int *ind )
   else
     {printf("Error: y[0]=%e equals y[Ndata-1]=%e", y[0], y[Ndata-1]); return(0);}
 
-  if ((y0<yL) | (y0>yU))
+  if ((y0<yL) || (y0>yU))
     {printf("Error: y0=%e out of boundary [%e; %e]\n", y0, yL, yU); return(0);}
 
   //--------------------------------------  
@@ -73,7 +72,6 @@ int  find_index_above_y0_float(float* y, int Ndata, float y0, int *ind )
   int mode;
   int indL=0, indU=Ndata, indnew;
   float yL, yU; // y values Lower and Upper around y0
-  float f; // used for linear interpolation
 
   if(  y[Ndata-1]>y[0]  ) // Mode 1: increasing y
   {
@@ -138,7 +136,6 @@ int  find_index_above_y0_double(double* y, int Ndata, double y0, int *ind )
   int mode;
   int indL=0, indU=Ndata, indnew;
   double yL, yU; // y values Lower and Upper around y0
-  double f; // used for linear interpolation
 
   if(  y[Ndata-1]>y[0]  ) // Mode 1: increasing y
   {

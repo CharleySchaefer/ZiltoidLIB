@@ -4,8 +4,7 @@ int find_boundary_indices(double *xarr, double *yarr, int N, double xint, int *i
 {
   int    nL=0, nU=N-1, n;
   double x, xL, xU; // upper and lower x values
-  double f;
-  if (xint<(xL=xarr[nL]) | xint>(xU=xarr[nU])) // extrapolation needed
+  if (xint<(xL=xarr[nL]) || xint>(xU=xarr[nU])) // extrapolation needed
     return(2);
 
   if(xint==xL)
@@ -20,7 +19,7 @@ int find_boundary_indices(double *xarr, double *yarr, int N, double xint, int *i
       n=(int)(nL+0.5*(float)(nU-nL));
       x=xarr[n];
       if((x<xL)|(x>xU)) // xarr not monotonically increasing!
-        {printf("ERROR: entries of xarr should be monotonically increasing!\n"); return(0);}
+        {printf("Error: entries of xarr should be monotonically increasing!\n"); return(0);}
       if (x==xint) // exact value found -> no interpolation needed -> done.
       {
         *indL=n;*indU=n;
@@ -45,10 +44,10 @@ int find_boundary_indices(double *xarr, double *yarr, int N, double xint, int *i
 
 int interp1(double *xarr, double *yarr, int N, double xint, double *yint)
 {
-  int    nL=0, nU=N-1, n;
-  double x, xL, xU; // upper and lower x values
+  int    nL=0, nU=N-1;
+  double xL, xU; // upper and lower x values
   double f;
-  if (xint<(xL=xarr[nL]) | xint>(xU=xarr[nU])) // extrapolation needed
+  if (xint<(xL=xarr[nL]) || xint>(xU=xarr[nU])) // extrapolation needed
     return(2);
 
   if(xint==xL)
@@ -59,7 +58,7 @@ int interp1(double *xarr, double *yarr, int N, double xint, double *yint)
   {
     if(!find_boundary_indices(xarr, yarr, N, xint, &nL, &nU))
     {
-      printf("ERROR: find_boundary_indices() failed!\n"); 
+      printf("Error: find_boundary_indices() failed!\n"); 
       return(0);
     }
 
@@ -83,10 +82,9 @@ int interp1(double *xarr, double *yarr, int N, double xint, double *yint)
 int stretch_matrix(int mode, double **mat_in, int Nx_in, int Ny_in, double **mat_out, int Nx_out, int Ny_out)
 {
   int i,j,k,l;
-  double x, xL, xU; // upper and lower x values
   double F,fx,fy,G, dx, dy;
 
-  if(Nx_out<Nx_in | Ny_out<Ny_in)
+  if(Nx_out<Nx_in || Ny_out<Ny_in)
   {
     printf("Error: New Nx and Ny should be larger or equal to the original ones.\n");
     return(-1);
