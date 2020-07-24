@@ -52,11 +52,11 @@ int countStr(char* str, int num)
   sprintf(str, str, N);
   
   if(N<0)
-    {printf("ERROR: countStr() does not support negative numbers!\n"); return(0);}
+    {printf("Error: countStr() does not support negative numbers!\n"); return(0);}
   if(N<pow(10,Nmax))
     numStr(str, Nmax, N);
   else
-    {printf("ERROR: Length of number exceeds maximum string length!\n"); return(0);}
+    {printf("Error: Length of number exceeds maximum string length!\n"); return(0);}
 
   return(1);
 }  
@@ -113,15 +113,12 @@ int getWord(char *string, char *word, int *Nchar)
 int fileNumber(char *fileName, int Num, int Nmax, char *newName)
 {
 
-  int  i,
-       ext_check; // Check for file name extensions (gif, txt)
-  char c,
-       *str, 
+  char *str, 
        *token;
 
   if( !(str = (char*)malloc((Nmax>4?Nmax:4)*sizeof(char)) ))
   {
-    printf("ERROR: Allocation of str in fileNumber function failed!\n"); 
+    printf("Error: Allocation of str in fileNumber function failed!\n"); 
     return(0);
   }
 
