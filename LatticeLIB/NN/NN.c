@@ -178,7 +178,7 @@ void nn_print(NN_STRUCT *NN, int *ibuff)
 
 void nn_translate_x(NN_STRUCT *NN, int ddx)
 {
-  int i,tmp;
+  int i;
 
   NN->xmin+=ddx;
   NN->xmax+=ddx;
@@ -189,7 +189,7 @@ void nn_translate_x(NN_STRUCT *NN, int ddx)
 
 void nn_translate_y(NN_STRUCT *NN, int ddy)
 {
-  int i,tmp;
+  int i;
 
   NN->xmin+=ddy;
   NN->xmax+=ddy;
@@ -200,7 +200,7 @@ void nn_translate_y(NN_STRUCT *NN, int ddy)
 
 void nn_translate_z(NN_STRUCT *NN, int ddz)
 {
-  int i,tmp;
+  int i;
 
   NN->xmin+=ddz;
   NN->xmax+=ddz;

@@ -4,7 +4,7 @@
 LATTICE_CUBE *make_lattice_cube(int Nx, int Ny, int Nz)
 {
   int dim;
-  LATTICE_CUBE *Lattice;
+  LATTICE_CUBE *Lattice=NULL;
 
   if(Nx<1 || Ny<1 || Nz<1)
     {printf("Error: unexpected dimensionality\n"); return Lattice;}
@@ -129,6 +129,7 @@ int ind2coor_square(LATTICE_CUBE *Lattice, int site, int *x, int *y)
 {
   *y=site%Lattice->Ny;
   *x=(site-(*y))/Lattice->Ny; /* Row-major format*/
+  return(1);
 }
 
 int ind2coor_cube(LATTICE_CUBE *Lattice, int site, int *x, int *y, int *z)
@@ -143,13 +144,14 @@ int ind2coor_cube(LATTICE_CUBE *Lattice, int site, int *x, int *y, int *z)
   int itmp = site%Lattice->Nxy;
   *z=(site-itmp)/Lattice->Nxy;
   *x=itmp%Lattice->Nx;
-  *y=(itmp-(*x))/Lattice->Nx;/**/
+  *y=(itmp-(*x))/Lattice->Nx;*/
 
   /* obsolete format *//*
   int itmp = site%Lattice->Nxy;
   *z=(site-itmp)/Lattice->Nxy;
   *y=itmp%Lattice->Ny;
-  *x=(itmp-(*y))/Lattice->Ny;/**/
+  *x=(itmp-(*y))/Lattice->Ny;*/
+  return(1);
 }
 
 int coor2ind_square(LATTICE_CUBE *Lattice, int x, int y)
@@ -157,7 +159,7 @@ int coor2ind_square(LATTICE_CUBE *Lattice, int x, int y)
   int xx=(x%Lattice->Nx); if(xx<0) {xx+=Lattice->Nx;};
   int yy=(y%Lattice->Ny); if(yy<0) {yy+=Lattice->Ny;};
   return (xx)*Lattice->Ny+(yy); /* Row-major format*/
-  /*return (yy)*Lattice->Nx+(xx);   /* Column-major format*/
+  /*return (yy)*Lattice->Nx+(xx);  */ /* Column-major format*/
 }
 int coor2ind_cube(LATTICE_CUBE *Lattice, int x, int y, int z)
 {
@@ -165,7 +167,7 @@ int coor2ind_cube(LATTICE_CUBE *Lattice, int x, int y, int z)
   int yy=(y%Lattice->Ny); if(yy<0) {yy+=Lattice->Ny;};
   int zz=(z%Lattice->Nz); if(zz<0) {zz+=Lattice->Nz;};
   return xx*Lattice->Nyz + yy*Lattice->Nz + zz; /* Row-major format*/
-  /*return zz*Lattice->Nxy + yy*Lattice->Nx + xx; /* Column-major format*/
+  /*return zz*Lattice->Nxy + yy*Lattice->Nx + xx;*/ /* Column-major format*/
   /*return zz*Lattice->Nxy + xx*Lattice->Ny + yy;*/ /*obsolete format */
 }
 
@@ -181,9 +183,9 @@ int coor2ind_cube(LATTICE_CUBE *Lattice, int x, int y, int z)
 */
 int get_sites_in_sphere_shell(double X, double Y, double Z, double R2inner, double R2outer, int *xout, int *yout, int *zout, int *Nsites)
 {
-  int i,j,k,x,y,z;
+  int i,j,k;
   double R=sqrt(R2outer), x2, y2, z2, r2;
-  int    xmin, xmax, ymin, ymax, zmin, zmax, count;
+  int    xmin, xmax, ymin, ymax, zmin, zmax;
   xmin= (int)(X-R);
   xmax= (int)(X+R);
   ymin= (int)(Y-R);
@@ -212,14 +214,15 @@ int get_sites_in_sphere_shell(double X, double Y, double Z, double R2inner, doub
       }
     }
   }
+  return(1);
 }
 
 int get_sites_in_spheres(int Nouter, double *Xrow, double *Yrow, double *Zrow, double R2outer,  int *xout, int *yout, int *zout, int *Nsites)
 {
   double X,Y,Z;
-  int i,j,k,iter,x,y,z, check;
+  int i,j,k,iter, check;
   double R=sqrt(R2outer), x2, y2, z2, r2;
-  int    xmin, xmax, ymin, ymax, zmin, zmax, count;
+  int    xmin, xmax, ymin, ymax, zmin, zmax;
 
   X=Xrow[0];Y=Yrow[0];Z=Zrow[0];
   for(i=1; i<Nouter; i++)
@@ -271,6 +274,7 @@ int get_sites_in_spheres(int Nouter, double *Xrow, double *Yrow, double *Zrow, d
       }
     }
   }
+  return(1);
 }
 
 int is_cube_vacant( LATTICE_CUBE *Lattice, int x0, int y0, int z0)
@@ -368,7 +372,6 @@ int get_cosangle_between_lattice_coordinates(LATTICE_CUBE *Lattice, int x0, int 
 int get_cosangle_between_lattice_sites(LATTICE_CUBE *Lattice, int siteID, int nnID1, int nnID2, double max_distance, float *cosangle)
 {
   int x0,y0,z0,xm,ym,zm,xp,yp,zp;
-  int Nx=Lattice->Nx, Ny=Lattice->Ny, Nz=Lattice->Nz;
   ind2coor_cube(Lattice, siteID, &x0, &y0, &z0);
   ind2coor_cube(Lattice,  nnID1, &xm, &ym, &zm);
   ind2coor_cube(Lattice,  nnID2, &xp, &yp, &zp);

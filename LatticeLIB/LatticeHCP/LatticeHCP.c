@@ -4,7 +4,7 @@
 LATTICE_HCP *make_lattice_hcp(int Nx, int Ny, int Nz)
 {
   int dim;
-  LATTICE_HCP *Lattice;
+  LATTICE_HCP *Lattice=NULL;
 
   if(Nx<1 || Ny<1 || Nz<1)
     {printf("Error: unexpected dimensionality\n"); return Lattice;}
@@ -135,6 +135,7 @@ int ind2coor_hex(LATTICE_HCP *Lattice, int site, int *x, int *y)
 {
   *y=site%Lattice->Ny;
   *x=(site-(*y))/Lattice->Ny;
+  return(1);
 }
 
 int ind2coor_hcp(LATTICE_HCP *Lattice, int site, int *x, int *y, int *z)
@@ -143,6 +144,7 @@ int ind2coor_hcp(LATTICE_HCP *Lattice, int site, int *x, int *y, int *z)
   *z=(site-sitexy)/Lattice->Nxy;
   *y=sitexy%Lattice->Ny;
   *x=(sitexy-(*y))/Lattice->Ny;
+  return(1);
 }
 
 int coor2ind_hex(LATTICE_HCP *Lattice, int x, int y)
