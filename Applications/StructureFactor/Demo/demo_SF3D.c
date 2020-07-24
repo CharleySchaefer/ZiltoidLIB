@@ -155,19 +155,19 @@ int main(int argc, char *argv[])
   int*counter=(    int*)malloc(          Nbins*sizeof(int    ));
   double*q_arr  =( double*)malloc(          Nbins*sizeof(double ));
   double*SF_arr =( double*)malloc(          Nbins*sizeof(double ));
-  complex double* buff1D =(complex double*)malloc(2*(Ngrid)*sizeof(complex double));
-  complex double*** Psi3D_FT=(complex double***)malloc(Ngrid*sizeof(complex double**));
+  double _Complex* buff1D =(double _Complex*)malloc(2*(Ngrid)*sizeof(double _Complex));
+  double _Complex*** Psi3D_FT=(double _Complex***)malloc(Ngrid*sizeof(double _Complex**));
   for(i=0; i<Ngrid; i++) {
-    Psi3D_FT[i]=(complex double**)malloc(Ngrid*sizeof(complex double*));
+    Psi3D_FT[i]=(double _Complex**)malloc(Ngrid*sizeof(double _Complex*));
     for(j=0; j<Ngrid; j++)
-      Psi3D_FT[i][j]=(complex double*)malloc(Ngrid*sizeof(complex double));
+      Psi3D_FT[i][j]=(double _Complex*)malloc(Ngrid*sizeof(double _Complex));
   }
   calculateStructureFactor3D(Ngrid, Ngrid, Ngrid, dx, Psi3D, Psi3D_FT, Nbins, buff1D, q_arr, SF_arr);
 
 
   // Calculate correlation function C(r)
   double*R_arr  =( double*)malloc(         (2*Nbins-1)*sizeof(double ));
-  complex double* C_arr  =(complex double*)malloc(         (2*Nbins-1)*sizeof(complex double ));
+  double _Complex* C_arr  =(double _Complex*)malloc(         (2*Nbins-1)*sizeof(double _Complex ));
 
 
   for (i=0; i<Nbins; i++)

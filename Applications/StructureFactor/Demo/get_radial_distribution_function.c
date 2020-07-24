@@ -136,8 +136,8 @@ int main(int argc, char *argv[])
   double R,dR=Rmax/(Nbins-1), *g;
   counter=(int*)malloc(Nbins*sizeof(int));
   g=(double*)malloc(Nbins*sizeof(double));
-  complex double*gd=(complex double*)malloc(2*Nbins*sizeof(complex double));
-  complex double*SF=(complex double*)malloc(2*Nbins*sizeof(complex double));
+  double _Complex*gd=(double _Complex*)malloc(2*Nbins*sizeof(double _Complex));
+  double _Complex*SF=(double _Complex*)malloc(2*Nbins*sizeof(double _Complex));
   for(i=0; i<Ndata; i++)
   {
     x1=x_col[i];

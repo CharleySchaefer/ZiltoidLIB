@@ -8,10 +8,10 @@ int main(int argc, char *argv[])
   int i;
 
   int N=16;
-  complex double *arr, *arr2; 
+  double _Complex *arr, *arr2; 
 
-  arr =(complex double*)malloc(  N*sizeof(complex double));
-  arr2=(complex double*)malloc(2*N*sizeof(complex double));
+  arr =(double _Complex*)malloc(  N*sizeof(double _Complex));
+  arr2=(double _Complex*)malloc(2*N*sizeof(double _Complex));
 
   // INITIALISE
   for(i=0; i<N; i++)

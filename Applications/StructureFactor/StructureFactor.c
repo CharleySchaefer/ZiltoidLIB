@@ -27,7 +27,7 @@
     Psi2D:  complex NX x NY
     buff1D: complex length 2*min(NX, NY)  >>>> NOTE THE FACTOR TWO <<<<
 */
-int calculateStructureFactor2D(int NX, int NY, double dx, double **Psi2D, complex double **Psi2D_FT, int Nbins, complex double *buff1D, double *q_arr, double *SF)
+int calculateStructureFactor2D(int NX, int NY, double dx, double **Psi2D, double _Complex **Psi2D_FT, int Nbins, double _Complex *buff1D, double *q_arr, double *SF)
 {
   int i,j, ind;
   int Nmin=(NX<NY ? NX : NY);
@@ -88,7 +88,7 @@ int calculateStructureFactor2D(int NX, int NY, double dx, double **Psi2D, comple
     q_arr    - array of length Nbins - memory should be allocated before calling this function 
     SF       - array of length Nbins - memory should be allocated before calling this function
 */
-int calculateStructureFactor2Drect(int NX, int NY, double dx, double dy, double **Psi2D, complex double **Psi2D_FT, int Nbins, complex double *buff1D, double *q_arr, double *SF)
+int calculateStructureFactor2Drect(int NX, int NY, double dx, double dy, double **Psi2D, double _Complex **Psi2D_FT, int Nbins, double _Complex *buff1D, double *q_arr, double *SF)
 {
   int i,j, ind;
   int Nmax=(NX>NY ? NX : NY);
@@ -97,7 +97,7 @@ int calculateStructureFactor2Drect(int NX, int NY, double dx, double dy, double 
          dqx=2.0*M_PI/Lx, dqy=2.0*M_PI/Ly, dq_binned,// qmax=sqrt(2.0)*M_PI*Nmin;
          qmax=2.0*M_PI/(dx<dy?dx:dy) ;//*(Nbins)/(  sqrt(2.0)*((Nmin/2-1))*dx  );
   int *counter;
-  complex double psi;
+  double _Complex psi;
 
   dq_binned=qmax/(Nbins-1); // dq in output file
 
@@ -153,7 +153,7 @@ int calculateStructureFactor2Drect(int NX, int NY, double dx, double dy, double 
 }
 
 
-int calculateStructureFactor3D(int NX, int NY, int NZ, double dx, double ***Psi3D, complex double ***Psi3D_FT, int Nbins, complex double *buff1D, double *q_arr, double *SF)
+int calculateStructureFactor3D(int NX, int NY, int NZ, double dx, double ***Psi3D, double _Complex ***Psi3D_FT, int Nbins, double _Complex *buff1D, double *q_arr, double *SF)
 {
   int i,j,k, ind;
   int Nmin=(NX<NY ? (NX<NZ ? NX : NZ) : (NY<NZ ? NY : NZ));
