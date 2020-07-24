@@ -28,7 +28,7 @@ else
 fi
 echo " "
 #================================================================
-
+CC=gcc
 script=$(readlink -f $0)
 scriptpath=`dirname $script`
 pushd $scriptpath >/dev/null
@@ -44,7 +44,7 @@ popd  >/dev/null  # BACK TO ZILTOID/BUILD
 echo " "
 
 pushd ../Mathematics  >/dev/null
-./makeZiltoidMathLib.sh $debug_arg
+./makeZiltoidMathLib.sh $debug_arg --$CC
 popd  >/dev/null  # BACK TO ZILTOID/BUILD 
 echo " "
 

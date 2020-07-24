@@ -24,23 +24,31 @@ includeLinearAlgebra=1
 includeErfInv=1
 #===============================
 
+CC=gcc # default
 arg=""
-if [ $# -eq 1 ]; then
-  arg=$1
-  if [ $arg != "-g" ]; then
-    echo "Unexpected argument $arg - exiting."
-    exit 1
-  fi
-fi
+debug=""
 
 echo "  >COMPILING ZiltoidMath"
+for n in "$@" ; do
+  if [ $n == "-g" ]; then
+    echo "  Debugging mode."
+    debug="-g"
+  elif [ $n == "--gcc" ]; then
+    echo "  Using gcc"
+    CC=gcc
+  elif [ $n == "--g++" ]; then
+    echo "  Using g++"
+    CC=g++
+  fi
+done
+
 mkdir -p build
 pushd build >/dev/null
 
 
 
 if [ $includeFourier -eq 1 ]; then
-  if gcc -fPIC -c ../Fourier/Fourier.c $arg ; then
+  if ${CC} -fPIC -c ../Fourier/Fourier.c $debug ; then
     echo "  Fourier compiled."
    else
     echo "Error: Failed to compile Fourier."
@@ -48,7 +56,7 @@ if [ $includeFourier -eq 1 ]; then
   fi
 fi
 if [ $includePolynomial -eq 1 ]; then
-  if gcc -fPIC -c ../Polynomial/Polynomial.c $arg ; then
+  if ${CC} -fPIC -c ../Polynomial/Polynomial.c $debug ; then
     echo "  Polynomial compiled."
    else
     echo "Error: Failed to compile Polynomial."
@@ -56,7 +64,7 @@ if [ $includePolynomial -eq 1 ]; then
   fi
 fi
 if [ $includeRandomNumbers -eq 1 ]; then
-  if gcc -fPIC -c ../RandomNumbers/RandomNumbers.c $arg ; then
+  if ${CC} -fPIC -c ../RandomNumbers/RandomNumbers.c $debug ; then
     echo "  RandomNumbers compiled."
    else
     echo "Error: Failed to compile RandomNumbers."
@@ -64,7 +72,7 @@ if [ $includeRandomNumbers -eq 1 ]; then
   fi
 fi
 if [ $includeLinearAlgebra -eq 1 ]; then
-  if gcc -fPIC -c ../LinearAlgebra/LinearAlgebra.c $arg ; then
+  if ${CC} -fPIC -c ../LinearAlgebra/LinearAlgebra.c $debug ; then
     echo "  LinearAlgebra compiled."
    else
     echo "Error: Failed to compile LinearAlgebra."
@@ -72,7 +80,7 @@ if [ $includeLinearAlgebra -eq 1 ]; then
   fi
 fi
 if [ $includeLinearAlgebra -eq 1 ]; then
-  if gcc -fPIC -c ../LinearAlgebra/DoolittleAlgorithm/DoolittleAlgorithm.c $arg ; then
+  if ${CC} -fPIC -c ../LinearAlgebra/DoolittleAlgorithm/DoolittleAlgorithm.c $debug ; then
     echo "  DoolittleAlgorithm compiled."
    else
     echo "Error: Failed to compile DoolittleAlgorithm."
@@ -80,14 +88,14 @@ if [ $includeLinearAlgebra -eq 1 ]; then
   fi
 fi
 if [ $includeErfInv -eq 1 ]; then
-  if gcc -fPIC -c ../ErfInv/erfinv.c $arg ; then
+  if ${CC} -fPIC -c ../ErfInv/erfinv.c $debug ; then
     echo "  ErfInv compiled."
    else
     echo "Error: Failed to compile ErfInv."
     exit 1
   fi
 fi
-if gcc -fPIC -c ../Mathematics.c $arg ; then
+if ${CC} -fPIC -c ../Mathematics.c $debug ; then
   echo "  Mathematics compiled."
 else
   echo "Error: Failed to compile Mathematics."
@@ -101,5 +109,6 @@ else
 fi
 
 popd >/dev/null
+cp build/libZiltoidMath.a .
 echo "  >FINISHED COMPILING ZiltoidMath"
 

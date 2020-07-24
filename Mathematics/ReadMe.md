@@ -1,7 +1,7 @@
 # ZiltoidLIB: Mathematics
 
 ## PURPOSE
-Small set of frequently encountered math functions without external dependencies. This library is a module of [ZiltoidLIB](https://github.com/CharleySchaefer/ZiltoidLIB), which is freely distributed under the Apache 2.0 (Version 2.0, January 2004) license WITHOUT WARRANTY, see LICENSE.txt.
+Small set of frequently encountered math functions without external dependencies. This C/C++ library is a module of [ZiltoidLIB](https://github.com/CharleySchaefer/ZiltoidLIB), which is freely distributed under the Apache 2.0 (Version 2.0, January 2004) license WITHOUT WARRANTY, see LICENSE.txt.
 
 ## FEATURES
 
@@ -35,28 +35,28 @@ Compare two scalars (minimum, maximum)
 
 ### Option 1: Dependency-free installation
 
-Build library: Run the "makeZiltoidMathLib.sh" script
+**Compile**: Run the "makeZiltoidMathLib.sh" script  
+``` ./makeZiltoidMathLib.sh ```  
+By default, this script uses gcc to create a static library libZiltoidMath.a. 
+Presently, a copy is kept in "build/libZiltoidMath.a".  
+To compile using g++, run  
+``` ./makeZiltoidMathLib.sh --g++```  
+To use the -g flag for debugging, run  
+``` ./makeZiltoidMathLib.sh -g``` or ``` ./makeZiltoidMathLib.sh --g++ -g```.
 
-``` ./makeZiltoidMathLib.sh ```
-
- to compile all modules and create a library file in "build/libZiltoidMath.a".
-
-Use library (see Demo): include the library in source code "#include "dir/Mathematics.h" 
-
+**Usage** (see Demo):  
+Include the library in source code "#include "dir/Mathematics.h", and compile using
 ``` gcc sourcecode.c -Ldir/build -lZiltoidMath -lm ``` 
-
-with "dir" the directory.
+with "dir" the directory that contains Mathematics.h.
 
 
 ### Option 2: Using LAPACK
 
-To make use of functions in the lapack directory, install lapack:
-
+To make use of functions in the lapack directory, install lapack:  
 ``` (sudo) apt-get install libblas-dev liblapack-dev ```
 
 Build the Mathematics library using the "makeZiltoidMathLib.sh" script as in Option 1.
-Use the library as in Option 1, but when compiling the source code do 
-
+Use the library as in Option 1, but when compiling the source code do  
 ``` gcc sourcecode.c -Ldir/build -lZiltoidMath -llapack -lm ``` 
 
 ## DEPENDENCIES
