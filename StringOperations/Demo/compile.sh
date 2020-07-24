@@ -1,3 +1,4 @@
 #!/bin/bash
 
-gcc -o demo_str_2_dir_and_file Demo_str_2_dir_and_file.c ../StringOperations.c -lm
+gcc -o demo_getWord demo_getWord.c ../StringOperations.c -lm
+g++ -o demo_getWord_pp demo_getWord.c ../StringOperations.c -lm
