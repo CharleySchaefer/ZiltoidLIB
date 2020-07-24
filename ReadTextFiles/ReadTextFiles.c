@@ -102,7 +102,7 @@ int getNheader(const char *fname, int *Nheader)
 int countColumns(char *fname, int atline, int *Ncols)
 {
   FILE *ifp;
-  int  i, Nchar;
+  int  i;
   char line[MAX_LINE_WIDTH], word[MAX_STR_L];
 
   // Open file
@@ -170,8 +170,7 @@ int checkFileName(char *fname)
        Nmax = 3,  // Length of 'str' by which the original string is modified
        N=0;
   char *newfileName,
-       *fileNameTmp,
-       *tmpc;
+       *fileNameTmp;
   FILE *ifp;
 
   newfileName=(char*)malloc(MAX_STR_L*sizeof(char));
@@ -206,8 +205,7 @@ int countFiles(char *fname, int Nmax, int *Nfiles)
 {
   int   i,
         check;
-  char  c,
-        ctmp[MAX_STR_L];
+  char  ctmp[MAX_STR_L];
   FILE  *ifp;
 
   (*Nfiles)=0;
@@ -434,7 +432,7 @@ int creadColumn(
 
     if(Ncol<0)
     {
-      printf("WARNING: algorithm starts reading data at Ncol=0!\n");
+      printf("Warning: algorithm starts reading data at Ncol=0!\n");
       return(0);
     }
 
@@ -482,7 +480,7 @@ int creadColumn(
 
 int dreadRow(char *fname, int Nrow, double *row)
 {
-  int    i,j,ind, Nchar;
+  int    i,ind, Nchar;
   char   word[MAX_STR_L], line[MAX_LINE_WIDTH];
   FILE   *ifp;
   
@@ -509,7 +507,7 @@ int dreadRow(char *fname, int Nrow, double *row)
 
 int sreadRow(char *fname, int Nrow, float *row, int *Nword)
 {
-  int    i,j,ind, Nchar;
+  int    i,ind, Nchar;
   char   word[MAX_STR_L], line[MAX_LINE_WIDTH];
   FILE   *ifp;
   
@@ -536,7 +534,7 @@ int sreadRow(char *fname, int Nrow, float *row, int *Nword)
 
 int ireadRow(char *fname, int Nrow, int *row, int *Nword)
 {
-  int    i,j,ind, Nchar;
+  int    i,ind, Nchar;
   char   word[MAX_STR_L], line[MAX_LINE_WIDTH];
   FILE   *ifp;
   
