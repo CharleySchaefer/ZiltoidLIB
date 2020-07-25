@@ -20,35 +20,45 @@
 echo " "
 echo "  >BUILDING LatticeLIB"
 
+
+CC=gcc # default
 arg=""
-if [ $# -eq 1 ]; then
-  arg=$1
-  if [ $arg != "-g" ]; then
-    echo "Unexpected argument $arg - exiting."
-    exit 1
+debug=""
+
+for n in "$@" ; do
+  if [ $n == "-g" ]; then
+    echo "  Debugging mode."
+    debug="-g"
+  elif [ $n == "--gcc" ]; then
+    echo "  Using gcc"
+    CC=gcc
+  elif [ $n == "--g++" ]; then
+    echo "  Using g++"
+    CC=g++
   fi
-fi
+done
+
 
 rm build -rf
 mkdir -p build
 
 pushd build >/dev/null
 
-if gcc -fPIC -c ../LatticeCube/LatticeCube.c $arg ; then
+if ${CC} -Wall -fPIC -c ../LatticeCube/LatticeCube.c $debug ; then
   echo "  LatticeCube compiled."
  else
   echo "Error: Failed to compile LatticeCube."
   exit 1
 fi
 
-if gcc -fPIC -c ../LatticeHCP/LatticeHCP.c $arg ; then
+if ${CC} -Wall -fPIC -c ../LatticeHCP/LatticeHCP.c $debug ; then
   echo "  LatticeHCP compiled."
  else
   echo "Error: Failed to compile LatticeHCP."
   exit 1
 fi
 
-if gcc -fPIC -c ../NN/NN.c $arg ; then
+if ${CC} -Wall -fPIC -c ../NN/NN.c $debug ; then
   echo "  NN compiled."
  else
   echo "Error: Failed to compile NN."

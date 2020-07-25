@@ -6,6 +6,7 @@ echo " "
 echo "BUILDING ZILTOIDLIB"
 
 do_debug=0
+CC=gcc
 debug_arg="" #default
 includeZiltoidLapack=0 # default
 for i in `seq 1 $#`
@@ -18,6 +19,12 @@ do
     do_debug=1
     debug_arg="-g"
     echo "Debugging mode."
+  elif [ "${@:$i:1}" == "--g++" ]; then
+    CC=g++
+    echo "Use g++ compiler."
+  elif [ "${@:$i:1}" == "--gcc" ]; then
+    CC=gcc
+    echo "Use gcc compiler."
   fi
 done
 
@@ -28,7 +35,6 @@ else
 fi
 echo " "
 #================================================================
-CC=gcc
 script=$(readlink -f $0)
 scriptpath=`dirname $script`
 pushd $scriptpath >/dev/null
@@ -39,7 +45,7 @@ mkdir -p build
 pushd build  >/dev/null
 
 pushd ../LatticeLIB  >/dev/null
-./makeLatticeLIB.sh $debug_arg
+./makeLatticeLIB.sh $debug_arg --$CC
 popd  >/dev/null  # BACK TO ZILTOID/BUILD 
 echo " "
 
@@ -49,7 +55,7 @@ popd  >/dev/null  # BACK TO ZILTOID/BUILD
 echo " "
 
 pushd ../NumericalMethods  >/dev/null
-./makeZiltoidNumLib.sh $debug_arg
+./makeZiltoidNumLib.sh $debug_arg --$CC
 popd  >/dev/null # BACK TO ZILTOID/BUILD
 echo " "
 
@@ -82,7 +88,7 @@ then
   echo " "
   echo "COMPILING ZILTOIDLAPACK"
   pushd ../Mathematics/LinearAlgebra/lapack  >/dev/null
-    gcc -fPIC -c eigenproblem.c
+    ${CC} -fPIC -c eigenproblem.c
   popd >/dev/null
   cp ../Mathematics/LinearAlgebra/lapack/eigenproblem.o lapack_eigenproblem.o
   echo "  lapack_eigenproblem.o compiled"
@@ -113,7 +119,7 @@ echo " "
 
 
 pushd Applications  >/dev/null
-./makeZiltoidApps.sh $debug_arg
+./makeZiltoidApps.sh $debug_arg --$CC
 popd  >/dev/null # BACK TO ZILTOID
 echo " "
 

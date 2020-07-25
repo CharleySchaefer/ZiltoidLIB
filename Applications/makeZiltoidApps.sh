@@ -21,24 +21,34 @@
 cnf=1
 ModuleName=ZiltoidApps
 #===============================
-arg=""
-if [ $# -eq 1 ]; then
-  arg=$1
-  if [ $arg != "-g" ]; then
-    echo "Unexpected argument $arg - exiting."
-    exit 1
-  fi
-fi
 
+CC=gcc # default
+arg=""
+debug=""
 
 echo "  >COMPILING $ModuleName"
+for n in "$@" ; do
+  if [ $n == "-g" ]; then
+    echo "  Debugging mode."
+    debug="-g"
+  elif [ $n == "--gcc" ]; then
+    echo "  Using gcc"
+    CC=gcc
+  elif [ $n == "--g++" ]; then
+    echo "  Using g++"
+    CC=g++
+  fi
+done
+
+
+
 mkdir -p bin
 pushd bin >/dev/null
 
 
 
 if [ $cnf -eq 1 ]; then
-  if gcc -fPIC -c ../PrincipleMomentsOfInertia/PrincipleMomentsOfInertia.c $arg ; then
+  if ${CC} -fPIC -c ../PrincipleMomentsOfInertia/PrincipleMomentsOfInertia.c $debug ; then
     echo "  PrincipleMomentsOfInertia compiled."
    else
     echo "Error: Failed to compile PrincipleMomentsOfInertia."
@@ -47,13 +57,13 @@ if [ $cnf -eq 1 ]; then
 fi
 
 pushd ../ColumnStats > /dev/null
-  ./compile_ColumnStats.sh $arg
+  ./compile_ColumnStats.sh $arg --$CC
 popd > /dev/null
 mv ../ColumnStats/getColumnStats.o .
 
 
 pushd ../StructureFactor/Demo > /dev/null
-  ./compile_StructureFactor.sh $arg
+  ./compile_StructureFactor.sh $arg --$CC
 popd > /dev/null
 mv ../StructureFactor/Demo/StructureFactorAndCorrelationFunction.o .
 

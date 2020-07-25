@@ -22,22 +22,30 @@ includeBisection=1
 includeMergeSort=1
 #===============================
 
+CC=gcc # default
 arg=""
-if [ $# -eq 1 ]; then
-  arg=$1
-  if [ $arg != "-g" ]; then
-    echo "Unexpected argument $arg - exiting."
-    exit 1
-  fi
-fi
+debug=""
 
 echo "  >COMPILING ZiltoidNum"
+for n in "$@" ; do
+  if [ $n == "-g" ]; then
+    echo "  Debugging mode."
+    debug="-g"
+  elif [ $n == "--gcc" ]; then
+    echo "  Using gcc"
+    CC=gcc
+  elif [ $n == "--g++" ]; then
+    echo "  Using g++"
+    CC=g++
+  fi
+done
+
 mkdir -p build
 pushd build >/dev/null
 
 
 if [ $includeInterpolation -eq 1 ]; then
-  if gcc -fPIC -c ../Interpolation/Interpolation.c $arg ; then
+  if ${CC} -Wall -fPIC -c ../Interpolation/Interpolation.c $debug ; then
     echo "  Interpolation compiled."
    else
     echo "Error: Failed to compile Interpolation."
@@ -45,7 +53,7 @@ if [ $includeInterpolation -eq 1 ]; then
   fi
 fi
 if [ $includeBisection -eq 1 ]; then
-  if gcc -fPIC -c ../Bisection/Bisection.c $arg ; then
+  if ${CC} -Wall -fPIC -c ../Bisection/Bisection.c $debug ; then
     echo "  Bisection compiled."
    else
     echo "Error: Failed to compile Bisection."
@@ -53,7 +61,7 @@ if [ $includeBisection -eq 1 ]; then
   fi
 fi
 if [ $includeMergeSort -eq 1 ]; then
-  if gcc -fPIC -c ../mergesort.c $arg ; then
+  if ${CC} -Wall -fPIC -c ../mergesort.c $debug ; then
     echo "  Mergesort compiled."
    else
     echo "Error: Failed to compile Mergesort."

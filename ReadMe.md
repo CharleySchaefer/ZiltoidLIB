@@ -2,7 +2,7 @@
 
 ## ABOUT
 
-Collection of functions commonly encountered in C programs for physical modelling and simulation.
+Collection of functions commonly encountered in C/C++ programs for physical modelling and simulation.
 This library does not require external libraries, except for solving some eigenvalue problems (BLAS/LAPACK).
 
 <sub>This software is freely distributed under the Apache 2.0 (Version 2.0, January 2004) license WITHOUT WARRANTY, see LICENSE.txt.</sub>
@@ -14,7 +14,7 @@ This library does not require external libraries, except for solving some eigenv
 
 * Kinetic Monte Carlo  
   * Variable step size method  
-* [LatticeLIB](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/LatticeLIB)  
+* [LatticeLIB](https://github.com/CharleySchaefer/ZiltoidLIB/tree/master/LatticeLIB) (both C/C++)  
   * Periodic and non-periodic simple cubic (sc) and hexagonal close packed (hcp) lattices  
   * Transformations (reflect, rotate), finding neighbours within cutoff radius.  
   * (in development) Structure to build custom lattices.  
@@ -25,7 +25,7 @@ This library does not require external libraries, except for solving some eigenv
   * QR decomposition (adapted from [jcchurch](https://github.com/jcchurch/C-Linear-Algebra))  
   * Array statistics: min, max, abs, mean, variance, standard deviation  
   * (BLAS/LAPACK) Solve eigenvalue problem symmetric matrices  
-* Numerical Methods  
+* Numerical Methods (both C/C++)  
   * Interpolation  
   * Bisection method  
 * Read Text Files (uses String Operations module) (both C/C++)  

@@ -4,17 +4,26 @@ pth="../../.."
 MainC="Demo_StructureFactorAndCorrelationFunction.c"
 executable="StructureFactorAndCorrelationFunction.o"
 
+CC=gcc # default
 arg=""
-if [ $# -eq 1 ]; then
-  arg=$1
-  if [ $arg != "-g" ]; then
-    echo "Unexpected argument $arg - exiting."
-    exit 1
+debug=""
+
+for n in "$@" ; do
+  if [ $n == "-g" ]; then
+    echo "  Debugging mode."
+    debug="-g"
+  elif [ $n == "--gcc" ]; then
+    echo "  Using gcc"
+    CC=gcc
+  elif [ $n == "--g++" ]; then
+    echo "  Using g++"
+    CC=g++
   fi
-fi
+done
+
 
 # Compile
-if gcc -o $executable $MainC $pth/Applications/StructureFactor/StructureFactor.c -L$pth -lZiltoidLIB -lm $arg ; then
+if ${CC} -o $executable $MainC $pth/Applications/StructureFactor/StructureFactor.c -L$pth -lZiltoidLIB -lm $debug ; then
   echo "  $executable compiled."
 else
   echo "  compilation $executable failed."
