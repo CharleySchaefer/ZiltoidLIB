@@ -3,16 +3,24 @@
 lib=../..
 executable=getColumnStats.o
 
+CC=gcc # default
 arg=""
-if [ $# -eq 1 ]; then
-  arg=$1
-  if [ $arg != "-g" ]; then
-    echo "Unexpected argument $arg - exiting."
-    exit 1
-  fi
-fi
+debug=""
 
-if gcc -o $executable get_column_stats_from_file.c -L$lib -lZiltoidLIB -lm $arg ; then
+for n in "$@" ; do
+  if [ $n == "-g" ]; then
+    echo "  Debugging mode."
+    debug="-g"
+  elif [ $n == "--gcc" ]; then
+    echo "  Using gcc"
+    CC=gcc
+  elif [ $n == "--g++" ]; then
+    echo "  Using g++"
+    CC=g++
+  fi
+done
+
+if ${CC} -o $executable get_column_stats_from_file.c -L$lib -lZiltoidLIB -lm $debug ; then
   echo "  $executable compiled."
 else
   echo "  compilation $executable failed."
