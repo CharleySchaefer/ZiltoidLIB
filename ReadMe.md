@@ -50,51 +50,38 @@ This library does not require external libraries, except for solving some eigenv
 
 ### Utils
 
-* Gnuplot demo for producing .eps and .pdf format graphs 
+* Gnuplot demo for producing .eps and .pdf format graphs:  
+```sudo apt-get install gnuplot```  
 * GNU Octave / Matlab scripts
+```sudo apt-get install octave```  
 
-## System requirements and Installation
-
-### Software dependencies:
-
-* gcc compiler  
-* bash (for installation script)  
-* (optional) Postprocessing and other utilities:  
-  * gnuplot: plotting of data. (see http://www.gnuplot.info)  
-  * Matlab  / gnu octave to run .m scripts  
-* (optional) debugging: valgrind memcheck  
-* (optional) BLAS/LAPACK. Can be installed on Linux using ```sudo apt-get install libblas-dev liblapack-dev```
-
-### Versions the software has been tested on
-
-* Linux:  
-  * Linux clinux 3.16.0-7-amd64 #1 SMP Debian 3.16.59-1 (2018-10-03) x86_64 GNU/Linux  
-  * gcc (GCC) 4.8.5 20150623 (Red Hat 4.8.5-36)  
-  * gcc version 4.9.2 (Debian 4.9.2-10+deb8u2)  
-  * GNU bash, version 4.3.30(1)-release (x86_64-pc-linux-gnu)  
-  * GNU bash, GNU bash, version 4.2.46(2)-release (x86_64-redhat-linux-gnu)
-  * gnuplot 4.6 patchlevel 2, patchlevel 6 
-  * valgrind-3.10.0  
-  * GNU Octave, version 4.0.0 (configured for "x86_64-unknown-linux-gnu")  
-* Microsoft Windows 10.0.15063 (only compilation tested; not functionality)  
-  * gcc (i686-posix-dwarf-rev1, Built by MingWG-W64 project) 6.2.0  
-  * GNU bash, version 4.3.46(2)-release (x86_64-pc-msys)
-  * gnuplot 5.0, patchlevel 5 
-
-
-### Installation / usage
+## Installation / usage
 
 **Download:**  
 Download from ![here](https://github.com/CharleySchaefer/ZiltoidLIB), or clone  
 ```git clone https://github.com/CharleySchaefer/ZiltoidLIB```  
 
 **Installation:**  
-Without BLAS/LAPACK functionality compile ZiltoidLIB by running:  
+
+*Standard C/C++ without external dependencies):* The static library can be build for C without external dependencies using  
 ``` ./makeZiltoidLIB.sh ```  
-With BLAS/LAPACK functionality compile ZiltoidLIB by running:  
+or, equivalently, using  
+``` ./makeZiltoidLIB.sh --gcc```  
+For C++, the library can by build using  
+``` ./makeZiltoidLIB.sh --g++```  
+
+*Including external BLAS/LAPACK:* (linear algebra libraries)  
+Install BLAS/LAPACK:  
+```sudo apt-get install libblas-dev liblapack-dev```
+Compile library:  
 ``` ./makeZiltoidLIB.sh --include-lapack```  
-For development/debugging the argument ```--debug``` can be used,  
-which calls ```gcc -g```.
+
+*Debugging (for development):*  
+``` ./makeZiltoidLIB.sh -g```  
+Debugging can be done e.g. using valgrind:
+```sudo apt-get install valgrind```
+
+
 
 **Usage:**  
 Include the library in main.c or main.h of custom software using  
