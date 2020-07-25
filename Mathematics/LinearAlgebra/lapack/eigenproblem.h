@@ -54,9 +54,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern void dsytrd_(char *, int *, double *, int *, double *, double *, double *, double * , int*, int *);
-extern void dorgtr_(char *, int *, double *, int *, double *, double *, int*, int *);
-extern void dsteqr_(char *, int *, double *, double *, double *, int *, double *, int *);
+#ifdef __cplusplus
+#define EXTERN_C extern "C"
+#else
+#define EXTERN_C extern
+#endif
+
+  EXTERN_C void dsytrd_(char *, int *, double *, int *, double *, double *, double *, double * , int*, int *);
+  EXTERN_C void dorgtr_(char *, int *, double *, int *, double *, double *, int*, int *);
+  EXTERN_C void dsteqr_(char *, int *, double *, double *, double *, int *, double *, int *);
+
 
 int eigenproblem_real_symmetric_matrix(char,  double **, int, double *, double *, double *, double *, double *);
 
