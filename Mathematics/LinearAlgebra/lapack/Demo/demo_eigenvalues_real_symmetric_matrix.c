@@ -8,7 +8,7 @@
 
 int main(int argc, char** argv)
 {
-  int       i,j,k,l,m;
+  int       i,j;
   const int n=4;
 
   double eig;

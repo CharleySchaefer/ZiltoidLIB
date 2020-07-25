@@ -51,6 +51,7 @@
             matrix, by computing the SVD of its bidiagonal 
             Cholesky factor
 */
+#include <stdlib.h>
 #include <stdio.h>
 
 extern void dsytrd_(char *, int *, double *, int *, double *, double *, double *, double * , int*, int *);

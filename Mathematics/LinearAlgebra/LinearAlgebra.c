@@ -45,8 +45,7 @@ int matrix_vector_product(double **matrix, int M, int N, double *vec_in,  double
 
 int vector_inner_product(double *vec1_in, double *vec2_in, int N,  double *D)
 {
-  int i,j;
-  double dtmp;
+  int j;
    // vec_out[i]=0;
   *D=0;
   for(j=0; j<N;j++)
