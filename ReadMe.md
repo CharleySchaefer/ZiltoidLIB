@@ -63,20 +63,20 @@ Download from ![here](https://github.com/CharleySchaefer/ZiltoidLIB), or clone
 
 **Installation:**  
 
-*Standard C/C++ without external dependencies):* The static library can be build for C without external dependencies using  
+*Option 1 - Standard C/C++ without external dependencies):* The static library can be build for C without external dependencies using  
 ``` ./makeZiltoidLIB.sh ```  
 or, equivalently, using  
 ``` ./makeZiltoidLIB.sh --gcc```  
 For C++, the library can by build using  
 ``` ./makeZiltoidLIB.sh --g++```  
 
-*Including external BLAS/LAPACK:* (linear algebra libraries)  
+*Option 2 - Including external BLAS/LAPACK:* (linear algebra libraries)  
 Install BLAS/LAPACK:  
 ```sudo apt-get install libblas-dev liblapack-dev```
 Compile library:  
 ``` ./makeZiltoidLIB.sh --include-lapack```  
 
-*Debugging (for development):*  
+*Option 3 - Debugging (for development):*  
 ``` ./makeZiltoidLIB.sh -g```  
 Debugging can be done e.g. using valgrind:
 ```sudo apt-get install valgrind```
