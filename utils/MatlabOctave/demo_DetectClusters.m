@@ -2,6 +2,7 @@
 % getClusters(): identify clusters of particles based on their connectivity
 %
 % Charley Schaefer, University of York, UK (2021)
+% https://github.com/CharleySchaefer/ZiltoidLIB/utils
 %
 % all_particles: cell with particle structures
 % Each particle structure contains
