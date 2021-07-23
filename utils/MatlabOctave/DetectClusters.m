@@ -12,10 +12,10 @@
 %    Nneigh:     Number of neighbours
 %    neigh:      list with particle identifiers (pID's)
 %                of neighbours
-function all_clusters=DetectClusters(all_particles)
-  
+function all_clusters=DetectClusters()
+  global all_particles;
   Nparticles=length(all_particles);
-  global all_particles=all_particles;
+ % global all_particles; %=all_particles;
 
   % NOTE: might be more efficient to make all_clusters()
   %       also into a global.

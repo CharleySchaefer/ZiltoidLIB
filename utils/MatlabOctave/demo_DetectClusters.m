@@ -12,7 +12,7 @@
 %    Nneigh:     Number of neighbours
 %    neigh:      list with particle identifiers (pID's)
 %                of neighbours
-function demo_getClusters()
+function demo_DetectClusters()
   clc; close all;
 
   %==================================================
@@ -55,7 +55,7 @@ function demo_getClusters()
 
   %==================================================
   % CORE CALCULATION
-  all_clusters=DetectClusters(all_particles);
+  all_clusters=DetectClusters();
   % CORE CALCULATION DONE
   %==================================================
 
