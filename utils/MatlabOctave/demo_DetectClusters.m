@@ -8,7 +8,7 @@
 % Each particle structure contains
 %    pID:        particle identifier (not used, actually)
 %    evaluated:  initialised to 0
-%                trackes which structures have been evaluated
+%                tracks which structures have been evaluated
 %    Nneigh:     Number of neighbours
 %    neigh:      list with particle identifiers (pID's)
 %                of neighbours
