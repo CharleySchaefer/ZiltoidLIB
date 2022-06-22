@@ -4,6 +4,7 @@ pth="../../.."
 MainC="Demo_StructureFactorAndCorrelationFunction.c"
 executable="StructureFactorAndCorrelationFunction.o"
 
+
 # Compile
 CC=gcc # default
 arg=""
@@ -33,6 +34,8 @@ LY=10.0
 echo "  Running ./$executable"
 ./$executable --file $inputfile --stretch-matrix --Lx $LX --Ly $LY > psi_example.out
 
+$pth/bash/get_roots_from_datafile.sh psi_example.out 3 4 1 > psi_example_analysed.out
+
 # Plot (requires gnuplot installed)
 echo "  Calling gnuplot:"
 echo "    Running ../../utils/gnuplot/plotMatrix.sh psi_example.dat"
@@ -42,7 +45,7 @@ echo "    Running ./plotSF.sh psi_example.out"
 ./plotSF.sh psi_example.out
 
 echo "    Running ./plotCF.sh psi_example.out"
-./plotCF.sh psi_example.out
+./plotCF.sh psi_example.out psi_example_analysed.out
 
 echo "  Done"
 
