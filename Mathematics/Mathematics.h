@@ -49,7 +49,8 @@
   float  f1variance( float *, int); // floats
   double d1variance(double *, int); // double precision
 
-
+  // get set intersection of two ordered arrays
+  void d1sorted_intersection(int *, int, int *, int, int *, int *);
 
   // 2D array analysis
   void gradarray2D(double **, char, int, double, int, int, double *);
