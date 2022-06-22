@@ -32,10 +32,8 @@ char *windows_strsep(char** stringp, const char * delim)
 //				
 //  str: string with length Nmax (memory: length str has to be at least 4)
 //  N:   integer number									
-void numStr(char* str, int Nmax, int N)
-{
-  sprintf(str, "%%0%dd", Nmax);
-  sprintf(str, str, N);
+void numStr(char* str, int Nmax, int N){
+  sprintf(str, "%0*d", Nmax, N); /* variable padding */
 }
 
 //----------------------------------------------------------------------------------------------
@@ -48,15 +46,15 @@ int countStr(char* str, int num)
 {
   int Nmax=strlen(str);
   int N=atoi(str)+num;
-  sprintf(str, "%%0%dd", Nmax);
-  sprintf(str, str, N);
+  sprintf(str, "%0*d", Nmax, N);
+
   
   if(N<0)
-    {printf("Error: countStr() does not support negative numbers!\n"); return(0);}
+    {printf("Error: countStr() does not support negative numbers.\n"); return(0);}
   if(N<pow(10,Nmax))
     numStr(str, Nmax, N);
   else
-    {printf("Error: Length of number exceeds maximum string length!\n"); return(0);}
+    {printf("Error: Length of number exceeds maximum string length.\n"); return(0);}
 
   return(1);
 }  
