@@ -221,7 +221,7 @@ int d1find( double target, double *array, int N) // Find value in array
   return(-1);    // on fail
 }
 
-// get set intersection of two ordered arrays
+// get set intersection of two ordered arrays arr1 and arr2, store in arr3
 void d1sorted_intersection(int *arr1, int n1, int *arr2, int n2, int * arr3, int * n3){
   int i=0,j=0,val1,val2; 
   (*n3)=0;
