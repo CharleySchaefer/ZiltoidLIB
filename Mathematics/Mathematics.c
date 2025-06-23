@@ -64,6 +64,17 @@ int isPowerOfTwo (unsigned int x)
  return (x == 1);
 }
 
+int isPowerOfThree(int num) 
+{
+    if (num < 1)
+        return 0;
+    
+    while (num % 3 == 0) {
+        num /= 3;
+    }
+
+    return (num == 1);
+}
 
 double d1min(double *arr, int N) // Minimum of array
 {
