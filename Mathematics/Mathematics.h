@@ -15,6 +15,7 @@
   // Scalar functions
   double absolute(double);
   int    isPowerOfTwo (unsigned int);
+  int    isPowerOfThree(int);
   int    bin2dec(int *, int *, int);
   int    dec2bin(int  , int *, int);
 
