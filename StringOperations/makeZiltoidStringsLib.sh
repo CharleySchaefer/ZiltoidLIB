@@ -1,6 +1,9 @@
+
+#!/usr/bin/env bash
+
 #   StringOperations is part of ZiltoidLIB.
 #   ZiltoidLIB: C library for physical modelling and simulation.
-#   Copyright 2018, Charley Schaefer (charley.schaefer@york.ac.uk)
+#   Copyright 2018, Charley Schaefer (c.schaefer@leeds.ac.uk)
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,56 +16,110 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-#!/bin/bash
 
-#===============================
+set -euo pipefail
+
+echo
+echo "BUILDING ZiltoidStrings"
+
+##########################
 # CONFIGURATION
+
 includeStringOperations=1
-#===============================
 
-CC=gcc # default
-arg=""
-debug=""
+CC=gcc
+DEBUG=0
 
-echo "  >COMPILING ZiltoidStrings"
-for n in "$@" ; do
-  if [ $n == "-g" ]; then
-    echo "  Debugging mode."
-    debug="-g"
-  elif [ $n == "--gcc" ]; then
-    echo "  Using gcc"
-    CC=gcc
-  elif [ $n == "--g++" ]; then
-    echo "  Using g++"
-    CC=g++
-  fi
+##########################
+# PARSE ARGUMENTS
+
+for arg in "$@"; do
+    case "$arg" in
+        -g|--debug)
+            DEBUG=1
+            echo "Debugging mode."
+            ;;
+        --gcc)
+            CC=gcc
+            echo "Using gcc."
+            ;;
+        --g++)
+            CC=g++
+            echo "Using g++."
+            ;;
+        *)
+            echo "Unknown option: $arg" >&2
+            exit 1
+            ;;
+    esac
 done
 
+##########################
+# COMPILER FLAGS
 
+if [[ "$CC" == "g++" ]]; then
+    STANDARD="-std=c++11"
+else
+    STANDARD="-std=c11"
+fi
 
+if (( DEBUG )); then
+    CFLAGS=("$STANDARD" -O0 -g -Wall -Wextra -Wpedantic -fPIC)
+else
+    CFLAGS=("$STANDARD" -O2 -Wall -Wextra -Wpedantic -fPIC)
+fi
+
+##########################
+# BUILD DIRECTORY
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
 
 mkdir -p build
-pushd build >/dev/null
 
+##########################
+# SOURCE FILES
 
-if [ $includeStringOperations -eq 1 ]; then
-  if ${CC} -Wall -fPIC -c ../StringOperations.c $debug ; then
-    echo "  StringOperations compiled."
-   else
-    echo "Error: Failed to compile StringOperations."
+sources=()
+
+if (( includeStringOperations )); then
+    sources+=(StringOperations.c)
+fi
+
+##########################
+# COMPILE SOURCE FILES
+
+objects=()
+
+for source in "${sources[@]}"; do
+    name="${source##*/}"
+    name="${name%.c}"
+    object="build/${name}.o"
+
+    "$CC" "${CFLAGS[@]}" \
+        -c "$source" \
+        -o "$object"
+
+    objects+=("$object")
+
+    echo "  ${name} compiled."
+done
+
+##########################
+# CREATE STATIC LIBRARY
+
+if (( ${#objects[@]} == 0 )); then
+    echo "Error: no StringOperations modules enabled." >&2
     exit 1
-  fi
 fi
 
-if ar rcs libZiltoidStrings.a StringOperations.o
-then
-  echo "  libZiltoidStrings.a created."
-else
-  echo "Error: failed to create library."
-fi
+rm -f build/libZiltoidStrings.a
 
-popd >/dev/null
+ar rcs build/libZiltoidStrings.a "${objects[@]}"
 
-cp build/*.a .
-echo "  >FINISHED COMPILING ZiltoidStrings"
+cp build/libZiltoidStrings.a .
+
+echo
+echo "libZiltoidStrings.a created successfully."
+echo "FINISHED COMPILING ZiltoidStrings"
 

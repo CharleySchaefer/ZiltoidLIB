@@ -20,9 +20,9 @@
   int checkFileName(char *);
   int countFiles(char *, int, int *);
 
-  int readMatrix(char *, double **, int, int);
-  int readMatrix_short(char *, short **, int, int);
-  int readMatrix_int(char *, int **, int, int);
+  int readMatrix(char *, double **);
+  int readMatrix_short(char *, short **);
+  int readMatrix_int(char *, int **);
 
   int readLine(char *, char *, int);
 

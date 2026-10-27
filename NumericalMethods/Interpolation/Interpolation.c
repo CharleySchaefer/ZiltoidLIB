@@ -1,6 +1,6 @@
 #include "Interpolation.h"
 
-int find_boundary_indices(double *xarr, double *yarr, int N, double xint, int *indL, int *indU)
+static int find_boundary_indices(double *xarr, int N, double xint, int *indL, int *indU)
 {
   int    nL=0, nU=N-1, n;
   double x, xL, xU; // upper and lower x values
@@ -56,7 +56,7 @@ int interp1(double *xarr, double *yarr, int N, double xint, double *yint)
     *yint=yarr[N-1];
   else
   {
-    if(!find_boundary_indices(xarr, yarr, N, xint, &nL, &nU))
+    if(!find_boundary_indices(xarr, N, xint, &nL, &nU))
     {
       printf("Error: find_boundary_indices() failed!\n"); 
       return(0);

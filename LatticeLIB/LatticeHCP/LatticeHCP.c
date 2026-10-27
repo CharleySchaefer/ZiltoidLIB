@@ -3,7 +3,7 @@
 
 LATTICE_HCP *make_lattice_hcp(int Nx, int Ny, int Nz)
 {
-  int dim;
+  int dim=-1;
   LATTICE_HCP *Lattice=NULL;
 
   if(Nx<1 || Ny<1 || Nz<1)

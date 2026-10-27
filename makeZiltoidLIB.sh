@@ -1,140 +1,197 @@
-#!/bin/bash
 
+#!/usr/bin/env bash
 
-#================================================================
-echo " "
+set -euo pipefail
+
+echo
 echo "BUILDING ZILTOIDLIB"
 
-do_debug=0
+##########################
+# SETTINGS
+
 CC=gcc
-debug_arg="" #default
-includeZiltoidLapack=0 # default
-for i in `seq 1 $#`
-do
-  if [ "${@:$i:1}" == "--includeZiltoidLAPACK" ]; then
-    includeZiltoidLapack=1
-  elif [ "${@:$i:1}" == "--include-lapack" ]; then
-    includeZiltoidLapack=1
-  elif [ "${@:$i:1}" == "--debug" ]; then
-    do_debug=1
-    debug_arg="-g"
-    echo "Debugging mode."
-  elif [ "${@:$i:1}" == "--g++" ]; then
-    CC=g++
-    echo "Use g++ compiler."
-  elif [ "${@:$i:1}" == "--gcc" ]; then
-    CC=gcc
-    echo "Use gcc compiler."
-  fi
+DEBUG=0
+INCLUDE_LAPACK=0
+
+CFLAGS=(-std=c11 -O2 -Wall -Wextra -Wpedantic -fPIC)
+
+##########################
+# PARSE ARGUMENTS
+
+for arg in "$@"; do
+    case "$arg" in
+        -g|--debug)
+            DEBUG=1
+            echo "Debugging mode."
+            ;;
+
+        --gcc)
+            CC=gcc
+            echo "Use gcc compiler."
+            ;;
+
+        --g++)
+            CC=g++
+            echo "Use g++ compiler."
+            ;;
+
+        --include-lapack|--includeZiltoidLAPACK)
+            INCLUDE_LAPACK=1
+            ;;
+
+        *)
+            echo "Unknown option: $arg" >&2
+            exit 1
+            ;;
+    esac
 done
 
-if [ $includeZiltoidLapack -eq 1 ]; then
-  echo "LAPACK-dependent functions: included"
-else
-  echo "LAPACK-dependent functions: excluded - to include, run $0 --include-lapack"
+if (( DEBUG )); then
+    CFLAGS=(-std=c11 -O0 -g -Wall -Wextra -Wpedantic -fPIC)
 fi
-echo " "
-#================================================================
-script=$(readlink -f $0)
-scriptpath=`dirname $script`
-pushd $scriptpath >/dev/null
 
-rm build -rf
+if [[ "$CC" == "g++" ]]; then
+    if (( DEBUG )); then
+        CFLAGS=(-std=c++11 -O0 -g -Wall -Wextra -Wpedantic -fPIC)
+    else
+        CFLAGS=(-std=c++11 -O2 -Wall -Wextra -Wpedantic -fPIC)
+    fi
+fi
+
+if (( INCLUDE_LAPACK )); then
+    echo "LAPACK-dependent functions: included"
+else
+    echo "LAPACK-dependent functions: excluded"
+    echo "To include them, run: $0 --include-lapack"
+fi
+
+##########################
+# LOCATE PROJECT
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+##########################
+# BUILD SUB-LIBRARIES
+
+# These scripts use the original command-line conventions.
+sub_args=()
+
+if (( DEBUG )); then
+    sub_args+=(-g)
+fi
+
+compiler_arg="--$CC"
+
+build_module() {
+    local directory="$1"
+    local script="$2"
+    shift 2
+
+    echo
+    echo "BUILDING $directory"
+
+    (
+        cd "$directory"
+        "./$script" "$@"
+    )
+}
+
+build_module LatticeLIB \
+    makeLatticeLIB.sh \
+    "${sub_args[@]}" "$compiler_arg"
+
+build_module Mathematics \
+    makeZiltoidMathLib.sh \
+    "${sub_args[@]}" "$compiler_arg"
+
+build_module NumericalMethods \
+    makeZiltoidNumLib.sh \
+    "${sub_args[@]}" "$compiler_arg"
+
+build_module StringOperations \
+    makeZiltoidStringsLib.sh \
+    "${sub_args[@]}" "$compiler_arg"
+
+build_module ReadTextFiles \
+    makeZiltoidReadLib.sh \
+    "${sub_args[@]}" "$compiler_arg"
+
+build_module kMC \
+    makeZiltoidKMC.sh \
+    "${sub_args[@]}"
+
+build_module Memory \
+    makeZiltoidMemory.sh \
+    "${sub_args[@]}"
+
+build_module Applications \
+    makeZiltoidApps.sh \
+    "${sub_args[@]}" "$compiler_arg"
+
+##########################
+# PREPARE BUILD DIRECTORY
+
+rm -rf build
 mkdir -p build
 
-pushd build  >/dev/null
+cd build
 
-pushd ../LatticeLIB  >/dev/null
-./makeLatticeLIB.sh $debug_arg --$CC
-popd  >/dev/null  # BACK TO ZILTOID/BUILD 
-echo " "
+##########################
+# EXTRACT OBJECT FILES
 
-pushd ../Mathematics  >/dev/null
-./makeZiltoidMathLib.sh $debug_arg --$CC
-popd  >/dev/null  # BACK TO ZILTOID/BUILD 
-echo " "
+archives=(
+    ../kMC/build/libZiltoidKMC.a
+    ../LatticeLIB/build/libLatticeLIB.a
+    ../Mathematics/build/libZiltoidMath.a
+    ../Memory/build/libZiltoidMemory.a
+    ../NumericalMethods/build/libZiltoidNum.a
+    ../StringOperations/build/libZiltoidStrings.a
+    ../ReadTextFiles/build/libZiltoidRead.a
+    ../Applications/bin/libZiltoidApps.a
+)
 
-pushd ../NumericalMethods  >/dev/null
-./makeZiltoidNumLib.sh $debug_arg --$CC
-popd  >/dev/null # BACK TO ZILTOID/BUILD
-echo " "
+for archive in "${archives[@]}"; do
+    echo "Extracting: $archive"
+    ar x "$archive"
+done
 
-pushd ../StringOperations  >/dev/null
-./makeZiltoidStringsLib.sh $debug_arg --$CC
-popd  >/dev/null # BACK TO ZILTOID/BUILD
-echo " "
+##########################
+# OPTIONAL LAPACK MODULE
 
-pushd ../ReadTextFiles  >/dev/null
-./makeZiltoidReadLib.sh $debug_arg --$CC
-popd  >/dev/null # BACK TO ZILTOID/BUILD
-echo " "
+if (( INCLUDE_LAPACK )); then
+    echo
+    echo "COMPILING ZILTOIDLAPACK"
 
-pushd ../kMC  >/dev/null
-./makeZiltoidKMC.sh $debug_arg
-popd  >/dev/null # BACK TO ZILTOID/BUILD
-echo " "
+    "$CC" "${CFLAGS[@]}" \
+        -c ../Mathematics/LinearAlgebra/lapack/eigenproblem.c \
+        -o lapack_eigenproblem.o
 
-pushd ../Memory  >/dev/null
-./makeZiltoidMemory.sh $debug_arg
-popd  >/dev/null # BACK TO ZILTOID/BUILD
-echo " "
-
-
-
-
-
-if [ $includeZiltoidLapack -eq 1 ]
-then
-  echo " "
-  echo "COMPILING ZILTOIDLAPACK"
-  pushd ../Mathematics/LinearAlgebra/lapack  >/dev/null
-    ${CC} -fPIC -c eigenproblem.c
-  popd >/dev/null
-  cp ../Mathematics/LinearAlgebra/lapack/eigenproblem.o lapack_eigenproblem.o
-  echo "  lapack_eigenproblem.o compiled"
-  echo "FINISHED COMPILING ZILTOIDLAPACK"
-  echo " "
+    echo "  lapack_eigenproblem.o compiled"
 fi
 
-echo "  Extracting modules in build:"
-ar x ../kMC/build/libZiltoidKMC.a
-ar x ../LatticeLIB/build/libLatticeLIB.a
-ar x ../Mathematics/build/libZiltoidMath.a
-ar x ../Memory/build/libZiltoidMemory.a
-ar x ../NumericalMethods/build/libZiltoidNum.a
-ar x ../StringOperations/build/libZiltoidStrings.a
-ar x ../ReadTextFiles/build/libZiltoidRead.a
+##########################
+# CREATE STATIC LIBRARY
 
-for file in `find *.o`
-do
-  echo "    "$file
-done 
+echo
+echo "Object files after compilation:"
 
-ar rcs libZiltoidLIB.a *.o
+objects=(./*.o)
 
-popd  >/dev/null # BACK TO ZILTOID
-cp build/libZiltoidLIB.a .
-echo "  libZiltoidLIB.a created"
-echo " "
+if (( ${#objects[@]} == 0 )) || [[ ! -f "${objects[0]}" ]]; then
+    echo "Error: no object files found." >&2
+    exit 1
+fi
 
+for object in "${objects[@]}"; do
+    echo "  - ${object#./}"
+done
 
-pushd Applications  >/dev/null
-./makeZiltoidApps.sh $debug_arg --$CC
-popd  >/dev/null # BACK TO ZILTOID
-echo " "
+ar rcs libZiltoidLIB.a "${objects[@]}"
 
-echo "  adding applications to libZiltoidLIB.a"
-pushd build >/dev/null
-ar x ../Applications/bin/libZiltoidApps.a
-ar rcs libZiltoidLIB.a *.o
-popd  >/dev/null # BACK TO ZILTOID
-cp build/libZiltoidLIB.a .
-echo "  libZiltoidLIB.a created"
-echo " "
+cp libZiltoidLIB.a ..
 
-popd >/dev/null
+echo
+echo "libZiltoidLIB.a created successfully."
 echo "FINISHED BUILDING ZILTOIDLIB"
-echo " "
-
-
 

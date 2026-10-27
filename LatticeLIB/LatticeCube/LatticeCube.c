@@ -3,7 +3,7 @@
 
 LATTICE_CUBE *make_lattice_cube(int Nx, int Ny, int Nz)
 {
-  int dim;
+  int dim=-1;
   LATTICE_CUBE *Lattice=NULL;
 
   if(Nx<1 || Ny<1 || Nz<1)

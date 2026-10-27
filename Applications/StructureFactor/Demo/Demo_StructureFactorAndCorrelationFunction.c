@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
   for(i=0; i<NX; i++)
     Psi2D[i]=(double*)malloc(NY*sizeof(double));
 
-  if(!readMatrix((char*)fname, Psi2D, NX, NY))
+  if(!readMatrix((char*)fname, Psi2D))
     {printf("Error: Failed to execute readMatrix()!\n"); return(0);}
   // MATRIX READ
   //-----------------------------------

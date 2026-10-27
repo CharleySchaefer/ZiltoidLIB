@@ -1,6 +1,9 @@
+
+#!/usr/bin/env bash
+
 #   ReadTextFiles is part of ZiltoidLIB.
 #   ZiltoidLIB: C library for physical modelling and simulation.
-#   Copyright 2018, Charley Schaefer (charley.schaefer@york.ac.uk)
+#   Copyright 2018, Charley Schaefer (c.schaefer@leeds.ac.uk)
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,53 +16,108 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-#!/bin/bash
 
-#===============================
+set -euo pipefail
+
+echo
+echo "BUILDING ZiltoidRead"
+
+##########################
 # CONFIGURATION
+
 includeReadTextFiles=1
-#===============================
 
+CC=gcc
+DEBUG=0
 
-CC=gcc # default
-arg=""
-debug=""
+##########################
+# PARSE ARGUMENTS
 
-echo "  >COMPILING ZiltoidRead"
-for n in "$@" ; do
-  if [ $n == "-g" ]; then
-    echo "  Debugging mode."
-    debug="-g"
-  elif [ $n == "--gcc" ]; then
-    echo "  Using gcc"
-    CC=gcc
-  elif [ $n == "--g++" ]; then
-    echo "  Using g++"
-    CC=g++
-  fi
+for arg in "$@"; do
+    case "$arg" in
+        -g|--debug)
+            DEBUG=1
+            echo "Debugging mode."
+            ;;
+        --gcc)
+            CC=gcc
+            echo "Using gcc."
+            ;;
+        --g++)
+            CC=g++
+            echo "Using g++."
+            ;;
+        *)
+            echo "Unknown option: $arg" >&2
+            exit 1
+            ;;
+    esac
 done
 
+##########################
+# COMPILER FLAGS
+
+if [[ "$CC" == "g++" ]]; then
+    STANDARD="-std=c++11"
+else
+    STANDARD="-std=c11"
+fi
+
+if (( DEBUG )); then
+    CFLAGS=("$STANDARD" -O0 -g -Wall -Wextra -Wpedantic -fPIC)
+else
+    CFLAGS=("$STANDARD" -O2 -Wall -Wextra -Wpedantic -fPIC)
+fi
+
+##########################
+# BUILD DIRECTORY
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
 
 mkdir -p build
-pushd build >/dev/null
 
+##########################
+# SOURCE FILES
 
-if [ $includeReadTextFiles -eq 1 ]; then
-  if ${CC} -Wall -fPIC -c ../ReadTextFiles.c $debug ; then
-    echo "  ReadTextFiles compiled."
-   else
-    echo "Error: Failed to compile ReadTextFiles."
+sources=()
+
+if (( includeReadTextFiles )); then
+    sources+=(ReadTextFiles.c)
+fi
+
+##########################
+# COMPILE SOURCE FILES
+
+objects=()
+
+for source in "${sources[@]}"; do
+    name="${source##*/}"
+    name="${name%.c}"
+    object="build/${name}.o"
+
+    "$CC" "${CFLAGS[@]}" \
+        -c "$source" \
+        -o "$object"
+
+    objects+=("$object")
+
+    echo "  ${name} compiled."
+done
+
+##########################
+# CREATE STATIC LIBRARY
+
+if (( ${#objects[@]} == 0 )); then
+    echo "Error: no ReadTextFiles modules enabled." >&2
     exit 1
-  fi
 fi
 
-if ar rcs libZiltoidRead.a ReadTextFiles.o
-then
-  echo "  libZiltoidRead.a created."
-else
-  echo "Error: failed to create library."
-fi
+rm -f build/libZiltoidRead.a
 
-popd >/dev/null
-echo "  >FINISHED COMPILING ZiltoidRead"
+ar rcs build/libZiltoidRead.a "${objects[@]}"
+
+echo
+echo "libZiltoidRead.a created successfully."
+echo "FINISHED COMPILING ZiltoidRead"
 

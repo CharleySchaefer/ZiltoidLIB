@@ -1,31 +1,14 @@
 // DOWNLOADED FROM http://van-der-waals.pc.uni-koeln.de/quartic/quintic_C.c at 2013-02-13
-//  Solves p(x) = dd[0]*x^4 + dd[1]*x^3 + dd[2]*x^2 + dd[3]*x + dd[4]
-// 
-// The following prototype declarations need to be added to your code (ie. header file).
-//
+// Polynomial root solvers; see README_Polynomial.md for conventions and limitations.
 
 #ifndef POLYNOMIAL_H
-  #define POLYNOMIAL_H  1
+#define POLYNOMIAL_H
 
-
-  #include <stdio.h>
-  #include <math.h>
-
-  int quintic(double [], double [], double [], int*, double);
-  int quartic(double[], double[], double[], int* );
-  int cubic(double[], double[], int*);
-  int signR(double);
-  double CBRT(double);
+int quintic(double dd[6], double sol[5], double soli[5],
+            int *Nsol, double xstart);
+int quartic(double dd[5], double sol[4], double soli[4], int *Nsol);
+int cubic(double A[4], double X[3], int *L);
+int signR(double Z);
+double CBRT(double Z);
 
 #endif
-
-
-
-
-
-
-
-
-		
-		
-

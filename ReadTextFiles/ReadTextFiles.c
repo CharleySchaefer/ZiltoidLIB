@@ -146,7 +146,7 @@ int transpose_plain_data_file(char *fname, double **buffer)
     countLines(fname, &Nlines);
   countColumns(fname, 0, &Ncol);
 
-  if(!readMatrix(fname, buffer, Nlines, Ncol))
+  if(!readMatrix(fname, buffer))
     {printf("Error: readMatrix() failed!\n"); return(0);}
 
   ifp=fopen(fname, "w");
@@ -573,7 +573,7 @@ int readLine(char *fname, char *line, int Nline)
 }
 
 
-int readMatrix(char *fname, double **mat, int Nlines, int Ncols)
+int readMatrix(char *fname, double **mat)
 {
   int    i,j,ind, Nchar;
   char   c, word[MAX_STR_L], line[MAX_LINE_WIDTH];
@@ -603,7 +603,7 @@ int readMatrix(char *fname, double **mat, int Nlines, int Ncols)
   return(1);
 }
 
-int readMatrix_short(char *fname, short **mat, int Nlines, int Ncols)
+int readMatrix_short(char *fname, short **mat)
 {
   int    i,j,ind, Nchar;
   char   word[MAX_STR_L], line[MAX_LINE_WIDTH];
@@ -629,7 +629,7 @@ int readMatrix_short(char *fname, short **mat, int Nlines, int Ncols)
   return(1);
 }
 
-int readMatrix_int(char *fname, int **mat, int Nlines, int Ncols)
+int readMatrix_int(char *fname, int **mat)
 {
   int    i,j,ind, Nchar;
   char   word[MAX_STR_L], line[MAX_LINE_WIDTH];

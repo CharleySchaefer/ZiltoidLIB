@@ -28,15 +28,16 @@ void dft2(double _Complex **arr2, double _Complex *buf, int Nx, int Ny)
   // 1. rows
   for (i=0; i<Nx; i++) {
     // Copy a row
-    for ( j = 0; j < Ny; j++) 
+    for ( j = 0; j < Ny; j++) {
       buf[j] = arr2[i][j];
+    }
 
-      // Fourier transform a row
-      dft(buf, buf2, Ny);
+    // Fourier transform a row
+    dft(buf, buf2, Ny);
 		
-      // Copy back
-      for ( j = 0; j < Ny; j++) 
-        arr2[i][j] = buf2[j];
+    // Copy back
+    for ( j = 0; j < Ny; j++) 
+      arr2[i][j] = buf2[j];
   }
 
   // 2. columns
@@ -129,15 +130,16 @@ void fft2(double _Complex **arr2, double _Complex *buf, int Nx, int Ny)
   // 1. rows
   for (i=0; i<Nx; i++) {
     // Copy a row
-    for ( j = 0; j < Ny; j++) 
+    for ( j = 0; j < Ny; j++) {
       buf[j] = arr2[i][j];
+    }
 
-      // Fourier transform a row
-      fft(buf, buf2, Ny);
+    // Fourier transform a row
+    fft(buf, buf2, Ny);
 		
-      // Copy back
-      for ( j = 0; j < Ny; j++) 
-        arr2[i][j] = buf[j];
+    // Copy back
+    for ( j = 0; j < Ny; j++) 
+      arr2[i][j] = buf[j];
   }
 
   // 2. columns
@@ -167,12 +169,12 @@ void ifft2(double _Complex **arr2, double _Complex *buf, int Nx, int Ny)
     for ( j = 0; j < Ny; j++) 
       buf[j] = arr2[i][j];
 
-      // Fourier transform a row
-      ifft(buf, buf2, Ny);
+    // Fourier transform a row
+    ifft(buf, buf2, Ny);
 		
-      // Copy back
-      for ( j = 0; j < Ny; j++) 
-        arr2[i][j] = buf[j];
+    // Copy back
+    for ( j = 0; j < Ny; j++) 
+      arr2[i][j] = buf[j];
   }
 
   // 2. columns

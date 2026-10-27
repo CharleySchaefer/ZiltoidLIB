@@ -1,6 +1,6 @@
 /*
    ZiltoidLIB: C library for physical modelling and simulation.
-   Copyright 2018, Charley Schaefer (charley.schaefer@york.ac.uk)
+   Copyright 2018, Charley Schaefer (c.schaefer@leeds.ac.uk)
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

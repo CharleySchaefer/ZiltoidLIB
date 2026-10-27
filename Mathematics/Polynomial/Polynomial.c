@@ -26,60 +26,108 @@
  *
  *-----------------------------------------------------------------------------
  */
-int quintic(double dd[6], double sol[5], double soli[5], int *Nsol, double xstart)
+ #include <math.h>
+#include <stdio.h>
+
+int quintic(double dd[6], double sol[5], double soli[5],
+            int *Nsol, double xstart)
 {
-	double  dd4[5], sol4[4], soli4[4], xnew, xs;//, soli4[4];/*dd[6], sol[5], soli[5],*/
-	double sum, sum1, eC;
-	const double eps = 1.e-8;
-	int i, Nsol4;
+    double dd4[5], sol4[4], soli4[4];
+    double x, xnew, f, df, eC;
+    const double eps = 1.e-8;
+    const int max_iter = 1000;
+    int i, iter, Nsol4;
+    int converged = 0;
 
-	*Nsol = 0;
+    *Nsol = 0;
 
-	// printf("\n Quintic!\n");
+    if (dd[5] == 0.0) {
+        fprintf(stderr, "Error: not a quintic equation.\n");
+        return -1;
+    }
 
-	if (dd[5] == 0.0)
-	{ 
-		printf("\n ERROR: NOT A QUINTIC EQUATION");
-		return 0;
-	}
+    if (!isfinite(xstart)) {
+        fprintf(stderr, "Error: invalid starting value.\n");
+        return -1;
+    }
 
-	// Newton iteration of one real root
-	xs= xstart;
-	xnew = xstart;	//added rr
-	do
-	{
-		xs = xnew;	//added rr
-		sum = dd[0];
-		for (i=1;i<6;i++)	sum += dd[i]*pow(xs,i);	// Don't know what ** means
-		sum1 = dd[1];
-		for (i=1;i<5;i++)	sum1 += (double)(i+1)*dd[i+1]*pow(xs,i);
-		xnew = xs - sum/sum1;
-		//if (fabs(xnew-xs) > eps)
-		//xs =xnew;
-	//	printf("\n %f\t%f!", xs, xnew);
-	}while (fabs(xnew-xs) > eps);
+    // Newton iteration for one real root
+    x = xstart;
 
-	eC = xnew;
-	//
-	// "eC" is one real root of quintic equation
-	// reduce quintic to quartic equation using "eC"
-	dd4[4] = dd[5];
-	for (i=4;i>0;i--)	dd4[i-1] = dd[i] + eC*dd4[i];
+    for (iter = 0; iter < max_iter; iter++) {
 
-	quartic(dd4, sol4, soli4, &Nsol4);
+        // Horner evaluation of polynomial and derivative
+        f = dd[5];
+        df = 0.0;
 
-	
-	sol[0] = eC;
-	soli[0] = 0.0;
+        for (i = 4; i >= 0; i--) {
+            df = df * x + f;
+            f = f * x + dd[i];
+        }
 
-	for (i=0;i<4;i++)
-	{
-		sol[i+1] =sol4[i];
-		soli[i+1] = soli4[i];
-	}
-	*Nsol = Nsol4 + 1;
+        if (!isfinite(f) || !isfinite(df) || df == 0.0) {
+            fprintf(stderr, "Error: Newton iteration failed.\n");
+            return -1;
+        }
 
-	return 0;
+        xnew = x - f / df;
+
+        if (!isfinite(xnew)) {
+            fprintf(stderr, "Error: Newton iteration diverged.\n");
+            return -1;
+        }
+
+        if (fabs(xnew - x) <= eps * (1.0 + fabs(xnew))) {
+            x = xnew;
+            converged = 1;
+            break;
+        }
+
+        x = xnew;
+    }
+
+    if (!converged) {
+        fprintf(stderr, "Error: Newton iteration did not converge.\n");
+        return -1;
+    }
+
+    // Verify that the computed root is sufficiently accurate
+    f = dd[5];
+    for (i = 4; i >= 0; i--)
+        f = f * x + dd[i];
+
+    double scale = 0.0;
+    for (i = 5; i >= 0; i--)
+        scale = scale * fabs(x) + fabs(dd[i]);
+
+    if (!isfinite(f) || !isfinite(scale) ||
+        fabs(f) > eps * scale) {
+        fprintf(stderr, "Error: inaccurate quintic root.\n");
+        return -1;
+    }
+
+    eC = x;
+
+    // Synthetic division by (x - eC)
+    dd4[4] = dd[5];
+
+    for (i = 4; i > 0; i--)
+        dd4[i-1] = dd[i] + eC * dd4[i];
+
+    // Solve the remaining quartic
+    quartic(dd4, sol4, soli4, &Nsol4);
+
+    sol[0] = eC;
+    soli[0] = 0.0;
+
+    for (i = 0; i < 4; i++) {
+        sol[i+1] = sol4[i];
+        soli[i+1] = soli4[i];
+    }
+
+    *Nsol = Nsol4 + 1;
+
+    return 1;
 }
 
 /*-------------------- Global Function Description Block ----------------------
@@ -213,8 +261,8 @@ int quintic(double dd[6], double sol[5], double soli[5], int *Nsol, double xstar
   */
 int cubic(double A[4], double X[3], int* L)
 {
-//	const double PI = 3.1415926535897932;
 	const double THIRD = 1./3.;
+	const double PI = 3.14159265358979323846;
 	double U[3],W, P, Q, DIS, PHI, tmp, tmp2, tmp3;
 	int i;
 
@@ -237,7 +285,7 @@ int cubic(double A[4], double X[3], int* L)
 			tmp = (-1.0 > Q/sqrt(-P) ? -1.0 : Q/sqrt(-P));	// Maximum
 			PHI = acos(   (1.0<tmp? 1.0 : tmp  )   );		// Minimum
 			P=2.0*pow((-P),(5.e-1*THIRD));
-			for (i=0;i<3;i++)	U[i] = P*cos((PHI+2*((double)i)*M_PI)*THIRD)-W;
+			for (i=0;i<3;i++)	U[i] = P*cos((PHI+2*((double)i)*PI)*THIRD)-W;
 			
 			tmp = (U[1]<U[2] ? U[1] : U[2]); // Minimum
 			X[0] = (U[0]<tmp ? U[0] : tmp); // Minimum 

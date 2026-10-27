@@ -24,7 +24,7 @@ NN_STRUCT *copy_nn_struct(NN_STRUCT *NNin)
 
   NN->N            = NNin->N;
   NN->dim          = NNin->dim;
-  NN->central_site = NN->central_site;
+  NN->central_site = NNin->central_site;
 
   NN->Nx=NNin->Nx; NN->xmin=NNin->xmin; NN->xmax=NNin->xmax;
   NN->dx=(int*)malloc(NN->N*sizeof(int));

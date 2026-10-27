@@ -71,9 +71,10 @@ double randf2(double min, double max)
 double randn(void)
 {
   double drand1, drand2;
+  const double PI = 3.14159265358979323846;
   drand1 = (double)rand()/(double)RAND_MAX; // Random number uniform distribution, (0..1]
   drand2 = (double)rand()/(double)RAND_MAX; // Random number uniform distribution, (0..1]
-  return sqrt(-2*log(1.0-drand1)) * cos(2*M_PI*drand2);
+  return sqrt(-2*log(1.0-drand1)) * cos(2*PI*drand2);
 }
 
 /*
@@ -114,7 +115,7 @@ double rand_dev_double(double x_0, double x_L0, double x_U0, double dev)
 */
 int getRandConfig( int *arr, int Narr, int *indices, int Nind )
 {
-  int i,j, check, coor, count=0, ind=1;
+  int i, check, coor, count=0, ind=1;
   int Ntot=0;
 
   // initialise

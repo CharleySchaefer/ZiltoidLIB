@@ -1,6 +1,8 @@
+#!/usr/bin/env bash
+
 #   Mathematics is part of ZiltoidLIB.
 #   ZiltoidLIB: C library for physical modelling and simulation.
-#   Copyright 2018, Charley Schaefer (charley.schaefer@york.ac.uk)
+#   Copyright 2018, Charley Schaefer (c.schaefer@leeds.ac.uk)
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -13,102 +15,131 @@
 #   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
-#!/bin/bash
 
-#===============================
+set -euo pipefail
+
+echo
+echo "BUILDING ZiltoidMath"
+
+##########################
 # CONFIGURATION
+
 includeFourier=1
 includePolynomial=1
 includeRandomNumbers=1
 includeLinearAlgebra=1
 includeErfInv=1
-#===============================
 
-CC=gcc # default
-arg=""
-debug=""
+CC=gcc
+DEBUG=0
 
-echo "  >COMPILING ZiltoidMath"
-for n in "$@" ; do
-  if [ $n == "-g" ]; then
-    echo "  Debugging mode."
-    debug="-g"
-  elif [ $n == "--gcc" ]; then
-    echo "  Using gcc"
-    CC=gcc
-  elif [ $n == "--g++" ]; then
-    echo "  Using g++"
-    CC=g++
-  fi
+##########################
+# PARSE ARGUMENTS
+
+for arg in "$@"; do
+    case "$arg" in
+        -g|--debug)
+            DEBUG=1
+            echo "Debugging mode."
+            ;;
+        --gcc)
+            CC=gcc
+            echo "Using gcc."
+            ;;
+        --g++)
+            CC=g++
+            echo "Using g++."
+            ;;
+        *)
+            echo "Unknown option: $arg" >&2
+            exit 1
+            ;;
+    esac
 done
 
+##########################
+# COMPILER FLAGS
+
+if [[ "$CC" == "g++" ]]; then
+    STANDARD="-std=c++11"
+else
+    STANDARD="-std=c11"
+fi
+
+if (( DEBUG )); then
+    CFLAGS=("$STANDARD" -O0 -g -Wall -Wextra -Wpedantic -fPIC)
+else
+    CFLAGS=("$STANDARD" -O2 -Wall -Wextra -Wpedantic -fPIC)
+fi
+
+##########################
+# BUILD DIRECTORY
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
 mkdir -p build
-pushd build >/dev/null
 
+##########################
+# SOURCE FILES
 
+sources=()
 
-if [ $includeFourier -eq 1 ]; then
-  if ${CC} -fPIC -c ../Fourier/Fourier.c $debug ; then
-    echo "  Fourier compiled."
-   else
-    echo "Error: Failed to compile Fourier."
-    exit 1
-  fi
-fi
-if [ $includePolynomial -eq 1 ]; then
-  if ${CC} -fPIC -c ../Polynomial/Polynomial.c $debug ; then
-    echo "  Polynomial compiled."
-   else
-    echo "Error: Failed to compile Polynomial."
-    exit 1
-  fi
-fi
-if [ $includeRandomNumbers -eq 1 ]; then
-  if ${CC} -fPIC -c ../RandomNumbers/RandomNumbers.c $debug ; then
-    echo "  RandomNumbers compiled."
-   else
-    echo "Error: Failed to compile RandomNumbers."
-    exit 1
-  fi
-fi
-if [ $includeLinearAlgebra -eq 1 ]; then
-  if ${CC} -fPIC -c ../LinearAlgebra/LinearAlgebra.c $debug ; then
-    echo "  LinearAlgebra compiled."
-   else
-    echo "Error: Failed to compile LinearAlgebra."
-    exit 1
-  fi
-fi
-if [ $includeLinearAlgebra -eq 1 ]; then
-  if ${CC} -fPIC -c ../LinearAlgebra/DoolittleAlgorithm/DoolittleAlgorithm.c $debug ; then
-    echo "  DoolittleAlgorithm compiled."
-   else
-    echo "Error: Failed to compile DoolittleAlgorithm."
-    exit 1
-  fi
-fi
-if [ $includeErfInv -eq 1 ]; then
-  if ${CC} -fPIC -c ../ErfInv/erfinv.c $debug ; then
-    echo "  ErfInv compiled."
-   else
-    echo "Error: Failed to compile ErfInv."
-    exit 1
-  fi
-fi
-if ${CC} -fPIC -c ../Mathematics.c $debug ; then
-  echo "  Mathematics compiled."
-else
-  echo "Error: Failed to compile Mathematics."
-  exit 1
-fi
-if ar rcs libZiltoidMath.a LinearAlgebra.o Mathematics.o erfinv.o DoolittleAlgorithm.o Fourier.o Polynomial.o RandomNumbers.o
-then
-  echo "  libZiltoidMath.a created."
-else
-  echo "Error: failed to create library."
+if (( includeFourier )); then
+    sources+=(Fourier/Fourier.c)
 fi
 
-popd >/dev/null
+if (( includePolynomial )); then
+    sources+=(Polynomial/Polynomial.c)
+fi
+
+if (( includeRandomNumbers )); then
+    sources+=(RandomNumbers/RandomNumbers.c)
+fi
+
+if (( includeLinearAlgebra )); then
+    sources+=(
+        LinearAlgebra/LinearAlgebra.c
+        LinearAlgebra/DoolittleAlgorithm/DoolittleAlgorithm.c
+    )
+fi
+
+if (( includeErfInv )); then
+    sources+=(ErfInv/erfinv.c)
+fi
+
+# Always include the main Mathematics module.
+sources+=(Mathematics.c)
+
+##########################
+# COMPILE SOURCE FILES
+
+objects=()
+
+for source in "${sources[@]}"; do
+    name="${source##*/}"
+    name="${name%.c}"
+    object="build/${name}.o"
+
+    "$CC" "${CFLAGS[@]}" \
+        -c "$source" \
+        -o "$object"
+
+    objects+=("$object")
+
+    echo "  ${name} compiled."
+done
+
+##########################
+# CREATE STATIC LIBRARY
+
+rm -f build/libZiltoidMath.a
+
+ar rcs build/libZiltoidMath.a "${objects[@]}"
+
 cp build/libZiltoidMath.a .
-echo "  >FINISHED COMPILING ZiltoidMath"
+
+echo
+echo "libZiltoidMath.a created successfully."
+echo "FINISHED COMPILING ZiltoidMath"
 

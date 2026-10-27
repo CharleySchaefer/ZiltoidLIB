@@ -106,7 +106,7 @@ int DL_eigenvalues(float **matrix, float **matrix_buffer, float *eigenvalues, in
 
 float DL_determinant(float **matrix, float **matrix_buffer, int dimension)
 {
-  int i,j;
+  int i;
   float det;
 
   // First step: LU decomposition. 

@@ -14,7 +14,7 @@
 int getPrincipalMomentsOfInertia(double *M, double  *X, double  *Y, double  *Z, int N, double *d1buff,double **d2buff,  double *PMI, double *PAI)
 {
     //INERTIA TENSOR
-  int i,j;
+  int i;
   int nmat=3; // Size of 3D inertia tensor
 
   double xmean = d1mean(    X, N); // Mean of array
@@ -22,10 +22,8 @@ int getPrincipalMomentsOfInertia(double *M, double  *X, double  *Y, double  *Z, 
   double zmean = d1mean(    Z, N); // Mean of array
 
   double I11=0, I22=0, I33=0,
-         I12, I21, I13, I31, I23, I32;
+         I12=0, I21=0, I13=0, I31=0, I23=0, I32=0;
 
-  int x,y,z;
-  double R, d, RdotU, theta;
 
   // Get gyration tensor
   for(i=0; i<N; i++)
