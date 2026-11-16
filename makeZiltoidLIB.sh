@@ -125,9 +125,9 @@ build_module Memory \
     makeZiltoidMemory.sh \
     "${sub_args[@]}"
 
-build_module Applications \
-    makeZiltoidApps.sh \
-    "${sub_args[@]}" "$compiler_arg"
+#build_module Applications \
+#    makeZiltoidApps.sh \
+#    "${sub_args[@]}" "$compiler_arg"
 
 ##########################
 # PREPARE BUILD DIRECTORY
@@ -148,7 +148,6 @@ archives=(
     ../NumericalMethods/build/libZiltoidNum.a
     ../StringOperations/build/libZiltoidStrings.a
     ../ReadTextFiles/build/libZiltoidRead.a
-    ../Applications/bin/libZiltoidApps.a
 )
 
 for archive in "${archives[@]}"; do
